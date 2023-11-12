@@ -1,6 +1,6 @@
 package app
 
-import presentation.AppPreview
+import presentation.MainView
 import tornadofx.App
 
-class Lab1App: App(AppPreview::class)
+class Lab1App: App(MainView::class)
