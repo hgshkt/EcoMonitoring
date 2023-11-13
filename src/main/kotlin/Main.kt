@@ -2,19 +2,16 @@ import app.Lab1App
 import domain.data.model.LoadedData
 import domain.useCases.loadData
 import presentation.MainView
-import tornadofx.*
+import tornadofx.launch
+import util.pathToResources
 
-private const val materialsExcelFileName = ""
-private const val pollutionsExcelFileName = ""
-private const val enterprisesExcelFileName = ""
-
-lateinit var data: LoadedData
+lateinit var loadedData: LoadedData
 
 fun main() {
-    data = loadData(
-        materialsExcelFileName = materialsExcelFileName,
-        pollutionsExcelFileName = pollutionsExcelFileName,
-        enterprisesExcelFileName = enterprisesExcelFileName,
+    loadedData = loadData(
+        materialsExcelFileName = pathToResources("речовини.xlsx"),
+        pollutionsExcelFileName = pathToResources("викиди.xlsx"),
+        enterprisesExcelFileName = pathToResources("підприємства.xlsx")
     )
-    launch<Lab1App>()
+    launch<Lab1App>(arrayOf(MainView::data to loadedData))
 }
