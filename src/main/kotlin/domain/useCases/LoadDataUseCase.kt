@@ -1,16 +1,16 @@
 package domain.useCases
 
-import data.loadEnterprises
-import data.loadMaterials
-import data.loadPollutions
-import domain.data.model.LoadedData
+import domain.data.enterprise.remote.EnterprisesRemoteRepository
+import domain.data.material.remote.MaterialsRemoteRepository
+import domain.data.pollution.remote.PollutionsRemoteRepository
+import domain.model.data.remote.LoadedData
 
 fun loadData(
-    materialsExcelFileName: String,
-    pollutionsExcelFileName: String,
-    enterprisesExcelFileName: String
+    pollutionsRepository: PollutionsRemoteRepository,
+    materialsRepository: MaterialsRemoteRepository,
+    enterprisesRepository: EnterprisesRemoteRepository
 ) = LoadedData(
-    materials = loadMaterials(materialsExcelFileName),
-    pollutions = loadPollutions(pollutionsExcelFileName),
-    enterprises = loadEnterprises(enterprisesExcelFileName)
+    pollutions = pollutionsRepository.getData(),
+    materials = materialsRepository.getData(),
+    enterprises = enterprisesRepository.getData()
 )

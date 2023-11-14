@@ -1,9 +1,8 @@
 package presentation
 
-import domain.data.model.LoadedData
+import domain.model.data.remote.LoadedData
 import domain.useCases.loadData
 import javafx.scene.Parent
-import presentation.events.ChangeViewEvent
 import presentation.tables.EnterprisesAppTableView
 import presentation.tables.MaterialsAppTableView
 import presentation.tables.PollutionsAppTableView

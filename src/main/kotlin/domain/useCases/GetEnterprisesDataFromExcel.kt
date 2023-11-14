@@ -1,7 +1,7 @@
 package domain.useCases
 
-import domain.data.excel.loader.ExcelEnterprisesLoader
-import domain.model.excelData.ExcelEnterprisesData
+import domain.data.enterprise.excel.ExcelEnterprisesLoader
+import domain.model.data.excel.ExcelEnterprisesData
 
 fun getEnterprisesDataFromExcel(
     loader: ExcelEnterprisesLoader

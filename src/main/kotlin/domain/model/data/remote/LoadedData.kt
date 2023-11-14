@@ -1,4 +1,4 @@
-package domain.data.model
+package domain.model.data.remote
 
 import domain.model.Enterprise
 import domain.model.Material

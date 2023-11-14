@@ -1,7 +1,7 @@
 package domain.useCases
 
-import domain.data.excel.loader.ExcelMaterialsLoader
-import domain.model.excelData.ExcelMaterialsData
+import domain.data.material.excel.ExcelMaterialsLoader
+import domain.model.data.excel.ExcelMaterialsData
 
 fun getMaterialsDataFromExcel(
     loader: ExcelMaterialsLoader

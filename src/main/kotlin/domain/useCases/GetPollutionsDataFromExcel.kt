@@ -1,7 +1,7 @@
 package domain.useCases
 
-import domain.data.excel.loader.ExcelPollutionsLoader
-import domain.model.excelData.ExcelPollutionsData
+import domain.data.pollution.excel.ExcelPollutionsLoader
+import domain.model.data.excel.ExcelPollutionsData
 
 fun getPollutionsDataFromExcel(
     loader: ExcelPollutionsLoader

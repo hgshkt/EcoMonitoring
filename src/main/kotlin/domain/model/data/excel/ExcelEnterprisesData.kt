@@ -1,4 +1,4 @@
-package domain.model.excelData
+package domain.model.data.excel
 
 import domain.model.Enterprise
 
