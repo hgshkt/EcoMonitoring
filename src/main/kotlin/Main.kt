@@ -1,5 +1,5 @@
 import app.Lab1App
-import tornadofx.launch
+import tornadofx.*
 
 fun main() {
     launch<Lab1App>()
