@@ -1,16 +1,17 @@
 package data.repository.materials.excel
 
-import data.storage.excel.enterprises.EnterpriseExcelStorage
+import data.mappers.excelDataToDomain.toDomain
+import data.storage.excel.materials.MaterialsExcelStorage
 import domain.data.repository.material.excel.ExcelMaterialRepository
 import domain.model.data.excel.ExcelMaterialData
 
 class ExcelMaterialRepositoryImpl(
-    val storage: EnterpriseExcelStorage
+    private val storage: MaterialsExcelStorage
 ): ExcelMaterialRepository {
     override fun getData(): ExcelMaterialData {
         val materials = storage.load().map {
             it.toDomain()
         }
-        return ExcelMaterialData(materials = materials)
+        return ExcelMaterialData(materials = materials.toMutableList())
     }
 }

@@ -1,8 +1,7 @@
 package data.storage.remote.pollutions
 
 import data.storage.DatabaseConnectionData
-import data.storage.remote.materials.model.RemoteStorageMaterial
-import data.storage.remote.pollutions.model.RemoteStoragePollution
+import data.storage.remote.pollutions.model.RemotePollution
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
@@ -20,8 +19,8 @@ class PollutionsMySQLStorage(
     private val columnYearName = "year"
     private val columnAmountName = "material_amount"
 
-    override fun getAll(): List<RemoteStoragePollution> {
-        val pollutions = mutableListOf<RemoteStoragePollution>()
+    override fun getAll(): List<RemotePollution> {
+        val pollutions = mutableListOf<RemotePollution>()
 
         try {
             val connection: Connection = DriverManager.getConnection(
@@ -40,7 +39,7 @@ class PollutionsMySQLStorage(
                 val year = resultSet.getInt(columnYearName)
                 val materialAmount = resultSet.getDouble(columnAmountName)
 
-                val pollution = RemoteStoragePollution(
+                val pollution = RemotePollution(
                     id = id,
                     enterpriseId = enterpriseId,
                     materialId = materialId,

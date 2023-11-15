@@ -1,6 +1,6 @@
 package data.storage.remote.materials.model
 
-data class RemoteStorageMaterial(
+data class RemoteMaterial(
     val id: Int,
     val name: String,
     val gdk: Double,

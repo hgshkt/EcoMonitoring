@@ -1,6 +1,6 @@
 package data.storage.remote.pollutions.model
 
-data class RemoteStoragePollution(
+data class RemotePollution(
     val id: Int,
     val enterpriseId: Int,
     val materialId: Int,

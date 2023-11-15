@@ -1,7 +1,7 @@
 package data.storage.remote.pollutions
 
-import data.storage.remote.pollutions.model.RemoteStoragePollution
+import data.storage.remote.pollutions.model.RemotePollution
 
 interface PollutionsRemoteStorage {
-    fun getAll(): List<RemoteStoragePollution>
+    fun getAll(): List<RemotePollution>
 }

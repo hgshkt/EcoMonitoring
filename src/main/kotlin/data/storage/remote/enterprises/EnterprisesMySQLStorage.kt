@@ -1,7 +1,7 @@
 package data.storage.remote.enterprises
 
 import data.storage.DatabaseConnectionData
-import data.storage.remote.enterprises.model.RemoteStorageEnterprise
+import data.storage.remote.enterprises.model.RemoteEnterprise
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
@@ -19,8 +19,8 @@ class EnterprisesMySQLStorage(
     private val columnBelongingName = "belonging"
     private val columnLocationName = "location"
 
-    override fun getAll(): List<RemoteStorageEnterprise> {
-        val enterprises = mutableListOf<RemoteStorageEnterprise>()
+    override fun getAll(): List<RemoteEnterprise> {
+        val enterprises = mutableListOf<RemoteEnterprise>()
 
         try {
             val connection: Connection = DriverManager.getConnection(
@@ -39,7 +39,7 @@ class EnterprisesMySQLStorage(
                 val belonging = resultSet.getString(columnBelongingName)
                 val location = resultSet.getString(columnLocationName)
 
-                val enterprise = RemoteStorageEnterprise(
+                val enterprise = RemoteEnterprise(
                     id = id,
                     name = name,
                     activity = activity,

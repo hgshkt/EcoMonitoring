@@ -1,6 +1,6 @@
 package data.storage.remote.enterprises.model
 
-data class RemoteStorageEnterprise(
+data class RemoteEnterprise(
     val id: Int,
     val name: String,
     val activity: String,

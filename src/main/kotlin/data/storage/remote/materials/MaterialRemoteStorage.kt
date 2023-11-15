@@ -1,7 +1,8 @@
 package data.storage.remote.materials
 
-import data.storage.remote.materials.model.RemoteStorageMaterial
+import data.storage.remote.materials.model.RemoteMaterial
+import domain.model.Material
 
 interface MaterialRemoteStorage {
-    fun getAll(): List<RemoteStorageMaterial>
+    fun getAll(): List<RemoteMaterial>
 }
