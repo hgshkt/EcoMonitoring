@@ -1,8 +1,8 @@
-package data.storage.pollutions
+package data.storage.remote.pollutions
 
 import data.storage.DatabaseConnectionData
-import data.storage.materials.model.RemoteStorageMaterial
-import data.storage.pollutions.model.RemoteStoragePollution
+import data.storage.remote.materials.model.RemoteStorageMaterial
+import data.storage.remote.pollutions.model.RemoteStoragePollution
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet

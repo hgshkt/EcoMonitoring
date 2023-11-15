@@ -1,26 +1,26 @@
-package data.storage.materials
+package data.storage.remote.enterprises
 
 import data.storage.DatabaseConnectionData
-import data.storage.materials.model.RemoteStorageMaterial
+import data.storage.remote.enterprises.model.RemoteStorageEnterprise
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 import java.sql.SQLException
 
-class MaterialMySQLStorage(
+class EnterprisesMySQLStorage(
     private val connectionData: DatabaseConnectionData
-) : MaterialRemoteStorage {
+): EnterpriseRemoteStorage {
 
-    private val getAllQuery = "SELECT * FROM materials"
+    private val getAllQuery = "SELECT * FROM enterprises"
 
     private val columnIdName = "id"
-    private val columnNameName = "material_name"
-    private val columnGdkName = "gdk"
-    private val columnDangerClassName = "danger_class"
+    private val columnNameName = "enterprise_name"
+    private val columnActivityName = "activity"
+    private val columnBelongingName = "belonging"
+    private val columnLocationName = "location"
 
-    override fun getAll(): List<RemoteStorageMaterial> {
-
-        val materials = mutableListOf<RemoteStorageMaterial>()
+    override fun getAll(): List<RemoteStorageEnterprise> {
+        val enterprises = mutableListOf<RemoteStorageEnterprise>()
 
         try {
             val connection: Connection = DriverManager.getConnection(
@@ -35,23 +35,27 @@ class MaterialMySQLStorage(
             while (resultSet.next()) {
                 val id = resultSet.getInt(columnIdName)
                 val name = resultSet.getString(columnNameName)
-                val gdk = resultSet.getDouble(columnGdkName)
-                val dangerClass = resultSet.getInt(columnDangerClassName)
+                val activity = resultSet.getString(columnActivityName)
+                val belonging = resultSet.getString(columnBelongingName)
+                val location = resultSet.getString(columnLocationName)
 
-                val material = RemoteStorageMaterial(
+                val enterprise = RemoteStorageEnterprise(
                     id = id,
                     name = name,
-                    gdk = gdk,
-                    dangerClass = dangerClass
+                    activity = activity,
+                    belonging = belonging,
+                    location = location
                 )
-                materials.add(material)
+                enterprises.add(enterprise)
             }
+
             resultSet.close()
             statement.close()
             connection.close()
+
         } catch (e: SQLException) {
             e.printStackTrace()
         }
-        return materials
+        return enterprises
     }
 }

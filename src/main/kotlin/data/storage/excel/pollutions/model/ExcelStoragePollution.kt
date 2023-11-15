@@ -1,6 +1,6 @@
-package data.storage.pollutions.model
+package data.storage.excel.pollutions.model
 
-data class RemoteStoragePollution(
+data class ExcelStoragePollution(
     val id: Int,
     val enterpriseId: Int,
     val materialId: Int,

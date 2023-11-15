@@ -1,4 +1,4 @@
-package data.storage.enterprises.model
+package data.storage.remote.enterprises.model
 
 data class RemoteStorageEnterprise(
     val id: Int,
