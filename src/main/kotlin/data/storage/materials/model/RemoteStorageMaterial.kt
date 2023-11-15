@@ -1,4 +1,4 @@
-package data.materials.remote.storage.model
+package data.storage.materials.model
 
 data class RemoteStorageMaterial(
     val id: Int,

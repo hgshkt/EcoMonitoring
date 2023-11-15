@@ -1,4 +1,4 @@
-package data.pollutions.remote.storage.model
+package data.storage.pollutions.model
 
 data class RemoteStoragePollution(
     val id: Int,
