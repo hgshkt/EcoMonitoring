@@ -1,6 +1,5 @@
 package presentation
 
-import domain.model.data.remote.LoadedData
 import domain.useCases.loadData
 import javafx.scene.Parent
 import presentation.tables.EnterprisesAppTableView

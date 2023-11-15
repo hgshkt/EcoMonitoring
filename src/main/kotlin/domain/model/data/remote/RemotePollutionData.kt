@@ -1,7 +1,7 @@
-package domain.model.data.excel
+package domain.model.data.remote
 
 import domain.model.Pollution
 
-data class ExcelPollutionsData(
+data class RemotePollutionData(
     val pollutions: MutableList<Pollution>
 )

@@ -1,15 +1,16 @@
 package data.storage.excel.enterprises
 
-import data.storage.excel.enterprises.model.ExcelStorageEnterprise
-import domain.model.Enterprise
+import data.storage.excel.enterprises.model.ExcelEnterprise
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.FileInputStream
 
-class EnterpriseExcelStorageImpl: EnterpriseExcelStorage {
-    override fun load(fileName: String): MutableList<ExcelStorageEnterprise> {
-        val enterprises = mutableListOf<ExcelStorageEnterprise>()
+class EnterpriseExcelStorageImpl(
+    private val fileName: String
+): EnterpriseExcelStorage {
+    override fun load(): MutableList<ExcelEnterprise> {
+        val enterprises = mutableListOf<ExcelEnterprise>()
 
         FileInputStream(fileName).use { fis ->
             val workbook: Workbook = XSSFWorkbook(fis)
@@ -17,7 +18,7 @@ class EnterpriseExcelStorageImpl: EnterpriseExcelStorage {
 
             for (row in sheet) {
                 enterprises.add(
-                    element = ExcelStorageEnterprise(
+                    element = ExcelEnterprise(
                         id = row.getCell(0).numericCellValue.toInt(),
                         name = row.getCell(1).stringCellValue,
                         activity = row.getCell(2).stringCellValue,

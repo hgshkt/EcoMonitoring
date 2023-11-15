@@ -1,6 +1,6 @@
 package data.storage.excel.materials.model
 
-data class ExcelStorageMaterial(
+data class ExcelMaterial(
     val id: Int,
     val name: String,
     val gdk: Double,

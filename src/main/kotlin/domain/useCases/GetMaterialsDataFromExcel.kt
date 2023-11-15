@@ -1,10 +1,10 @@
 package domain.useCases
 
-import domain.data.material.excel.ExcelMaterialsLoader
-import domain.model.data.excel.ExcelMaterialsData
+import domain.data.repository.material.excel.ExcelMaterialRepository
+import domain.model.data.excel.ExcelMaterialData
 
 fun getMaterialsDataFromExcel(
-    loader: ExcelMaterialsLoader
-): ExcelMaterialsData {
+    loader: ExcelMaterialRepository
+): ExcelMaterialData {
     return loader.getData()
 }

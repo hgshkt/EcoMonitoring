@@ -1,10 +1,10 @@
 package domain.useCases
 
-import domain.data.enterprise.excel.ExcelEnterprisesLoader
-import domain.model.data.excel.ExcelEnterprisesData
+import domain.data.repository.enterprise.excel.ExcelEnterpriseRepository
+import domain.model.data.excel.ExcelEnterpriseData
 
 fun getEnterprisesDataFromExcel(
-    loader: ExcelEnterprisesLoader
-): ExcelEnterprisesData {
+    loader: ExcelEnterpriseRepository
+): ExcelEnterpriseData {
     return loader.getData()
 }

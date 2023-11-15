@@ -1,10 +1,10 @@
 package domain.useCases
 
-import domain.data.pollution.excel.ExcelPollutionsLoader
-import domain.model.data.excel.ExcelPollutionsData
+import domain.data.repository.pollution.excel.ExcelPollutionRepository
+import domain.model.data.excel.ExcelPollutionData
 
 fun getPollutionsDataFromExcel(
-    loader: ExcelPollutionsLoader
-): ExcelPollutionsData {
+    loader: ExcelPollutionRepository
+): ExcelPollutionData {
     return loader.getData()
 }

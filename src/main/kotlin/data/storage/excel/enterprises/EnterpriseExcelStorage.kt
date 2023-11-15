@@ -1,8 +1,7 @@
 package data.storage.excel.enterprises
 
-import data.storage.excel.enterprises.model.ExcelStorageEnterprise
-import domain.model.Enterprise
+import data.storage.excel.enterprises.model.ExcelEnterprise
 
 interface EnterpriseExcelStorage {
-    fun load(fileName: String): MutableList<ExcelStorageEnterprise>
+    fun load(): MutableList<ExcelEnterprise>
 }

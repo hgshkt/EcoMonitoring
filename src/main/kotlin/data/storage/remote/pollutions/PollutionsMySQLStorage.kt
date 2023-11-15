@@ -20,7 +20,7 @@ class PollutionsMySQLStorage(
     private val columnYearName = "year"
     private val columnAmountName = "material_amount"
 
-    override fun getData(): List<RemoteStoragePollution> {
+    override fun getAll(): List<RemoteStoragePollution> {
         val pollutions = mutableListOf<RemoteStoragePollution>()
 
         try {

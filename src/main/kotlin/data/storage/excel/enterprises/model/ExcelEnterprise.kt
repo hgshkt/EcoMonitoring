@@ -1,6 +1,6 @@
 package data.storage.excel.enterprises.model
 
-data class ExcelStorageEnterprise(
+data class ExcelEnterprise(
     val id: Int,
     val name: String,
     val activity: String,

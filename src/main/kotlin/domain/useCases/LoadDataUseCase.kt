@@ -1,9 +1,8 @@
 package domain.useCases
 
-import domain.data.enterprise.remote.EnterprisesRemoteRepository
-import domain.data.material.remote.MaterialsRemoteRepository
-import domain.data.pollution.remote.PollutionsRemoteRepository
-import domain.model.data.remote.LoadedData
+import domain.data.repository.enterprise.remote.EnterprisesRemoteRepository
+import domain.data.repository.material.remote.MaterialsRemoteRepository
+import domain.data.repository.pollution.remote.PollutionsRemoteRepository
 
 fun loadData(
     pollutionsRepository: PollutionsRemoteRepository,
