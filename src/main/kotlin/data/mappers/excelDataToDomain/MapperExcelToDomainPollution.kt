@@ -1,13 +1,13 @@
 package data.mappers.excelDataToDomain
 
-import data.storage.excel.enterprises.EnterpriseExcelStorage
-import data.storage.excel.materials.MaterialsExcelStorage
 import data.storage.excel.pollutions.model.ExcelPollution
+import data.storage.remote.enterprises.EnterpriseRemoteStorage
+import data.storage.remote.materials.MaterialRemoteStorage
 import domain.model.Pollution
 
 class MapperExcelToDomainPollution(
-    private val enterpriseStorage: EnterpriseExcelStorage,
-    private val materialStorage: MaterialsExcelStorage
+    private val enterpriseStorage: EnterpriseRemoteStorage,
+    private val materialStorage: MaterialRemoteStorage
 ) {
     fun toDomain(
         pollution: ExcelPollution
@@ -21,8 +21,8 @@ class MapperExcelToDomainPollution(
 
         return Pollution(
             id = pollution.id,
-            enterpriseName = enterprise.name,
-            materialName = material.name,
+            enterpriseName = enterprise?.name ?: "підприємство не знайдено",
+            materialName = material?.name ?: "матеріал не знайдено",
             year = pollution.year,
             materialAmount = pollution.materialAmount
         )
