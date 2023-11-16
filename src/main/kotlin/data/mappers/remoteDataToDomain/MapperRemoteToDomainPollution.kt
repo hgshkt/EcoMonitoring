@@ -24,8 +24,8 @@ class MapperRemoteToDomainPollution(
 
         return Pollution(
             id = pollution.id,
-            enterpriseName = enterprise.name,
-            materialName = material.name,
+            enterpriseName = enterprise?.name ?: "підприємство не знайдено",
+            materialName = material?.name ?: "матеріал не знайдено",
             year = pollution.year,
             materialAmount = pollution.materialAmount
         )

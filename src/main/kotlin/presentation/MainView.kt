@@ -10,16 +10,11 @@ import tornadofx.*
 import util.pathToResources
 
 class MainView : View() {
-    private var data: LoadedData = loadData(
-        materialsExcelFileName = pathToResources("речовини.xlsx"),
-        pollutionsExcelFileName = pathToResources("викиди.xlsx"),
-        enterprisesExcelFileName = pathToResources("підприємства.xlsx")
-    )
-    private val enterprisesTableView = EnterprisesAppTableView(data.enterprises)
-    private val materialsTableView = MaterialsAppTableView(data.materials)
-    private val pollutionsTableView = PollutionsAppTableView(data.pollutions)
+    private val enterprisesTableView = EnterprisesAppTableView()
+    private val materialsTableView = MaterialsAppTableView()
+    private val pollutionsTableView = PollutionsAppTableView()
 
-    private var table: AppTableView = EnterprisesAppTableView(data.enterprises)
+    private var table: AppTableView = enterprisesTableView
 
     override val root: Parent
 
@@ -41,11 +36,6 @@ class MainView : View() {
                 }
             }
             table.root
-            MyLabel().root
         }
     }
-}
-
-class MyLabel: View() {
-    override val root = label("qwer")
 }
