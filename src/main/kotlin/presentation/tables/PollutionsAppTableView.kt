@@ -1,5 +1,6 @@
 package presentation.tables
 
+import data.mappers.domainDataToRemote.MapperDomainPollutionToRemote
 import data.mappers.remoteDataToDomain.MapperRemoteToDomainPollution
 import data.repository.pollutions.remote.PollutionMySQLRepository
 import data.storage.DatabaseConnectionData
@@ -25,11 +26,19 @@ class PollutionsAppTableView : AppTableView() {
                 storage = PollutionsMySQLStorage(
                     connectionData = DatabaseConnectionData()
                 ),
-                mapperRemoteToDomain = MapperRemoteToDomainPollution(
-                    enterpriseStorage = EnterprisesMySQLStorage(
+                mapperDomainToRemote = MapperDomainPollutionToRemote(
+                    materialStorage = MaterialMySQLStorage(
                         connectionData = DatabaseConnectionData()
                     ),
+                    enterpriseStorage = EnterprisesMySQLStorage(
+                        connectionData = DatabaseConnectionData()
+                    )
+                ),
+                mapperRemoteToDomain = MapperRemoteToDomainPollution(
                     materialStorage = MaterialMySQLStorage(
+                        connectionData = DatabaseConnectionData()
+                    ),
+                    enterpriseStorage = EnterprisesMySQLStorage(
                         connectionData = DatabaseConnectionData()
                     )
                 )
