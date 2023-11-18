@@ -15,8 +15,8 @@ class MapperDomainPollutionToRemote(
 
         return RemotePollution(
             id = pollution.id,
-            enterpriseId = enterprise.id,
-            materialId = material.id,
+            enterpriseId = enterprise?.id ?: -1,
+            materialId = material?.id ?: -1,
             year = pollution.year,
             materialAmount = pollution.materialAmount
         )

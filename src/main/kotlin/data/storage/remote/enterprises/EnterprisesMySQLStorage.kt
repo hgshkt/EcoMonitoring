@@ -2,24 +2,24 @@ package data.storage.remote.enterprises
 
 import data.storage.DatabaseConnectionData
 import data.storage.remote.enterprises.model.RemoteEnterprise
-import data.storage.remote.materials.model.RemoteMaterial
 import java.sql.*
 
 class EnterprisesMySQLStorage(
     private val connectionData: DatabaseConnectionData
-): EnterpriseRemoteStorage {
+) : EnterpriseRemoteStorage {
 
     private val tableName = "enterprises"
-
-    private val getAllQuery = "SELECT * FROM $tableName"
-    private val getByIdQuery = "SELECT * FROM $tableName WHERE id = ?"
-    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
 
     private val columnIdName = "id"
     private val columnNameName = "enterprise_name"
     private val columnActivityName = "activity"
     private val columnBelongingName = "belonging"
     private val columnLocationName = "location"
+
+    private val getAllQuery = "SELECT * FROM $tableName"
+    private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
+    private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
+    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
 
     override fun getAll(): List<RemoteEnterprise> {
         val enterprises = mutableListOf<RemoteEnterprise>()
@@ -102,6 +102,39 @@ class EnterprisesMySQLStorage(
 
             preparedStatement.executeQuery(addQuery)
         }
+    }
+
+    override fun getByName(name: String): RemoteEnterprise? {
+        try {
+            val connection: Connection = DriverManager.getConnection(
+                connectionData.url,
+                connectionData.user,
+                connectionData.password
+            )
+
+            val preparedStatement: PreparedStatement =
+                connection.prepareStatement(getByNameQuery)
+
+            preparedStatement.setString(1, name)
+
+            val resultSet: ResultSet = preparedStatement.executeQuery(getByNameQuery)
+
+            var enterprise: RemoteEnterprise? = null
+
+            if (resultSet.next()) {
+                enterprise = getEnterpriseFromResultSet(resultSet)
+            }
+
+            resultSet.close()
+            preparedStatement.close()
+            connection.close()
+
+            return enterprise
+
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+        return null
     }
 
     private fun getEnterpriseFromResultSet(

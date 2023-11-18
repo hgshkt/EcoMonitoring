@@ -8,4 +8,6 @@ interface MaterialRemoteStorage {
     fun getById(id: Int): RemoteMaterial?
 
     fun add(enterprises: List<RemoteMaterial>)
+
+    fun getByName(name: String): RemoteMaterial?
 }

@@ -8,4 +8,6 @@ interface EnterpriseRemoteStorage {
     fun getById(id: Int): RemoteEnterprise?
 
     fun add(enterprises: List<RemoteEnterprise>)
+
+    fun getByName(name: String): RemoteEnterprise?
 }

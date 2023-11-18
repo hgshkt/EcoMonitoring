@@ -12,14 +12,17 @@ class MaterialMySQLStorage(
 
     private val tableName = "materials"
 
-    private val getAllQuery = "SELECT * FROM $tableName"
-    private val getByIdQuery = "SELECT * FROM $tableName WHERE id = ?"
-    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
 
     private val columnIdName = "id"
     private val columnNameName = "material_name"
     private val columnGdkName = "gdk"
     private val columnDangerClassName = "danger_class"
+
+    private val getAllQuery = "SELECT * FROM $tableName"
+    private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
+    private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
+    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
+
 
     override fun getAll(): List<RemoteMaterial> {
 
@@ -100,6 +103,39 @@ class MaterialMySQLStorage(
 
             preparedStatement.executeQuery(addQuery)
         }
+    }
+
+    override fun getByName(name: String): RemoteMaterial? {
+        try {
+            val connection: Connection = DriverManager.getConnection(
+                connectionData.url,
+                connectionData.user,
+                connectionData.password
+            )
+
+            val preparedStatement: PreparedStatement =
+                connection.prepareStatement(getByNameQuery)
+
+            preparedStatement.setString(1, name)
+
+            val resultSet: ResultSet = preparedStatement.executeQuery(getByNameQuery)
+
+            var material: RemoteMaterial? = null
+
+            if (resultSet.next()) {
+                material = getMaterialFromResultSet(resultSet)
+            }
+
+            resultSet.close()
+            preparedStatement.close()
+            connection.close()
+
+            return material
+
+        } catch (e: SQLException) {
+            e.printStackTrace()
+        }
+        return null
     }
 
     private fun getMaterialFromResultSet(
