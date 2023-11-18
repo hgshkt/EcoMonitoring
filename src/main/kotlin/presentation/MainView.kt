@@ -1,18 +1,19 @@
 package presentation
 
-import domain.useCases.loadData
+import javafx.beans.property.SimpleStringProperty
 import javafx.scene.Parent
+import presentation.tables.AppTableView
 import presentation.tables.EnterprisesAppTableView
 import presentation.tables.MaterialsAppTableView
 import presentation.tables.PollutionsAppTableView
-import presentation.tables.AppTableView
 import tornadofx.*
-import util.pathToResources
 
 class MainView : View() {
     private val enterprisesTableView = EnterprisesAppTableView()
     private val materialsTableView = MaterialsAppTableView()
     private val pollutionsTableView = PollutionsAppTableView()
+
+    private var selectedTableType = SimpleStringProperty()
 
     private var table: AppTableView = enterprisesTableView
 
@@ -35,7 +36,24 @@ class MainView : View() {
                     table = pollutionsTableView
                 }
             }
-            table.root
+            combobox(
+                values = listOf(
+                    TableType.MATERIALS.tableName,
+                    TableType.ENTERPRISES.tableName,
+                    TableType.POLLUTION.tableName
+                ).toObservable(),
+                property = selectedTableType
+            )
+
+            button("Select File") {
+                
+            }
         }
     }
+}
+
+private enum class TableType(val tableName: String) {
+    MATERIALS("materials"),
+    ENTERPRISES("enterprises"),
+    POLLUTION("pollutions")
 }

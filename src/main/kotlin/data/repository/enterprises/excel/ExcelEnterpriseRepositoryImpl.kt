@@ -8,8 +8,8 @@ import domain.model.data.excel.ExcelEnterpriseData
 class ExcelEnterpriseRepositoryImpl(
     private val storage: EnterpriseExcelStorage
 ): ExcelEnterpriseRepository {
-    override fun getData(): ExcelEnterpriseData {
-        val enterprises = storage.load().map {
+    override fun getData(fileName: String): ExcelEnterpriseData {
+        val enterprises = storage.load(fileName).map {
             it.toDomain()
         }
         return ExcelEnterpriseData(enterprises = enterprises.toMutableList())

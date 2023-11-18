@@ -3,10 +3,10 @@ package domain.useCases
 import domain.data.repository.pollution.remote.PollutionsRemoteRepository
 import domain.model.data.remote.RemotePollutionData
 
-class GetPollutionsFromRemoteRepository(
+class GetPollutionsFromRemoteRepositoryUseCase(
     private val repository: PollutionsRemoteRepository
 ) {
-    fun getPollutionsFromRemoteRepository(): RemotePollutionData {
+    fun execute(): RemotePollutionData {
         return repository.getData()
     }
 }

@@ -9,8 +9,11 @@ class EnterprisesMySQLStorage(
     private val connectionData: DatabaseConnectionData
 ): EnterpriseRemoteStorage {
 
-    private val getAllQuery = "SELECT * FROM enterprises"
-    private val getByIdQuery = "SELECT * FROM enterprises WHERE id = ?"
+    private val tableName = "enterprises"
+
+    private val getAllQuery = "SELECT * FROM $tableName"
+    private val getByIdQuery = "SELECT * FROM $tableName WHERE id = ?"
+    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
 
     private val columnIdName = "id"
     private val columnNameName = "enterprise_name"
@@ -78,6 +81,27 @@ class EnterprisesMySQLStorage(
             e.printStackTrace()
         }
         return null
+    }
+
+    override fun add(enterprises: List<RemoteEnterprise>) {
+        val connection: Connection = DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        )
+
+        for (enterprise in enterprises) {
+            val preparedStatement: PreparedStatement =
+                connection.prepareStatement(addQuery)
+
+            preparedStatement.setInt(1, enterprise.id)
+            preparedStatement.setString(2, enterprise.name)
+            preparedStatement.setString(3, enterprise.activity)
+            preparedStatement.setString(4, enterprise.belonging)
+            preparedStatement.setString(5, enterprise.location)
+
+            preparedStatement.executeQuery(addQuery)
+        }
     }
 
     private fun getEnterpriseFromResultSet(

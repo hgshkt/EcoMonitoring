@@ -6,10 +6,8 @@ import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.FileInputStream
 
-class EnterpriseExcelStorageImpl(
-    private val fileName: String
-): EnterpriseExcelStorage {
-    override fun load(): MutableList<ExcelEnterprise> {
+class EnterpriseExcelStorageImpl: EnterpriseExcelStorage {
+    override fun load(fileName: String): MutableList<ExcelEnterprise> {
         val enterprises = mutableListOf<ExcelEnterprise>()
 
         FileInputStream(fileName).use { fis ->

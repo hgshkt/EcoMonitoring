@@ -10,8 +10,11 @@ class MaterialMySQLStorage(
     private val connectionData: DatabaseConnectionData
 ) : MaterialRemoteStorage {
 
-    private val getAllQuery = "SELECT * FROM materials"
-    private val getByIdQuery = "SELECT * FROM materials WHERE id = ?"
+    private val tableName = "materials"
+
+    private val getAllQuery = "SELECT * FROM $tableName"
+    private val getByIdQuery = "SELECT * FROM $tableName WHERE id = ?"
+    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
 
     private val columnIdName = "id"
     private val columnNameName = "material_name"
@@ -77,6 +80,26 @@ class MaterialMySQLStorage(
             e.printStackTrace()
         }
         return null
+    }
+
+    override fun add(enterprises: List<RemoteMaterial>) {
+        val connection: Connection = DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        )
+
+        for (enterprise in enterprises) {
+            val preparedStatement: PreparedStatement =
+                connection.prepareStatement(addQuery)
+
+            preparedStatement.setInt(1, enterprise.id)
+            preparedStatement.setString(2, enterprise.name)
+            preparedStatement.setDouble(3, enterprise.gdk)
+            preparedStatement.setInt(4, enterprise.dangerClass)
+
+            preparedStatement.executeQuery(addQuery)
+        }
     }
 
     private fun getMaterialFromResultSet(

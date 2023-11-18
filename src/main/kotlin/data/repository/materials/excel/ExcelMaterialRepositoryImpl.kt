@@ -8,8 +8,8 @@ import domain.model.data.excel.ExcelMaterialData
 class ExcelMaterialRepositoryImpl(
     private val storage: MaterialsExcelStorage
 ): ExcelMaterialRepository {
-    override fun getData(): ExcelMaterialData {
-        val materials = storage.load().map {
+    override fun getData(fileName: String): ExcelMaterialData {
+        val materials = storage.load(fileName).map {
             it.toDomain()
         }
         return ExcelMaterialData(materials = materials.toMutableList())

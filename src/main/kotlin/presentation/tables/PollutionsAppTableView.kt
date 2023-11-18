@@ -25,7 +25,7 @@ class PollutionsAppTableView : AppTableView() {
                 storage = PollutionsMySQLStorage(
                     connectionData = DatabaseConnectionData()
                 ),
-                mapper = MapperRemoteToDomainPollution(
+                mapperRemoteToDomain = MapperRemoteToDomainPollution(
                     enterpriseStorage = EnterprisesMySQLStorage(
                         connectionData = DatabaseConnectionData()
                     ),

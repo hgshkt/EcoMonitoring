@@ -4,4 +4,6 @@ import domain.model.data.remote.RemoteEnterpriseData
 
 interface EnterprisesRemoteRepository {
     fun getData(): RemoteEnterpriseData
+
+    fun addData(data: RemoteEnterpriseData)
 }

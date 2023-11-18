@@ -3,10 +3,10 @@ package domain.useCases
 import domain.data.repository.enterprise.remote.EnterprisesRemoteRepository
 import domain.model.data.remote.RemoteEnterpriseData
 
-class GetEnterprisesFromRemoteRepository(
+class GetEnterprisesFromRemoteRepositoryUseCase(
     private val repository: EnterprisesRemoteRepository
 ) {
-    fun getEnterprisesFromRemoteRepository(): RemoteEnterpriseData {
+    fun execute(): RemoteEnterpriseData {
         return repository.getData()
     }
 }

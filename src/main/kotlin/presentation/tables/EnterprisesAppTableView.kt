@@ -2,21 +2,20 @@ package presentation.tables
 
 import data.repository.enterprises.remote.EnterpriseMySQLRepository
 import data.storage.DatabaseConnectionData
-import data.storage.remote.enterprises.EnterpriseRemoteStorage
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import domain.model.Enterprise
-import domain.useCases.GetEnterprisesFromRemoteRepository
+import domain.useCases.GetEnterprisesFromRemoteRepositoryUseCase
 import javafx.scene.Parent
 import tornadofx.*
 
 class EnterprisesAppTableView: AppTableView() {
 
-    private var useCase: GetEnterprisesFromRemoteRepository
+    private var useCase: GetEnterprisesFromRemoteRepositoryUseCase
 
     override val root: Parent
 
     init {
-        useCase = GetEnterprisesFromRemoteRepository(
+        useCase = GetEnterprisesFromRemoteRepositoryUseCase(
             repository = EnterpriseMySQLRepository(
                 storage = EnterprisesMySQLStorage(
                     connectionData = DatabaseConnectionData()
@@ -24,7 +23,7 @@ class EnterprisesAppTableView: AppTableView() {
             )
         )
 
-        val enterprises = useCase.getEnterprisesFromRemoteRepository().enterprises
+        val enterprises = useCase.execute().enterprises
 
         root = vbox {
             tableview(enterprises.asObservable()) {

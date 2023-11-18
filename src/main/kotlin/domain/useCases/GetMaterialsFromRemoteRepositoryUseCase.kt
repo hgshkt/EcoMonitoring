@@ -3,10 +3,10 @@ package domain.useCases
 import domain.data.repository.material.remote.MaterialsRemoteRepository
 import domain.model.data.remote.RemoteMaterialData
 
-class GetMaterialsFromRemoteRepository(
+class GetMaterialsFromRemoteRepositoryUseCase(
     private val repository: MaterialsRemoteRepository
 ) {
-    fun getMaterialsFromRemoteRepository(): RemoteMaterialData {
+    fun execute(): RemoteMaterialData {
         return repository.getData()
     }
 }

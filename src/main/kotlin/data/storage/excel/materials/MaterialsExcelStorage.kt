@@ -3,5 +3,5 @@ package data.storage.excel.materials
 import data.storage.excel.materials.model.ExcelMaterial
 
 interface MaterialsExcelStorage {
-    fun load(): MutableList<ExcelMaterial>
+    fun load(fileName: String): MutableList<ExcelMaterial>
 }
