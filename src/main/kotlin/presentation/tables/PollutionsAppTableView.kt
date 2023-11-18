@@ -7,7 +7,7 @@ import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
 import domain.model.Pollution
-import domain.useCases.GetPollutionsFromRemoteRepository
+import domain.useCases.GetPollutionsFromRemoteRepositoryUseCase
 import javafx.scene.Parent
 import tornadofx.asObservable
 import tornadofx.readonlyColumn
@@ -15,12 +15,12 @@ import tornadofx.tableview
 import tornadofx.vbox
 
 class PollutionsAppTableView : AppTableView() {
-    private var useCase: GetPollutionsFromRemoteRepository
+    private var useCase: GetPollutionsFromRemoteRepositoryUseCase
 
     override val root: Parent
 
     init {
-        useCase = GetPollutionsFromRemoteRepository(
+        useCase = GetPollutionsFromRemoteRepositoryUseCase(
             repository = PollutionMySQLRepository(
                 storage = PollutionsMySQLStorage(
                     connectionData = DatabaseConnectionData()
@@ -36,7 +36,7 @@ class PollutionsAppTableView : AppTableView() {
             )
         )
 
-        val pollutions = useCase.getPollutionsFromRemoteRepository().pollutions
+        val pollutions = useCase.execute().pollutions
 
         root = vbox {
             tableview(pollutions.asObservable()) {
