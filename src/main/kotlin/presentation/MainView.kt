@@ -2,14 +2,12 @@ package presentation
 
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.Parent
-import javafx.stage.FileChooser
 import presentation.tables.AppTableView
 import presentation.tables.EnterprisesAppTableView
 import presentation.tables.MaterialsAppTableView
 import presentation.tables.PollutionsAppTableView
 import presentation.usecases.MainViewUseCases
 import tornadofx.*
-import java.io.File
 
 class MainView : View() {
     private val enterprisesTableView = EnterprisesAppTableView()

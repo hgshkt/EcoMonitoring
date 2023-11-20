@@ -1,6 +1,6 @@
 package data.repository.materials.excel
 
-import data.mappers.excelDataToDomain.toDomain
+import data.mappers.excel.material.toDomain
 import data.storage.excel.materials.MaterialsExcelStorage
 import domain.data.repository.material.excel.ExcelMaterialRepository
 import domain.model.data.excel.ExcelMaterialData

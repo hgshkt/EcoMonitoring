@@ -1,6 +1,6 @@
 package data.repository.enterprises.excel
 
-import data.mappers.excelDataToDomain.toDomain
+import data.mappers.excel.enterprise.toDomain
 import data.storage.excel.enterprises.EnterpriseExcelStorage
 import domain.data.repository.enterprise.excel.ExcelEnterpriseRepository
 import domain.model.data.excel.ExcelEnterpriseData

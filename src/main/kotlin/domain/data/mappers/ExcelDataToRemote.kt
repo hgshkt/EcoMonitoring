@@ -7,10 +7,14 @@ import domain.model.data.remote.RemoteEnterpriseData
 import domain.model.data.remote.RemoteMaterialData
 import domain.model.data.remote.RemotePollutionData
 
-interface MapperExcelDataToRemote {
-    fun execute(excelData: ExcelPollutionData): RemotePollutionData
+fun ExcelEnterpriseData.toRemote() = RemoteEnterpriseData(
+    enterprises = enterprises
+)
 
-    fun execute(excelData: ExcelMaterialData): RemoteMaterialData
+fun ExcelMaterialData.toRemote() = RemoteMaterialData(
+    materials = materials
+)
 
-    fun execute(excelData: ExcelEnterpriseData): RemoteEnterpriseData
-}
+fun ExcelPollutionData.toRemote() = RemotePollutionData(
+    pollutions = pollutions
+)

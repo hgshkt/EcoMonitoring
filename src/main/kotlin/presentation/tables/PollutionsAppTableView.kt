@@ -1,7 +1,5 @@
 package presentation.tables
 
-import data.mappers.domainDataToRemote.MapperDomainPollutionToRemote
-import data.mappers.remoteDataToDomain.MapperRemoteToDomainPollution
 import data.repository.pollutions.remote.PollutionMySQLRepository
 import data.storage.DatabaseConnectionData
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
@@ -25,22 +23,6 @@ class PollutionsAppTableView : AppTableView() {
             repository = PollutionMySQLRepository(
                 storage = PollutionsMySQLStorage(
                     connectionData = DatabaseConnectionData()
-                ),
-                mapperDomainToRemote = MapperDomainPollutionToRemote(
-                    materialStorage = MaterialMySQLStorage(
-                        connectionData = DatabaseConnectionData()
-                    ),
-                    enterpriseStorage = EnterprisesMySQLStorage(
-                        connectionData = DatabaseConnectionData()
-                    )
-                ),
-                mapperRemoteToDomain = MapperRemoteToDomainPollution(
-                    materialStorage = MaterialMySQLStorage(
-                        connectionData = DatabaseConnectionData()
-                    ),
-                    enterpriseStorage = EnterprisesMySQLStorage(
-                        connectionData = DatabaseConnectionData()
-                    )
                 )
             )
         )
@@ -49,9 +31,8 @@ class PollutionsAppTableView : AppTableView() {
 
         root = vbox {
             tableview(pollutions.asObservable()) {
-                readonlyColumn("Id", Pollution::id)
-                readonlyColumn("Enterprise Id", Pollution::enterpriseName)
-                readonlyColumn("Material Id", Pollution::materialName)
+                readonlyColumn("Enterprise name", Pollution::enterpriseName)
+                readonlyColumn("Material name", Pollution::materialName)
                 readonlyColumn("Year", Pollution::year)
                 readonlyColumn("MaterialAmount", Pollution::materialAmount)
             }

@@ -12,11 +12,10 @@ class PollutionsMySQLStorage(
     private val tableName = "pollutions"
 
     private val getAllQuery = "SELECT * FROM $tableName"
-    private val addQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?, ?)"
+    private val addQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
 
-    private val columnIdName = "id"
-    private val columnEnterpriseIdName = "enterprise_id"
-    private val columnMaterialIdName = "material_id"
+    private val columnEnterpriseIdName = "enterprise_name"
+    private val columnMaterialIdName = "material_name"
     private val columnYearName = "year"
     private val columnAmountName = "material_amount"
 
@@ -34,16 +33,14 @@ class PollutionsMySQLStorage(
             val resultSet: ResultSet = statement.executeQuery(getAllQuery)
 
             while (resultSet.next()) {
-                val id = resultSet.getInt(columnIdName)
-                val enterpriseId = resultSet.getInt(columnEnterpriseIdName)
-                val materialId = resultSet.getInt(columnMaterialIdName)
+                val enterpriseName = resultSet.getString(columnEnterpriseIdName)
+                val materialName = resultSet.getString(columnMaterialIdName)
                 val year = resultSet.getInt(columnYearName)
                 val materialAmount = resultSet.getDouble(columnAmountName)
 
                 val pollution = RemotePollution(
-                    id = id,
-                    enterpriseId = enterpriseId,
-                    materialId = materialId,
+                    enterpriseName = enterpriseName,
+                    materialName = materialName,
                     year = year,
                     materialAmount = materialAmount
                 )
@@ -71,11 +68,10 @@ class PollutionsMySQLStorage(
             val preparedStatement: PreparedStatement =
                 connection.prepareStatement(addQuery)
 
-            preparedStatement.setInt(1, pollution.id)
-            preparedStatement.setInt(2, pollution.enterpriseId)
-            preparedStatement.setInt(3, pollution.materialId)
-            preparedStatement.setInt(4, pollution.year)
-            preparedStatement.setDouble(5, pollution.materialAmount)
+            preparedStatement.setString(1, pollution.enterpriseName)
+            preparedStatement.setString(2, pollution.materialName)
+            preparedStatement.setInt(3, pollution.year)
+            preparedStatement.setDouble(4, pollution.materialAmount)
 
             preparedStatement.executeQuery(addQuery)
         }

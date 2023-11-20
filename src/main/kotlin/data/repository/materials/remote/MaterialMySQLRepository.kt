@@ -1,7 +1,7 @@
 package data.repository.materials.remote
 
-import data.mappers.domainDataToRemote.toRemote
-import data.mappers.remoteDataToDomain.toDomain
+import data.mappers.domain.material.toRemote
+import data.mappers.remote.material.toDomain
 import data.storage.remote.materials.MaterialRemoteStorage
 import domain.data.repository.material.remote.MaterialsRemoteRepository
 import domain.model.data.remote.RemoteMaterialData

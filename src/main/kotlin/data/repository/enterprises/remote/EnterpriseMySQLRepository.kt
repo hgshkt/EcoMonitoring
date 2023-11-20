@@ -1,7 +1,7 @@
 package data.repository.enterprises.remote
 
-import data.mappers.domainDataToRemote.toRemote
-import data.mappers.remoteDataToDomain.toDomain
+import data.mappers.domain.enterprise.toRemote
+import data.mappers.remote.enterprise.toDomain
 import data.storage.remote.enterprises.EnterpriseRemoteStorage
 import domain.data.repository.enterprise.remote.EnterprisesRemoteRepository
 import domain.model.data.remote.RemoteEnterpriseData
