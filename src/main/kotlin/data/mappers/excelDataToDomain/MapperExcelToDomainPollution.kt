@@ -13,10 +13,10 @@ class MapperExcelToDomainPollution(
         pollution: ExcelPollution
     ): Pollution {
         val enterprise = enterpriseStorage.getById(
-            id = pollution.enterpriseId
+            id = pollution.enterpriseName
         )
         val material = materialStorage.getById(
-            id = pollution.materialId
+            id = pollution.materialName
         )
 
         return Pollution(

@@ -2,11 +2,14 @@ package presentation
 
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.Parent
+import javafx.stage.FileChooser
 import presentation.tables.AppTableView
 import presentation.tables.EnterprisesAppTableView
 import presentation.tables.MaterialsAppTableView
 import presentation.tables.PollutionsAppTableView
+import presentation.usecases.MainViewUseCases
 import tornadofx.*
+import java.io.File
 
 class MainView : View() {
     private val enterprisesTableView = EnterprisesAppTableView()
@@ -16,6 +19,8 @@ class MainView : View() {
     private var selectedTableType = SimpleStringProperty()
 
     private var table: AppTableView = enterprisesTableView
+
+    private val useCases: MainViewUseCases = MainViewUseCases()
 
     override val root: Parent
 
@@ -46,7 +51,19 @@ class MainView : View() {
             )
 
             button("Select File") {
-                
+                action {
+                    val dir = chooseDirectory("Select Target Directory")
+                    dir?.apply {
+                        when (selectedTableType.name) {
+                            TableType.MATERIALS.name -> useCases
+                                .loadMaterialsFromExcelUseCase.execute(dir.path)
+                            TableType.ENTERPRISES.name -> useCases
+                                .loadEnterprisesFromExcelUseCase.execute(dir.path)
+                            TableType.POLLUTION.name -> useCases
+                                .loadPollutionsFromExcelUseCase.execute(dir.path)
+                        }
+                    }
+                }
             }
         }
     }
