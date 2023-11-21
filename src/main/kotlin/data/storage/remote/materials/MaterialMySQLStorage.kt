@@ -102,6 +102,8 @@ class MaterialMySQLStorage(
             preparedStatement.setInt(4, enterprise.dangerClass)
 
             preparedStatement.executeQuery(addQuery)
+
+            println("enterprises:\n$enterprises")
         }
     }
 

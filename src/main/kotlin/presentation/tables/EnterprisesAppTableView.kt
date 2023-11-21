@@ -9,16 +9,17 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.scene.Parent
 import javafx.stage.FileChooser
 import presentation.usecases.TableUseCases
+import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
 import presentation.views.buttons.buttonSizeWidth
 import tornadofx.*
 
-class EnterprisesAppTableView: AppTableView() {
+class EnterprisesAppTableView : AppTableView() {
 
     private var useCase: GetEnterprisesFromRemoteRepositoryUseCase
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var selectedTableType = SimpleStringProperty()
+    private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
 
     override val root: Parent
 
@@ -77,30 +78,12 @@ class EnterprisesAppTableView: AppTableView() {
                     prefHeight = buttonSizeHeight
                 }
 
-                button("Select File") {
-                    prefWidth = buttonSizeWidth
-                    prefHeight = buttonSizeHeight
-                    action {
-                        val file = chooseFile(
-                            "Select a File",
-                            filters = arrayOf(FileChooser.ExtensionFilter("Excel Files", "*.xlsx")),
-                            mode = FileChooserMode.Single
-                        )[0]
-
-                        file.apply {
-                            when (selectedTableType.name) {
-                                TableType.MATERIALS.name -> tableUseCases
-                                    .loadMaterialsFromExcelUseCase.execute(path)
-
-                                TableType.ENTERPRISES.name -> tableUseCases
-                                    .loadEnterprisesFromExcelUseCase.execute(path)
-
-                                TableType.POLLUTION.name -> tableUseCases
-                                    .loadPollutionsFromExcelUseCase.execute(path)
-                            }
-                        }
-                    }
-                }
+                add(
+                    child = SelectFileButton(
+                        selectedTableType = selectedTableType,
+                        tableUseCases = tableUseCases
+                    )
+                )
             }
         }
     }
