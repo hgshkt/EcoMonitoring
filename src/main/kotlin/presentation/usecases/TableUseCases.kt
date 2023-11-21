@@ -17,7 +17,7 @@ import domain.useCases.LoadEnterprisesFromExcelUseCase
 import domain.useCases.LoadMaterialsFromExcelUseCase
 import domain.useCases.LoadPollutionsFromExcelUseCase
 
-data class MainViewUseCases(
+data class TableUseCases(
     val loadEnterprisesFromExcelUseCase: LoadEnterprisesFromExcelUseCase = LoadEnterprisesFromExcelUseCase(
         remoteRepository = EnterpriseMySQLRepository(
             storage = EnterprisesMySQLStorage(

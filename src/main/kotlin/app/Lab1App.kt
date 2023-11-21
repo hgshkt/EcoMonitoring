@@ -1,6 +1,6 @@
 package app
 
-import presentation.MainView
+import presentation.tables.EnterprisesAppTableView
 import tornadofx.App
 
-class Lab1App: App(MainView::class)
+class Lab1App: App(EnterprisesAppTableView::class)
