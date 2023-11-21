@@ -1,4 +1,4 @@
-package presentation
+package presentation.tables
 
 enum class TableType(val tableName: String) {
     MATERIALS("materials"),

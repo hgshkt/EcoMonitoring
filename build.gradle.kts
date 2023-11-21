@@ -15,6 +15,7 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation("no.tornado:tornadofx:1.7.20")
     implementation("io.github.evanrupert:excelkt:1.0.2")
+    implementation ("mysql:mysql-connector-java:8.0.28")
 }
 
 tasks.test {
