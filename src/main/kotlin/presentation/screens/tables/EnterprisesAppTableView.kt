@@ -13,7 +13,9 @@ import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
 import presentation.views.buttons.buttonSizeWidth
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
+import presentation.views.buttons.delete.DeleteEnterpriseButtonCell
 import tornadofx.*
+import tornadofx.WizardStyles.Companion.graphic
 
 class EnterprisesAppTableView : AppTableView() {
 
@@ -45,6 +47,16 @@ class EnterprisesAppTableView : AppTableView() {
                 readonlyColumn("Activity", Enterprise::activity)
                 readonlyColumn("Belonging", Enterprise::belonging)
                 readonlyColumn("Location", Enterprise::location)
+
+                readonlyColumn("Delete", Enterprise::id).cellFormat { id ->
+                    graphic = hbox(spacing = 5) {
+                        button("Delete") {
+                            action {
+                                useCases.delete.execute(id)
+                            }
+                        }
+                    }
+                }
             }
 
             vbox {

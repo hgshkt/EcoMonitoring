@@ -3,6 +3,7 @@ package presentation.screens.tables
 import data.repository.pollutions.remote.PollutionMySQLRepository
 import data.storage.DatabaseConnectionData
 import data.storage.remote.pollutions.PollutionsMySQLStorage
+import domain.model.Enterprise
 import domain.model.Pollution
 import domain.useCases.get.GetPollutionsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
@@ -46,6 +47,22 @@ class PollutionsAppTableView : AppTableView() {
                 readonlyColumn("Material name", Pollution::materialName)
                 readonlyColumn("Year", Pollution::year)
                 readonlyColumn("MaterialAmount", Pollution::materialAmount)
+
+                readonlyColumn("Delete", Pollution::enterpriseName).cellFormat { enterpriseName ->
+                    graphic = hbox(spacing = 5) {
+                        button("Delete") {
+                            action {
+                                val pollution = Pollution(
+                                    enterpriseName = enterpriseName,
+                                    materialName = rowItem.materialName,
+                                    year = rowItem.year,
+                                    materialAmount = rowItem.materialAmount
+                                )
+                                useCases.delete.execute(pollution)
+                            }
+                        }
+                    }
+                }
             }
 
             vbox {

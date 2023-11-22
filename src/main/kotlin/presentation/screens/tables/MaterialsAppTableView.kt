@@ -3,6 +3,7 @@ package presentation.screens.tables
 import data.repository.materials.remote.MaterialMySQLRepository
 import data.storage.DatabaseConnectionData
 import data.storage.remote.materials.MaterialMySQLStorage
+import domain.model.Enterprise
 import domain.model.Material
 import domain.useCases.get.GetMaterialsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
@@ -46,6 +47,16 @@ class MaterialsAppTableView : AppTableView() {
                 readonlyColumn("Enterprise Id", Material::name)
                 readonlyColumn("Material Id", Material::gdk)
                 readonlyColumn("Year", Material::dangerClass)
+
+                readonlyColumn("Delete", Material::id).cellFormat { id ->
+                    graphic = hbox(spacing = 5) {
+                        button("Delete") {
+                            action {
+                                useCases.delete.execute(id)
+                            }
+                        }
+                    }
+                }
             }
 
             vbox {
