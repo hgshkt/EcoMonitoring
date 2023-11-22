@@ -19,7 +19,7 @@ class EnterprisesMySQLStorage(
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
-    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
 
     override fun getAll(): List<RemoteEnterprise> {
         val enterprises = mutableListOf<RemoteEnterprise>()
@@ -84,23 +84,25 @@ class EnterprisesMySQLStorage(
     }
 
     override fun add(enterprises: List<RemoteEnterprise>) {
-        val connection: Connection = DriverManager.getConnection(
+        DriverManager.getConnection(
             connectionData.url,
             connectionData.user,
             connectionData.password
-        )
+        ).use { connection ->
 
-        for (enterprise in enterprises) {
-            val preparedStatement: PreparedStatement =
-                connection.prepareStatement(addQuery)
+            connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-            preparedStatement.setInt(1, enterprise.id)
-            preparedStatement.setString(2, enterprise.name)
-            preparedStatement.setString(3, enterprise.activity)
-            preparedStatement.setString(4, enterprise.belonging)
-            preparedStatement.setString(5, enterprise.location)
+                for (enterprise in enterprises) {
 
-            preparedStatement.executeQuery(addQuery)
+                    preparedStatement.setInt(1, enterprise.id)
+                    preparedStatement.setString(2, enterprise.name)
+                    preparedStatement.setString(3, enterprise.activity)
+                    preparedStatement.setString(4, enterprise.belonging)
+                    preparedStatement.setString(5, enterprise.location)
+
+                    preparedStatement.executeUpdate()
+                }
+            }
         }
     }
 

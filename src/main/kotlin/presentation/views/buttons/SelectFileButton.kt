@@ -31,15 +31,12 @@ class SelectFileButton(
                 when (selectedTableType.value) {
                     TableType.MATERIALS.tableName -> {
                         tableUseCases.loadMaterialsFromExcelUseCase.execute(path)
-                        println("MATERIALS $path")
                     }
                     TableType.ENTERPRISES.tableName -> {
                         tableUseCases.loadEnterprisesFromExcelUseCase.execute(path)
-                        println("ENTERPRISES $path")
                     }
                     TableType.POLLUTION.tableName -> {
                         tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
-                        println("POLLUTION $path")
                     }
                 }
             }

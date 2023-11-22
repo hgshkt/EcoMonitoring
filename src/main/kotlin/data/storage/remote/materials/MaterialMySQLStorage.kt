@@ -1,9 +1,7 @@
 package data.storage.remote.materials
 
 import data.storage.DatabaseConnectionData
-import data.storage.remote.enterprises.model.RemoteEnterprise
 import data.storage.remote.materials.model.RemoteMaterial
-import domain.model.Material
 import java.sql.*
 
 class MaterialMySQLStorage(
@@ -21,7 +19,7 @@ class MaterialMySQLStorage(
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
-    private val addQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
 
 
     override fun getAll(): List<RemoteMaterial> {
@@ -85,25 +83,26 @@ class MaterialMySQLStorage(
         return null
     }
 
-    override fun add(enterprises: List<RemoteMaterial>) {
-        val connection: Connection = DriverManager.getConnection(
+    override fun add(materials: List<RemoteMaterial>) {
+        DriverManager.getConnection(
             connectionData.url,
             connectionData.user,
             connectionData.password
-        )
+        ).use { connection ->
+            connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-        for (enterprise in enterprises) {
-            val preparedStatement: PreparedStatement =
-                connection.prepareStatement(addQuery)
+                for (material in materials) {
 
-            preparedStatement.setInt(1, enterprise.id)
-            preparedStatement.setString(2, enterprise.name)
-            preparedStatement.setDouble(3, enterprise.gdk)
-            preparedStatement.setInt(4, enterprise.dangerClass)
+                    print(material.name.length)
 
-            preparedStatement.executeQuery(addQuery)
+                    preparedStatement.setInt(1, material.id)
+                    preparedStatement.setString(2, material.name)
+                    preparedStatement.setDouble(3, material.gdk)
+                    preparedStatement.setInt(4, material.dangerClass)
 
-            println("enterprises:\n$enterprises")
+                    preparedStatement.executeUpdate()
+                }
+            }
         }
     }
 

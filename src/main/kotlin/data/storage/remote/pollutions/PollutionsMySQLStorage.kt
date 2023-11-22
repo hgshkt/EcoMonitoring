@@ -1,7 +1,6 @@
 package data.storage.remote.pollutions
 
 import data.storage.DatabaseConnectionData
-import data.storage.remote.enterprises.model.RemoteEnterprise
 import data.storage.remote.pollutions.model.RemotePollution
 import java.sql.*
 
@@ -12,7 +11,7 @@ class PollutionsMySQLStorage(
     private val tableName = "pollutions"
 
     private val getAllQuery = "SELECT * FROM $tableName"
-    private val addQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
 
     private val columnEnterpriseIdName = "enterprise_name"
     private val columnMaterialIdName = "material_name"
@@ -58,22 +57,23 @@ class PollutionsMySQLStorage(
     }
 
     override fun add(pollutions: List<RemotePollution>) {
-        val connection: Connection = DriverManager.getConnection(
+        DriverManager.getConnection(
             connectionData.url,
             connectionData.user,
             connectionData.password
-        )
+        ).use { connection ->
+            connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-        for (pollution in pollutions) {
-            val preparedStatement: PreparedStatement =
-                connection.prepareStatement(addQuery)
+                for (pollution in pollutions) {
 
-            preparedStatement.setString(1, pollution.enterpriseName)
-            preparedStatement.setString(2, pollution.materialName)
-            preparedStatement.setInt(3, pollution.year)
-            preparedStatement.setDouble(4, pollution.materialAmount)
+                    preparedStatement.setString(1, pollution.enterpriseName)
+                    preparedStatement.setString(2, pollution.materialName)
+                    preparedStatement.setInt(3, pollution.year)
+                    preparedStatement.setDouble(4, pollution.materialAmount)
 
-            preparedStatement.executeQuery(addQuery)
+                    preparedStatement.executeUpdate()
+                }
+            }
         }
     }
 }
