@@ -1,53 +1,54 @@
-package presentation.tables
+package presentation.screens.tables
 
-import data.repository.pollutions.remote.PollutionMySQLRepository
+import data.repository.enterprises.remote.EnterpriseMySQLRepository
 import data.storage.DatabaseConnectionData
-import data.storage.remote.pollutions.PollutionsMySQLStorage
-import domain.model.Pollution
-import domain.useCases.GetPollutionsFromRemoteRepositoryUseCase
+import data.storage.remote.enterprises.EnterprisesMySQLStorage
+import domain.model.Enterprise
+import domain.useCases.get.GetEnterprisesFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
-import presentation.usecases.TableUseCases
+import presentation.screens.tables.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
 import presentation.views.buttons.buttonSizeWidth
+import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import tornadofx.*
 
-class PollutionsAppTableView : AppTableView() {
+class EnterprisesAppTableView : AppTableView() {
 
+    private var useCase: GetEnterprisesFromRemoteRepositoryUseCase
     private val tableUseCases: TableUseCases = TableUseCases()
-
-    private var useCase: GetPollutionsFromRemoteRepositoryUseCase
-
-    override val root: Parent
-
-    private var observablePollutions: ObservableList<Pollution>
 
     private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
 
+    private var observableEnterprises: ObservableList<Enterprise>
+
+    override val root: Parent
+
     init {
-        useCase = GetPollutionsFromRemoteRepositoryUseCase(
-            repository = PollutionMySQLRepository(
-                storage = PollutionsMySQLStorage(
+        useCase = GetEnterprisesFromRemoteRepositoryUseCase(
+            repository = EnterpriseMySQLRepository(
+                storage = EnterprisesMySQLStorage(
                     connectionData = DatabaseConnectionData()
                 )
             )
         )
 
-        val pollutions = useCase.execute().pollutions
-        observablePollutions = pollutions.toObservable()
+        val enterprises = useCase.execute().enterprises
+        observableEnterprises = enterprises.toObservable()
 
         root = hbox {
-            tableview(observablePollutions) {
-                readonlyColumn("Enterprise name", Pollution::enterpriseName)
-                readonlyColumn("Material name", Pollution::materialName)
-                readonlyColumn("Year", Pollution::year)
-                readonlyColumn("MaterialAmount", Pollution::materialAmount)
+            tableview(observableEnterprises) {
+                readonlyColumn("Id", Enterprise::id)
+                readonlyColumn("Name", Enterprise::name)
+                readonlyColumn("Activity", Enterprise::activity)
+                readonlyColumn("Belonging", Enterprise::belonging)
+                readonlyColumn("Location", Enterprise::location)
             }
 
             vbox {
-                prefWidth = buttonSizeWidth
+
                 button("enterprises") {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
@@ -93,14 +94,20 @@ class PollutionsAppTableView : AppTableView() {
                         update()
                     }
                 }
+
+                button("Add enterprise") {
+                    action {
+                        find<CreateEnterpriseScreen>().openWindow()
+                    }
+                }
             }
         }
     }
 
     private fun update() {
-        observablePollutions.clear()
-        val newData =  tableUseCases.getPollutionsFromRemoteRepositoryUseCase
-            .execute().pollutions
-        observablePollutions.addAll(newData)
+        observableEnterprises.clear()
+        val newData =  tableUseCases.getEnterprisesFromRemoteRepositoryUseCase
+            .execute().enterprises
+        observableEnterprises.addAll(newData)
     }
 }

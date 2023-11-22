@@ -1,4 +1,4 @@
-package domain.useCases
+package domain.useCases.loadFromExcel
 
 import domain.data.mappers.toRemote
 import domain.data.repository.enterprise.excel.ExcelEnterpriseRepository

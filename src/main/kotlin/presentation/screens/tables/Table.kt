@@ -1,4 +1,4 @@
-package presentation.tables
+package presentation.screens.tables
 
 import tornadofx.View
 

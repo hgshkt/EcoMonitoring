@@ -1,4 +1,4 @@
-package presentation.usecases
+package presentation.screens.tables.usecases
 
 import data.repository.enterprises.excel.ExcelEnterpriseRepositoryImpl
 import data.repository.enterprises.remote.EnterpriseMySQLRepository
@@ -13,7 +13,12 @@ import data.storage.excel.pollutions.PollutionsExcelStorageImpl
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
-import domain.useCases.*
+import domain.useCases.get.GetEnterprisesFromRemoteRepositoryUseCase
+import domain.useCases.get.GetMaterialsFromRemoteRepositoryUseCase
+import domain.useCases.get.GetPollutionsFromRemoteRepositoryUseCase
+import domain.useCases.loadFromExcel.LoadEnterprisesFromExcelUseCase
+import domain.useCases.loadFromExcel.LoadMaterialsFromExcelUseCase
+import domain.useCases.loadFromExcel.LoadPollutionsFromExcelUseCase
 
 data class TableUseCases(
     val loadEnterprisesFromExcelUseCase: LoadEnterprisesFromExcelUseCase = LoadEnterprisesFromExcelUseCase(
@@ -69,5 +74,5 @@ data class TableUseCases(
                 connectionData = DatabaseConnectionData()
             )
         )
-    ),
+    )
 )

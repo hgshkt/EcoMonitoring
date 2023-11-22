@@ -1,4 +1,4 @@
-package domain.useCases
+package domain.useCases.get
 
 import domain.data.repository.enterprise.remote.EnterprisesRemoteRepository
 import domain.model.data.remote.RemoteEnterpriseData

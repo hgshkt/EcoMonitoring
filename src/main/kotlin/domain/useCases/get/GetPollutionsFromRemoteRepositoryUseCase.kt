@@ -1,4 +1,4 @@
-package domain.useCases
+package domain.useCases.get
 
 import domain.data.repository.pollution.remote.PollutionsRemoteRepository
 import domain.model.data.remote.RemotePollutionData

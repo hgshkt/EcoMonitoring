@@ -4,6 +4,7 @@ import data.mappers.domain.enterprise.toRemote
 import data.mappers.remote.enterprise.toDomain
 import data.storage.remote.enterprises.EnterpriseRemoteStorage
 import domain.data.repository.enterprise.remote.EnterprisesRemoteRepository
+import domain.model.Enterprise
 import domain.model.data.remote.RemoteEnterpriseData
 
 class EnterpriseMySQLRepository(
@@ -17,5 +18,10 @@ class EnterpriseMySQLRepository(
     override fun addData(data: RemoteEnterpriseData) {
         val enterprises = data.enterprises.map { it.toRemote() }
         storage.add(enterprises)
+    }
+
+    override fun add(enterprise: Enterprise) {
+        val list = listOf(enterprise.toRemote())
+        storage.add(list)
     }
 }

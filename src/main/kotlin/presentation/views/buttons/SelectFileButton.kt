@@ -3,8 +3,8 @@ package presentation.views.buttons
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Button
 import javafx.stage.FileChooser
-import presentation.tables.TableType
-import presentation.usecases.TableUseCases
+import presentation.screens.tables.TableType
+import presentation.screens.tables.usecases.TableUseCases
 import tornadofx.*
 
 class SelectFileButton(

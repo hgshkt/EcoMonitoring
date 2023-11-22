@@ -4,6 +4,7 @@ import data.mappers.domain.pollution.toRemote
 import data.mappers.remote.pollution.toDomain
 import data.storage.remote.pollutions.PollutionsRemoteStorage
 import domain.data.repository.pollution.remote.PollutionsRemoteRepository
+import domain.model.Pollution
 import domain.model.data.remote.RemotePollutionData
 
 class PollutionMySQLRepository(
@@ -21,5 +22,10 @@ class PollutionMySQLRepository(
             it.toRemote()
         }
         storage.add(pollutions)
+    }
+
+    override fun add(pollution: Pollution) {
+        val list = listOf(pollution.toRemote())
+        storage.add(list)
     }
 }

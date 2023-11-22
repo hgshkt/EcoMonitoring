@@ -1,4 +1,4 @@
-package domain.useCases
+package domain.useCases.get
 
 import domain.data.repository.material.remote.MaterialsRemoteRepository
 import domain.model.data.remote.RemoteMaterialData
