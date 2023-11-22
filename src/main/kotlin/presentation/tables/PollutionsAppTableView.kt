@@ -6,14 +6,13 @@ import data.storage.remote.pollutions.PollutionsMySQLStorage
 import domain.model.Pollution
 import domain.useCases.GetPollutionsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
+import javafx.collections.ObservableList
 import javafx.scene.Parent
-import javafx.stage.FileChooser
 import presentation.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
 import presentation.views.buttons.buttonSizeWidth
 import tornadofx.*
-import tornadofx.vbox
 
 class PollutionsAppTableView : AppTableView() {
 
@@ -22,6 +21,8 @@ class PollutionsAppTableView : AppTableView() {
     private var useCase: GetPollutionsFromRemoteRepositoryUseCase
 
     override val root: Parent
+
+    private var observablePollutions: ObservableList<Pollution>
 
     private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
 
@@ -35,9 +36,10 @@ class PollutionsAppTableView : AppTableView() {
         )
 
         val pollutions = useCase.execute().pollutions
+        observablePollutions = pollutions.toObservable()
 
         root = hbox {
-            tableview(pollutions.asObservable()) {
+            tableview(observablePollutions) {
                 readonlyColumn("Enterprise name", Pollution::enterpriseName)
                 readonlyColumn("Material name", Pollution::materialName)
                 readonlyColumn("Year", Pollution::year)
@@ -85,7 +87,20 @@ class PollutionsAppTableView : AppTableView() {
                         tableUseCases = tableUseCases
                     )
                 )
+
+                button("Update"){
+                    action {
+                        update()
+                    }
+                }
             }
         }
+    }
+
+    private fun update() {
+        observablePollutions.clear()
+        val newData =  tableUseCases.getPollutionsFromRemoteRepositoryUseCase
+            .execute().pollutions
+        observablePollutions.addAll(newData)
     }
 }

@@ -6,8 +6,8 @@ import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import domain.model.Enterprise
 import domain.useCases.GetEnterprisesFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
+import javafx.collections.ObservableList
 import javafx.scene.Parent
-import javafx.stage.FileChooser
 import presentation.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
@@ -21,6 +21,8 @@ class EnterprisesAppTableView : AppTableView() {
 
     private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
 
+    private var observableEnterprises: ObservableList<Enterprise>
+
     override val root: Parent
 
     init {
@@ -33,9 +35,10 @@ class EnterprisesAppTableView : AppTableView() {
         )
 
         val enterprises = useCase.execute().enterprises
+        observableEnterprises = enterprises.toObservable()
 
         root = hbox {
-            tableview(enterprises.asObservable()) {
+            tableview(observableEnterprises) {
                 readonlyColumn("Id", Enterprise::id)
                 readonlyColumn("Name", Enterprise::name)
                 readonlyColumn("Activity", Enterprise::activity)
@@ -84,7 +87,20 @@ class EnterprisesAppTableView : AppTableView() {
                         tableUseCases = tableUseCases
                     )
                 )
+
+                button("Update"){
+                    action {
+                        update()
+                    }
+                }
             }
         }
+    }
+
+    private fun update() {
+        observableEnterprises.clear()
+        val newData =  tableUseCases.getEnterprisesFromRemoteRepositoryUseCase
+            .execute().enterprises
+        observableEnterprises.addAll(newData)
     }
 }

@@ -6,8 +6,8 @@ import data.storage.remote.materials.MaterialMySQLStorage
 import domain.model.Material
 import domain.useCases.GetMaterialsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
+import javafx.collections.ObservableList
 import javafx.scene.Parent
-import javafx.stage.FileChooser
 import presentation.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
@@ -22,6 +22,8 @@ class MaterialsAppTableView : AppTableView() {
 
     override val root: Parent
 
+    private var observableMaterials: ObservableList<Material>
+
     private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
 
     init {
@@ -34,9 +36,10 @@ class MaterialsAppTableView : AppTableView() {
         )
 
         val materials = useCase.execute().materials
+        observableMaterials = materials.toObservable()
 
         root = hbox {
-            tableview(materials.asObservable()) {
+            tableview(observableMaterials) {
                 readonlyColumn("Id", Material::id)
                 readonlyColumn("Enterprise Id", Material::name)
                 readonlyColumn("Material Id", Material::gdk)
@@ -85,7 +88,20 @@ class MaterialsAppTableView : AppTableView() {
                         tableUseCases = tableUseCases
                     )
                 )
+
+                button("Update"){
+                    action {
+                        update()
+                    }
+                }
             }
         }
+    }
+
+    private fun update() {
+        observableMaterials.clear()
+        val newData =  tableUseCases.getMaterialsFromRemoteRepositoryUseCase
+            .execute().materials
+        observableMaterials.addAll(newData)
     }
 }

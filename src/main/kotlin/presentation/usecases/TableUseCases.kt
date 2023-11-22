@@ -13,9 +13,7 @@ import data.storage.excel.pollutions.PollutionsExcelStorageImpl
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
-import domain.useCases.LoadEnterprisesFromExcelUseCase
-import domain.useCases.LoadMaterialsFromExcelUseCase
-import domain.useCases.LoadPollutionsFromExcelUseCase
+import domain.useCases.*
 
 data class TableUseCases(
     val loadEnterprisesFromExcelUseCase: LoadEnterprisesFromExcelUseCase = LoadEnterprisesFromExcelUseCase(
@@ -47,5 +45,29 @@ data class TableUseCases(
         excelRepository = ExcelPollutionRepositoryImpl(
             storage = PollutionsExcelStorageImpl()
         )
-    )
+    ),
+    val getEnterprisesFromRemoteRepositoryUseCase: GetEnterprisesFromRemoteRepositoryUseCase
+    = GetEnterprisesFromRemoteRepositoryUseCase(
+        repository = EnterpriseMySQLRepository(
+            storage = EnterprisesMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        )
+    ),
+    val getMaterialsFromRemoteRepositoryUseCase: GetMaterialsFromRemoteRepositoryUseCase
+    = GetMaterialsFromRemoteRepositoryUseCase(
+        repository = MaterialMySQLRepository(
+            storage = MaterialMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        )
+    ),
+    val getPollutionsFromRemoteRepositoryUseCase: GetPollutionsFromRemoteRepositoryUseCase
+    = GetPollutionsFromRemoteRepositoryUseCase(
+        repository = PollutionMySQLRepository(
+            storage = PollutionsMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        )
+    ),
 )
