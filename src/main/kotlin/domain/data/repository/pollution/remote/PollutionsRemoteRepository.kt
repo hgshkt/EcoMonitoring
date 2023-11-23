@@ -10,4 +10,6 @@ interface PollutionsRemoteRepository {
     fun add(pollution: Pollution)
 
     fun delete(pollution: Pollution)
+
+    fun deleteAll()
 }

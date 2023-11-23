@@ -28,4 +28,8 @@ class MaterialMySQLRepository(
     override fun deleteById(id: Int) {
         storage.deleteById(id)
     }
+
+    override fun deleteAll() {
+        storage.deleteAll()
+    }
 }

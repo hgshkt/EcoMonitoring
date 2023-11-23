@@ -12,4 +12,6 @@ interface EnterpriseRemoteStorage {
     fun getByName(name: String): RemoteEnterprise?
 
     fun deleteById(id: Int)
+
+    fun deleteAll()
 }

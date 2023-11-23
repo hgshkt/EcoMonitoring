@@ -3,6 +3,7 @@ package presentation.screens.tables.usecases
 import data.repository.pollutions.remote.PollutionMySQLRepository
 import data.storage.DatabaseConnectionData
 import data.storage.remote.pollutions.PollutionsMySQLStorage
+import domain.useCases.delete.DeleteAllPollutionUseCase
 import domain.useCases.delete.DeletePollutionUseCase
 import domain.useCases.get.GetPollutionsFromRemoteRepositoryUseCase
 
@@ -16,6 +17,13 @@ data class PollutionTableViewUseCases(
         )
     ),
     val delete: DeletePollutionUseCase = DeletePollutionUseCase(
+        repository = PollutionMySQLRepository(
+            storage = PollutionsMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        )
+    ),
+    val deleteAll: DeleteAllPollutionUseCase = DeleteAllPollutionUseCase(
         repository = PollutionMySQLRepository(
             storage = PollutionsMySQLStorage(
                 connectionData = DatabaseConnectionData()

@@ -18,7 +18,9 @@ class PollutionsMySQLStorage(
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
-    private val deleteQuery = "DELETE FROM $tableName WHERE $columnAmountName = ? AND $columnMaterialName = ? AND $columnYearName = ? AND $columnAmountName = ?"
+    private val deleteQuery = "DELETE FROM $tableName WHERE $columnAmountName = ? AND " +
+            "$columnMaterialName = ? AND $columnYearName = ? AND $columnAmountName = ?"
+    private val deleteAllQuery = "DELETE FROM $tableName"
 
     override fun getAll(): List<RemotePollution> {
         val pollutions = mutableListOf<RemotePollution>()
@@ -93,6 +95,18 @@ class PollutionsMySQLStorage(
                 prepareStatement.setDouble(4, pollution.materialAmount)
 
                 prepareStatement.executeUpdate()
+            }
+        }
+    }
+
+    override fun deleteAll() {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).use { connectoin ->
+            connectoin.createStatement().use { statement ->
+                statement.executeUpdate(deleteAllQuery)
             }
         }
     }

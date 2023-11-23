@@ -28,4 +28,8 @@ class EnterpriseMySQLRepository(
     override fun deleteById(id: Int) {
         storage.deleteById(id)
     }
+
+    override fun deleteAll() {
+        storage.deleteAll()
+    }
 }

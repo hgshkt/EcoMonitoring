@@ -12,4 +12,6 @@ interface MaterialRemoteStorage {
     fun getByName(name: String): RemoteMaterial?
 
     fun deleteById(id: Int)
+
+    fun deleteAll()
 }

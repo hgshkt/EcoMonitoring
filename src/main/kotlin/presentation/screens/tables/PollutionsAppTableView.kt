@@ -111,6 +111,12 @@ class PollutionsAppTableView : AppTableView() {
                         find<CreatePollutionScreen>().openWindow()
                     }
                 }
+
+                button("Remove all pollutions") {
+                    action {
+                        useCases.deleteAll.execute()
+                    }
+                }
             }
         }
     }

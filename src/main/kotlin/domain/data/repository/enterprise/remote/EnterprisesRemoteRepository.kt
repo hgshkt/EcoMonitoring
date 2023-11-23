@@ -7,6 +7,10 @@ interface EnterprisesRemoteRepository {
     fun getData(): RemoteEnterpriseData
 
     fun addData(data: RemoteEnterpriseData)
+
     fun add(enterprise: Enterprise)
+
     fun deleteById(id: Int)
+
+    fun deleteAll()
 }

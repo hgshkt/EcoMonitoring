@@ -21,6 +21,7 @@ class EnterprisesMySQLStorage(
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
     private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
+    private val deleteAllQuery = "DELETE FROM $tableName"
 
     override fun getAll(): List<RemoteEnterprise> {
         val enterprises = mutableListOf<RemoteEnterprise>()
@@ -149,6 +150,18 @@ class EnterprisesMySQLStorage(
             connection.prepareStatement(deleteQuery).use { prepareStatement ->
                 prepareStatement.setString(1, id.toString())
                 prepareStatement.executeUpdate()
+            }
+        }
+    }
+
+    override fun deleteAll() {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).use { connectoin ->
+            connectoin.createStatement().use { statement ->
+                statement.executeUpdate(deleteAllQuery)
             }
         }
     }

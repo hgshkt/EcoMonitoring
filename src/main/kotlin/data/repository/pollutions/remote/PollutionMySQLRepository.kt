@@ -32,4 +32,8 @@ class PollutionMySQLRepository(
     override fun delete(pollution: Pollution) {
         storage.delete(pollution)
     }
+
+    override fun deleteAll() {
+        storage.deleteAll()
+    }
 }

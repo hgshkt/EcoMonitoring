@@ -105,6 +105,12 @@ class MaterialsAppTableView : AppTableView() {
                         find<CreateMaterialScreen>().openWindow()
                     }
                 }
+
+                button("Remove all materials") {
+                    action {
+                        useCases.deleteAll.execute()
+                    }
+                }
             }
         }
     }

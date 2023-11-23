@@ -103,6 +103,12 @@ class EnterprisesAppTableView : AppTableView() {
                         find<CreateEnterpriseScreen>().openWindow()
                     }
                 }
+
+                button("Remove all enterprises") {
+                    action {
+                        useCases.deleteAll.execute()
+                    }
+                }
             }
         }
     }
