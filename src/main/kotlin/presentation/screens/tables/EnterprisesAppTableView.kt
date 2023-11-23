@@ -45,6 +45,7 @@ class EnterprisesAppTableView : AppTableView() {
                         button("Delete") {
                             action {
                                 useCases.delete.execute(id)
+                                update()
                             }
                         }
                     }
@@ -80,7 +81,7 @@ class EnterprisesAppTableView : AppTableView() {
                 }
 
                 region {
-                    prefHeight  = 30.0
+                    prefHeight = 30.0
                 }
 
                 text("Fill data from file")
@@ -100,17 +101,18 @@ class EnterprisesAppTableView : AppTableView() {
                 add(
                     child = SelectFileButton(
                         selectedTableType = selectedTableType,
-                        tableUseCases = tableUseCases
+                        tableUseCases = tableUseCases,
+                        action = { update() }
                     )
                 )
 
                 region {
-                    prefHeight  = 30.0
+                    prefHeight = 30.0
                 }
 
                 text("Other functions")
 
-                button("Update"){
+                button("Update") {
                     action {
                         update()
                     }
@@ -119,12 +121,14 @@ class EnterprisesAppTableView : AppTableView() {
                 button("Add enterprise") {
                     action {
                         find<CreateEnterpriseScreen>().openWindow()
+                        update()
                     }
                 }
 
                 button("Remove all enterprises") {
                     action {
                         useCases.deleteAll.execute()
+                        update()
                     }
                 }
             }
@@ -133,7 +137,7 @@ class EnterprisesAppTableView : AppTableView() {
 
     private fun update() {
         observableEnterprises.clear()
-        val newData =  tableUseCases.getEnterprisesFromRemoteRepositoryUseCase
+        val newData = tableUseCases.getEnterprisesFromRemoteRepositoryUseCase
             .execute().enterprises
         observableEnterprises.addAll(newData)
     }

@@ -58,6 +58,7 @@ class PollutionsAppTableView : AppTableView() {
                                     materialAmount = rowItem.materialAmount
                                 )
                                 useCases.delete.execute(pollution)
+                                update()
                             }
                         }
                     }
@@ -114,7 +115,8 @@ class PollutionsAppTableView : AppTableView() {
                 add(
                     child = SelectFileButton(
                         selectedTableType = selectedTableType,
-                        tableUseCases = tableUseCases
+                        tableUseCases = tableUseCases,
+                        action = { update() }
                     )
                 )
 
@@ -133,12 +135,14 @@ class PollutionsAppTableView : AppTableView() {
                 button("Add pollutions") {
                     action {
                         find<CreatePollutionScreen>().openWindow()
+                        update()
                     }
                 }
 
                 button("Remove all pollutions") {
                     action {
                         useCases.deleteAll.execute()
+                        update()
                     }
                 }
             }

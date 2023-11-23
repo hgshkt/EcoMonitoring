@@ -9,7 +9,8 @@ import tornadofx.*
 
 class SelectFileButton(
     private var selectedTableType: SimpleStringProperty,
-    private val tableUseCases: TableUseCases
+    private val tableUseCases: TableUseCases,
+    private val action: () -> Unit
 ) : Button() {
 
     private val _text = "Select File"
@@ -39,6 +40,7 @@ class SelectFileButton(
                         tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
                     }
                 }
+                action.invoke()
             }
         }
     }

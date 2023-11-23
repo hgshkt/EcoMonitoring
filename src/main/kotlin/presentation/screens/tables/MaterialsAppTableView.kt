@@ -51,6 +51,7 @@ class MaterialsAppTableView : AppTableView() {
                         button("Delete") {
                             action {
                                 useCases.delete.execute(id)
+                                update()
                             }
                         }
                     }
@@ -107,7 +108,8 @@ class MaterialsAppTableView : AppTableView() {
                 add(
                     child = SelectFileButton(
                         selectedTableType = selectedTableType,
-                        tableUseCases = tableUseCases
+                        tableUseCases = tableUseCases,
+                        action = { update() }
                     )
                 )
 
@@ -125,12 +127,14 @@ class MaterialsAppTableView : AppTableView() {
                 button("Add materials") {
                     action {
                         find<CreateMaterialScreen>().openWindow()
+                        update()
                     }
                 }
 
                 button("Remove all materials") {
                     action {
                         useCases.deleteAll.execute()
+                        update()
                     }
                 }
             }
