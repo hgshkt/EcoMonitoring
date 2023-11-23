@@ -9,6 +9,8 @@ import domain.useCases.get.GetPollutionsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
 import presentation.screens.creating.createMaterial.CreateMaterialScreen
 import presentation.screens.creating.createPollution.CreatePollutionScreen
 import presentation.screens.tables.usecases.PollutionTableViewUseCases
@@ -39,7 +41,7 @@ class PollutionsAppTableView : AppTableView() {
         title = _title
 
         root = hbox {
-            tableview(observablePollutions) {
+            val table = tableview(observablePollutions) {
                 readonlyColumn("Enterprise name", Pollution::enterpriseName)
                 readonlyColumn("Material name", Pollution::materialName)
                 readonlyColumn("Year", Pollution::year)
@@ -61,6 +63,8 @@ class PollutionsAppTableView : AppTableView() {
                     }
                 }
             }
+
+            HBox.setHgrow(table, Priority.ALWAYS)
 
             vbox {
                 prefWidth = buttonSizeWidth

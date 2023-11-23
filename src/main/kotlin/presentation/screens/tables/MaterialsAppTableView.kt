@@ -9,6 +9,8 @@ import domain.useCases.get.GetMaterialsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.creating.createMaterial.CreateMaterialScreen
 import presentation.screens.tables.usecases.MaterialTableViewUseCases
@@ -38,7 +40,7 @@ class MaterialsAppTableView : AppTableView() {
         title = _title
 
         root = hbox {
-            tableview(observableMaterials) {
+            val table = tableview(observableMaterials) {
                 readonlyColumn("Id", Material::id)
                 readonlyColumn("Enterprise Id", Material::name)
                 readonlyColumn("Material Id", Material::gdk)
@@ -54,6 +56,8 @@ class MaterialsAppTableView : AppTableView() {
                     }
                 }
             }
+
+            HBox.setHgrow(table, Priority.ALWAYS)
 
             vbox {
                 prefWidth = buttonSizeWidth

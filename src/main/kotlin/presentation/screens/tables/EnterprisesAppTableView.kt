@@ -4,6 +4,8 @@ import domain.model.Enterprise
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.tables.usecases.EnterpriseTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
@@ -31,7 +33,7 @@ class EnterprisesAppTableView : AppTableView() {
         title = _title
 
         root = hbox {
-            tableview(observableEnterprises) {
+            val table = tableview(observableEnterprises) {
                 readonlyColumn("Id", Enterprise::id)
                 readonlyColumn("Name", Enterprise::name)
                 readonlyColumn("Activity", Enterprise::activity)
@@ -48,6 +50,8 @@ class EnterprisesAppTableView : AppTableView() {
                     }
                 }
             }
+
+            HBox.setHgrow(table, Priority.ALWAYS)
 
             vbox {
 
