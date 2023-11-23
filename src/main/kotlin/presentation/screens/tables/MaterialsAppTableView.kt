@@ -62,6 +62,8 @@ class MaterialsAppTableView : AppTableView() {
             vbox {
                 prefWidth = buttonSizeWidth
 
+                text("Tables:")
+
                 button("enterprises") {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
@@ -83,6 +85,13 @@ class MaterialsAppTableView : AppTableView() {
                         replaceWith(PollutionsAppTableView::class)
                     }
                 }
+
+                region {
+                    prefHeight = 30.0
+                }
+
+                text("Fill data from file")
+
                 combobox(
                     values = listOf(
                         TableType.MATERIALS.tableName,
@@ -102,7 +111,13 @@ class MaterialsAppTableView : AppTableView() {
                     )
                 )
 
-                button("Update"){
+                region {
+                    prefHeight = 30.0
+                }
+
+                text("Other functions")
+
+                button("Update") {
                     action {
                         update()
                     }
@@ -124,7 +139,7 @@ class MaterialsAppTableView : AppTableView() {
 
     private fun update() {
         observableMaterials.clear()
-        val newData =  tableUseCases.getMaterialsFromRemoteRepositoryUseCase
+        val newData = tableUseCases.getMaterialsFromRemoteRepositoryUseCase
             .execute().materials
         observableMaterials.addAll(newData)
     }

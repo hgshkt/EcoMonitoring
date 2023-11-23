@@ -68,6 +68,9 @@ class PollutionsAppTableView : AppTableView() {
 
             vbox {
                 prefWidth = buttonSizeWidth
+
+                text("Tables:")
+
                 button("enterprises") {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
@@ -89,6 +92,13 @@ class PollutionsAppTableView : AppTableView() {
                         replaceWith(PollutionsAppTableView::class)
                     }
                 }
+
+                region {
+                    prefHeight  = 30.0
+                }
+
+                text("Fill data from file")
+
                 combobox(
                     values = listOf(
                         TableType.MATERIALS.tableName,
@@ -107,6 +117,12 @@ class PollutionsAppTableView : AppTableView() {
                         tableUseCases = tableUseCases
                     )
                 )
+
+                region {
+                    prefHeight  = 30.0
+                }
+
+                text("Other functions")
 
                 button("Update"){
                     action {
