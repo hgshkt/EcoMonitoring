@@ -28,4 +28,8 @@ class PollutionMySQLRepository(
         val list = listOf(pollution.toRemote())
         storage.add(list)
     }
+
+    override fun delete(pollution: Pollution) {
+        storage.delete(pollution)
+    }
 }

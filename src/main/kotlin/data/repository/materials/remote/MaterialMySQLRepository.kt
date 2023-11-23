@@ -24,4 +24,8 @@ class MaterialMySQLRepository(
         val list = listOf(material.toRemote())
         storage.add(list)
     }
+
+    override fun deleteById(id: Int) {
+        storage.deleteById(id)
+    }
 }

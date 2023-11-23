@@ -20,6 +20,7 @@ class MaterialMySQLStorage(
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
     private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
+    private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
 
 
     override fun getAll(): List<RemoteMaterial> {
@@ -137,6 +138,19 @@ class MaterialMySQLStorage(
             e.printStackTrace()
         }
         return null
+    }
+
+    override fun deleteById(id: Int) {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).use { connection ->
+            connection.prepareStatement(deleteQuery).use { prepareStatement ->
+                prepareStatement.setString(1, id.toString())
+                prepareStatement.executeUpdate()
+            }
+        }
     }
 
     private fun getMaterialFromResultSet(

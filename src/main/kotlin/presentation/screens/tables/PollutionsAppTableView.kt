@@ -11,6 +11,7 @@ import javafx.collections.ObservableList
 import javafx.scene.Parent
 import presentation.screens.creating.createMaterial.CreateMaterialScreen
 import presentation.screens.creating.createPollution.CreatePollutionScreen
+import presentation.screens.tables.usecases.PollutionTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
@@ -21,7 +22,7 @@ class PollutionsAppTableView : AppTableView() {
 
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var useCase: GetPollutionsFromRemoteRepositoryUseCase
+    private var useCases: PollutionTableViewUseCases = PollutionTableViewUseCases()
 
     override val root: Parent
 
@@ -30,15 +31,7 @@ class PollutionsAppTableView : AppTableView() {
     private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
 
     init {
-        useCase = GetPollutionsFromRemoteRepositoryUseCase(
-            repository = PollutionMySQLRepository(
-                storage = PollutionsMySQLStorage(
-                    connectionData = DatabaseConnectionData()
-                )
-            )
-        )
-
-        val pollutions = useCase.execute().pollutions
+        val pollutions = useCases.getPollutionsFromRemoteRepositoryUseCase.execute().pollutions
         observablePollutions = pollutions.toObservable()
 
         root = hbox {

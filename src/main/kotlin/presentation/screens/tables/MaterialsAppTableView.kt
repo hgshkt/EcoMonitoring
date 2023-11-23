@@ -11,6 +11,7 @@ import javafx.collections.ObservableList
 import javafx.scene.Parent
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.creating.createMaterial.CreateMaterialScreen
+import presentation.screens.tables.usecases.MaterialTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
@@ -21,7 +22,7 @@ class MaterialsAppTableView : AppTableView() {
 
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var useCase: GetMaterialsFromRemoteRepositoryUseCase
+    private var useCases: MaterialTableViewUseCases = MaterialTableViewUseCases()
 
     override val root: Parent
 
@@ -30,15 +31,7 @@ class MaterialsAppTableView : AppTableView() {
     private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
 
     init {
-        useCase = GetMaterialsFromRemoteRepositoryUseCase(
-            repository = MaterialMySQLRepository(
-                storage = MaterialMySQLStorage(
-                    connectionData = DatabaseConnectionData()
-                )
-            )
-        )
-
-        val materials = useCase.execute().materials
+        val materials = useCases.getMaterialsFromRemoteRepositoryUseCase.execute().materials
         observableMaterials = materials.toObservable()
 
         root = hbox {

@@ -2,6 +2,7 @@ package data.storage.remote.pollutions
 
 import data.storage.DatabaseConnectionData
 import data.storage.remote.pollutions.model.RemotePollution
+import domain.model.Pollution
 import java.sql.*
 
 class PollutionsMySQLStorage(
@@ -10,13 +11,14 @@ class PollutionsMySQLStorage(
 
     private val tableName = "pollutions"
 
-    private val getAllQuery = "SELECT * FROM $tableName"
-    private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
-
-    private val columnEnterpriseIdName = "enterprise_name"
-    private val columnMaterialIdName = "material_name"
+    private val columnEnterpriseName = "enterprise_name"
+    private val columnMaterialName = "material_name"
     private val columnYearName = "year"
     private val columnAmountName = "material_amount"
+
+    private val getAllQuery = "SELECT * FROM $tableName"
+    private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
+    private val deleteQuery = "DELETE FROM $tableName WHERE $columnAmountName = ? AND $columnMaterialName = ? AND $columnYearName = ? AND $columnAmountName = ?"
 
     override fun getAll(): List<RemotePollution> {
         val pollutions = mutableListOf<RemotePollution>()
@@ -32,8 +34,8 @@ class PollutionsMySQLStorage(
             val resultSet: ResultSet = statement.executeQuery(getAllQuery)
 
             while (resultSet.next()) {
-                val enterpriseName = resultSet.getString(columnEnterpriseIdName)
-                val materialName = resultSet.getString(columnMaterialIdName)
+                val enterpriseName = resultSet.getString(columnEnterpriseName)
+                val materialName = resultSet.getString(columnMaterialName)
                 val year = resultSet.getInt(columnYearName)
                 val materialAmount = resultSet.getDouble(columnAmountName)
 
@@ -73,6 +75,24 @@ class PollutionsMySQLStorage(
 
                     preparedStatement.executeUpdate()
                 }
+            }
+        }
+    }
+
+    override fun delete(pollution: Pollution) {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).use { connection ->
+            connection.prepareStatement(deleteQuery).use { prepareStatement ->
+
+                prepareStatement.setString(1, pollution.enterpriseName)
+                prepareStatement.setString(2, pollution.materialName)
+                prepareStatement.setInt(3, pollution.year)
+                prepareStatement.setDouble(4, pollution.materialAmount)
+
+                prepareStatement.executeUpdate()
             }
         }
     }

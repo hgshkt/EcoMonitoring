@@ -24,4 +24,8 @@ class EnterpriseMySQLRepository(
         val list = listOf(enterprise.toRemote())
         storage.add(list)
     }
+
+    override fun deleteById(id: Int) {
+        storage.deleteById(id)
+    }
 }

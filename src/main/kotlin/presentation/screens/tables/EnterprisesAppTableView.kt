@@ -8,18 +8,17 @@ import domain.useCases.get.GetEnterprisesFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
+import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
+import presentation.screens.tables.usecases.EnterpriseTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
 import presentation.views.buttons.buttonSizeWidth
-import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
-import presentation.views.buttons.delete.DeleteEnterpriseButtonCell
 import tornadofx.*
-import tornadofx.WizardStyles.Companion.graphic
 
 class EnterprisesAppTableView : AppTableView() {
 
-    private var useCase: GetEnterprisesFromRemoteRepositoryUseCase
+    private var useCases: EnterpriseTableViewUseCases = EnterpriseTableViewUseCases()
     private val tableUseCases: TableUseCases = TableUseCases()
 
     private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
@@ -29,15 +28,7 @@ class EnterprisesAppTableView : AppTableView() {
     override val root: Parent
 
     init {
-        useCase = GetEnterprisesFromRemoteRepositoryUseCase(
-            repository = EnterpriseMySQLRepository(
-                storage = EnterprisesMySQLStorage(
-                    connectionData = DatabaseConnectionData()
-                )
-            )
-        )
-
-        val enterprises = useCase.execute().enterprises
+        val enterprises = useCases.getEnterprisesFromRemoteRepositoryUseCase.execute().enterprises
         observableEnterprises = enterprises.toObservable()
 
         root = hbox {
