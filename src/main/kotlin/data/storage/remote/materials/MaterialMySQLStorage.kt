@@ -158,8 +158,8 @@ class MaterialMySQLStorage(
             connectionData.url,
             connectionData.user,
             connectionData.password
-        ).use { connectoin ->
-            connectoin.createStatement().use { statement ->
+        ).use { connection ->
+            connection.createStatement().use { statement ->
                 statement.executeUpdate(deleteAllQuery)
             }
         }

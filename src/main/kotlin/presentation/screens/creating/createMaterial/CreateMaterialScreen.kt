@@ -7,6 +7,8 @@ import tornadofx.*
 
 class CreateMaterialScreen: View() {
 
+    private val _title = "Create Material"
+
     private val idInputProperty = SimpleStringProperty()
     private val nameInputProperty = SimpleStringProperty()
     private val gdkInputProperty = SimpleStringProperty()
@@ -39,5 +41,9 @@ class CreateMaterialScreen: View() {
                 close()
             }
         }
+    }
+
+    init {
+        title = _title
     }
 }

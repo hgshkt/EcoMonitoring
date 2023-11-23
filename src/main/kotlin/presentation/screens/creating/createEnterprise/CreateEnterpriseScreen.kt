@@ -7,6 +7,8 @@ import tornadofx.*
 
 class CreateEnterpriseScreen: View() {
 
+    private val _title = "Create Enterprise"
+
     private val idInputProperty = SimpleStringProperty()
     private val nameInputProperty = SimpleStringProperty()
     private val activityInputProperty = SimpleStringProperty()
@@ -44,5 +46,9 @@ class CreateEnterpriseScreen: View() {
                 close()
             }
         }
+    }
+
+    init {
+        title = _title
     }
 }

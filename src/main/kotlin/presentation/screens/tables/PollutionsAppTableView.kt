@@ -20,6 +20,8 @@ import tornadofx.*
 
 class PollutionsAppTableView : AppTableView() {
 
+    private val _title = "Pollutions"
+
     private val tableUseCases: TableUseCases = TableUseCases()
 
     private var useCases: PollutionTableViewUseCases = PollutionTableViewUseCases()
@@ -33,6 +35,8 @@ class PollutionsAppTableView : AppTableView() {
     init {
         val pollutions = useCases.getPollutionsFromRemoteRepositoryUseCase.execute().pollutions
         observablePollutions = pollutions.toObservable()
+
+        title = _title
 
         root = hbox {
             tableview(observablePollutions) {

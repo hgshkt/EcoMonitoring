@@ -6,6 +6,8 @@ import tornadofx.*
 
 class CreatePollutionScreen : View() {
 
+    private val _title = "Create Pollution"
+
     private val enterpriseNameInputProperty = SimpleStringProperty()
     private val materialNameInputProperty = SimpleStringProperty()
     private val yearInputProperty = SimpleStringProperty()
@@ -64,5 +66,9 @@ class CreatePollutionScreen : View() {
                 close()
             }
         }
+    }
+
+    init {
+        title = _title
     }
 }

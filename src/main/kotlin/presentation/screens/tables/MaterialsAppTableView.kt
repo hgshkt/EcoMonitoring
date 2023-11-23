@@ -20,6 +20,7 @@ import tornadofx.*
 
 class MaterialsAppTableView : AppTableView() {
 
+    private val _title = "Materials"
     private val tableUseCases: TableUseCases = TableUseCases()
 
     private var useCases: MaterialTableViewUseCases = MaterialTableViewUseCases()
@@ -33,6 +34,8 @@ class MaterialsAppTableView : AppTableView() {
     init {
         val materials = useCases.getMaterialsFromRemoteRepositoryUseCase.execute().materials
         observableMaterials = materials.toObservable()
+
+        title = _title
 
         root = hbox {
             tableview(observableMaterials) {

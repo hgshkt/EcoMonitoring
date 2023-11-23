@@ -1,10 +1,6 @@
 package presentation.screens.tables
 
-import data.repository.enterprises.remote.EnterpriseMySQLRepository
-import data.storage.DatabaseConnectionData
-import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import domain.model.Enterprise
-import domain.useCases.get.GetEnterprisesFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
@@ -18,6 +14,7 @@ import tornadofx.*
 
 class EnterprisesAppTableView : AppTableView() {
 
+    private val _title = "Enterprises"
     private var useCases: EnterpriseTableViewUseCases = EnterpriseTableViewUseCases()
     private val tableUseCases: TableUseCases = TableUseCases()
 
@@ -30,6 +27,8 @@ class EnterprisesAppTableView : AppTableView() {
     init {
         val enterprises = useCases.getEnterprisesFromRemoteRepositoryUseCase.execute().enterprises
         observableEnterprises = enterprises.toObservable()
+
+        title = _title
 
         root = hbox {
             tableview(observableEnterprises) {
