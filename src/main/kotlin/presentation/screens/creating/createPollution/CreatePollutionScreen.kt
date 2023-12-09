@@ -2,7 +2,10 @@ package presentation.screens.creating.createPollution
 
 import domain.model.Pollution
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.ComboBox
+import javafx.scene.control.TextField
 import tornadofx.*
+import java.time.LocalDate
 
 class CreatePollutionScreen : View() {
 
@@ -49,7 +52,19 @@ class CreatePollutionScreen : View() {
         )
 
         text("year")
-        textfield(yearInputProperty)
+
+        combobox {
+            items = (1950..LocalDate.now().year).map { it.toString() }.toObservable()
+            isEditable = true
+            promptText = "year"
+
+            editor.textProperty().addListener { _, _, newValue ->
+                val filteredSuggestions = items.filter { year ->
+                    year.toString().contains(newValue, ignoreCase = true)
+                }
+                items.setAll(filteredSuggestions)
+            }
+        }
 
         text("amount")
         textfield(amountInputProperty)
