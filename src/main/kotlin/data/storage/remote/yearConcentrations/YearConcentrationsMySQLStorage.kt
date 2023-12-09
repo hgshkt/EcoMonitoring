@@ -17,7 +17,7 @@ class YearConcentrationsMySQLStorage(
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -76,8 +76,8 @@ class YearConcentrationsMySQLStorage(
                 concentration = RemoteYearConcentration(
                     id = resultSet.getInt(columnIdName),
                     materialId = resultSet.getInt(columnMaterialIdName),
-                    value = resultSet.getDouble(columnValueName),
-                    year = resultSet.getInt(columnYearName)
+                    year = resultSet.getInt(columnYearName),
+                    value = resultSet.getDouble(columnValueName)
                 )
             }
 

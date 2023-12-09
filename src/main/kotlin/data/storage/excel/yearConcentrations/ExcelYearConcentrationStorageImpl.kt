@@ -1,6 +1,5 @@
 package data.storage.excel.yearConcentrations
 
-import data.storage.excel.materials.model.ExcelMaterial
 import data.storage.excel.yearConcentrations.excel.ExcelYearConcentration
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
@@ -20,8 +19,8 @@ class ExcelYearConcentrationStorageImpl: ExcelYearConcentrationStorage {
                     element = ExcelYearConcentration(
                         id = row.getCell(0).numericCellValue.toInt(),
                         materialId = row.getCell(1).numericCellValue.toInt(),
-                        value = row.getCell(2).numericCellValue,
-                        year = row.getCell(3).numericCellValue.toInt()
+                        year = row.getCell(2).numericCellValue.toInt(),
+                        value = row.getCell(3).numericCellValue
                     )
                 )
             }

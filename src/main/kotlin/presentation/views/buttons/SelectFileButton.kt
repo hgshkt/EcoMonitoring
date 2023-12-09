@@ -39,6 +39,9 @@ class SelectFileButton(
                     TableType.POLLUTION.tableName -> {
                         tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
                     }
+                    TableType.YEAR_CONCENTRATIONS.tableName -> {
+                        tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
+                    }
                 }
                 action.invoke()
             }
