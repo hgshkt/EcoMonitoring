@@ -10,7 +10,6 @@ class MaterialMySQLStorage(
 
     private val tableName = "materials"
 
-
     private val columnIdName = "id"
     private val columnNameName = "material_name"
     private val columnGdkName = "gdk"
