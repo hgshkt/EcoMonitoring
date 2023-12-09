@@ -13,6 +13,7 @@ class CreateMaterialScreen: View() {
     private val nameInputProperty = SimpleStringProperty()
     private val gdkInputProperty = SimpleStringProperty()
     private val dangerClassInputProperty = SimpleStringProperty()
+    private val RfCProperty = SimpleStringProperty()
 
     private val useCase = CreateMaterialUseCase()
 
@@ -29,13 +30,17 @@ class CreateMaterialScreen: View() {
         text("dangerClass")
         textfield(dangerClassInputProperty)
 
+        text("RfC")
+        textfield(RfCProperty)
+
         button("Create") {
             action {
                 val material = Material(
                     id = idInputProperty.value.toInt(),
                     name = nameInputProperty.value,
                     gdk = gdkInputProperty.value.toDouble(),
-                    dangerClass = dangerClassInputProperty.value.toInt()
+                    dangerClass = dangerClassInputProperty.value.toInt(),
+                    RfC = RfCProperty.value.toDouble()
                 )
                 useCase.execute(material)
                 close()

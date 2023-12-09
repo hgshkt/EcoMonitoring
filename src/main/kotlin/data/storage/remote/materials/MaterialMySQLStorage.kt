@@ -15,11 +15,12 @@ class MaterialMySQLStorage(
     private val columnNameName = "material_name"
     private val columnGdkName = "gdk"
     private val columnDangerClassName = "danger_class"
+    private val columnRfCName = "RfC"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -100,6 +101,7 @@ class MaterialMySQLStorage(
                     preparedStatement.setString(2, material.name)
                     preparedStatement.setDouble(3, material.gdk)
                     preparedStatement.setInt(4, material.dangerClass)
+                    preparedStatement.setDouble(5, material.RfC)
 
                     preparedStatement.executeUpdate()
                 }
@@ -172,12 +174,14 @@ class MaterialMySQLStorage(
         val name = resultSet.getString(columnNameName)
         val gdk = resultSet.getDouble(columnGdkName)
         val dangerClass = resultSet.getInt(columnDangerClassName)
+        val RfC = resultSet.getDouble(columnRfCName)
 
         return RemoteMaterial(
             id = id,
             name = name,
             gdk = gdk,
-            dangerClass = dangerClass
+            dangerClass = dangerClass,
+            RfC = RfC
         )
     }
 }

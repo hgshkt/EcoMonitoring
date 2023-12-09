@@ -8,12 +8,14 @@ fun RemoteMaterial.toExcel() = ExcelMaterial(
     id = id,
     name = name,
     gdk = gdk,
-    dangerClass = dangerClass
+    dangerClass = dangerClass,
+    RfC = RfC
 )
 
 fun RemoteMaterial.toDomain() = Material(
     id = id,
     name = name,
     gdk = gdk,
-    dangerClass = dangerClass
+    dangerClass = dangerClass,
+    RfC = RfC
 )

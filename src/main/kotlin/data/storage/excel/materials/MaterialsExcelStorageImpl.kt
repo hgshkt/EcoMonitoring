@@ -21,6 +21,7 @@ class MaterialsExcelStorageImpl:  MaterialsExcelStorage{
                         name = row.getCell(1).stringCellValue,
                         gdk = row.getCell(2).numericCellValue,
                         dangerClass = row.getCell(3).numericCellValue.toInt(),
+                        RfC = row.getCell(4).numericCellValue
                     )
                 )
             }
