@@ -1,57 +1,58 @@
 package presentation.screens.tables
 
-import data.repository.materials.remote.MaterialMySQLRepository
-import data.storage.DatabaseConnectionData
-import data.storage.remote.materials.MaterialMySQLStorage
-import domain.model.Enterprise
-import domain.model.Material
-import domain.useCases.get.GetMaterialsFromRemoteRepositoryUseCase
+import domain.model.Pollution
+import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
-import presentation.screens.creating.createMaterial.CreateMaterialScreen
-import presentation.screens.tables.usecases.MaterialTableViewUseCases
+import presentation.screens.creating.createPollution.CreatePollutionScreen
 import presentation.screens.tables.usecases.TableUseCases
+import presentation.screens.tables.usecases.YearConcentrationTableViewUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.views.buttons.buttonSizeHeight
 import presentation.views.buttons.buttonSizeWidth
 import tornadofx.*
 
-class MaterialsAppTableView : AppTableView() {
+class YearConcentrationsAppTableView : AppTableView() {
+    private val _title = "Year Concentrations"
 
-    private val _title = "Materials"
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var useCases: MaterialTableViewUseCases = MaterialTableViewUseCases()
+    private var useCases: YearConcentrationTableViewUseCases = YearConcentrationTableViewUseCases()
 
     override val root: Parent
 
-    private var observableMaterials: ObservableList<Material>
+    private var observableConcentrations: ObservableList<YearConcentration>
 
-    private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
+    private var selectedTableType = SimpleStringProperty(TableType.YEAR_CONCENTRATIONS.tableName)
 
     init {
-        val materials = useCases.getMaterialsFromRemoteRepositoryUseCase.execute().materials
-        observableMaterials = materials.toObservable()
+        val concentrations = useCases.getYearConcentrationsFromRemoteRepositoryUseCase
+            .execute().concentrations
+        observableConcentrations = concentrations.toObservable()
 
         title = _title
 
         root = hbox {
-            val table = tableview(observableMaterials) {
-                readonlyColumn("Id", Material::id)
-                readonlyColumn("Enterprise Id", Material::name)
-                readonlyColumn("Material Id", Material::gdk)
-                readonlyColumn("Year", Material::dangerClass)
-                readonlyColumn("RfC", Material::RfC)
+            val table = tableview(observableConcentrations) {
+                readonlyColumn("Id", YearConcentration::id)
+                readonlyColumn("Year", YearConcentration::year)
+                readonlyColumn("Value", YearConcentration::value)
+                readonlyColumn("Material id", YearConcentration::materialId)
 
-                readonlyColumn("Delete", Material::id).cellFormat { id ->
+                readonlyColumn("Delete", YearConcentration::id).cellFormat { concentrationId ->
                     graphic = hbox(spacing = 5) {
                         button("Delete") {
                             action {
-                                useCases.delete.execute(id)
+                                val concentration = YearConcentration(
+                                    id = concentrationId,
+                                    materialId = rowItem.materialId,
+                                    value = rowItem.value,
+                                    year = rowItem.year
+                                )
+                                useCases.delete.execute(concentration.id)
                                 update()
                             }
                         }
@@ -132,14 +133,15 @@ class MaterialsAppTableView : AppTableView() {
                         update()
                     }
                 }
-                button("Add materials") {
+
+                button("Add concentrations") {
                     action {
-                        find<CreateMaterialScreen>().openWindow()
+                        find<CreatePollutionScreen>().openWindow()
                         update()
                     }
                 }
 
-                button("Remove all materials") {
+                button("Remove all concentrations") {
                     action {
                         useCases.deleteAll.execute()
                         update()
@@ -150,9 +152,9 @@ class MaterialsAppTableView : AppTableView() {
     }
 
     private fun update() {
-        observableMaterials.clear()
-        val newData = tableUseCases.getMaterialsFromRemoteRepositoryUseCase
-            .execute().materials
-        observableMaterials.addAll(newData)
+        observableConcentrations.clear()
+        val newData = tableUseCases.getYearConcentrationsFromRemoteRepositoryUseCase
+            .execute().concentrations
+        observableConcentrations.addAll(newData)
     }
 }

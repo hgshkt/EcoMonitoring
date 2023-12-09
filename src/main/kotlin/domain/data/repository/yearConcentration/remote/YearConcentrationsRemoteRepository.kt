@@ -9,7 +9,7 @@ interface YearConcentrationsRemoteRepository {
     fun addData(data: RemoteYearConcentrationData)
     fun add(concentration: YearConcentration)
 
-    fun delete(concentration: YearConcentration)
+    fun deleteById(id: Int)
 
     fun deleteAll()
 }

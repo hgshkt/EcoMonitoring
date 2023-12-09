@@ -58,25 +58,32 @@ class EnterprisesAppTableView : AppTableView() {
 
                 text("Tables:")
 
-                button("enterprises") {
+                button(TableType.ENTERPRISES.tableName) {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(EnterprisesAppTableView::class)
                     }
                 }
-                button("materials") {
+                button(TableType.MATERIALS.tableName) {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(MaterialsAppTableView::class)
                     }
                 }
-                button("pollutions") {
+                button(TableType.POLLUTION.tableName) {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(PollutionsAppTableView::class)
+                    }
+                }
+                button(TableType.YEAR_CONCENTRATIONS.tableName) {
+                    prefWidth = buttonSizeWidth
+                    prefHeight = buttonSizeHeight
+                    action {
+                        replaceWith(YearConcentrationsAppTableView::class)
                     }
                 }
 

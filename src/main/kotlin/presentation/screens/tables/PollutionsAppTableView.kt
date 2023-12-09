@@ -1,17 +1,11 @@
 package presentation.screens.tables
 
-import data.repository.pollutions.remote.PollutionMySQLRepository
-import data.storage.DatabaseConnectionData
-import data.storage.remote.pollutions.PollutionsMySQLStorage
-import domain.model.Enterprise
 import domain.model.Pollution
-import domain.useCases.get.GetPollutionsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import presentation.screens.creating.createMaterial.CreateMaterialScreen
 import presentation.screens.creating.createPollution.CreatePollutionScreen
 import presentation.screens.tables.usecases.PollutionTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
@@ -72,25 +66,32 @@ class PollutionsAppTableView : AppTableView() {
 
                 text("Tables:")
 
-                button("enterprises") {
+                button(TableType.ENTERPRISES.tableName) {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(EnterprisesAppTableView::class)
                     }
                 }
-                button("materials") {
+                button(TableType.MATERIALS.tableName) {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(MaterialsAppTableView::class)
                     }
                 }
-                button("pollutions") {
+                button(TableType.POLLUTION.tableName) {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(PollutionsAppTableView::class)
+                    }
+                }
+                button(TableType.YEAR_CONCENTRATIONS.tableName) {
+                    prefWidth = buttonSizeWidth
+                    prefHeight = buttonSizeHeight
+                    action {
+                        replaceWith(YearConcentrationsAppTableView::class)
                     }
                 }
 

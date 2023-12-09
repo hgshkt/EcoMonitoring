@@ -1,9 +1,11 @@
 package data.storage.remote.yearConcentrations
 
+import data.storage.DatabaseConnectionData
 import data.storage.remote.yearConcentrations.model.RemoteYearConcentration
-import domain.model.YearConcentration
 
-class YearConcentrationsMySQLStorage: YearConcentrationsRemoteStorage {
+class YearConcentrationsMySQLStorage(
+    private val connectionData: DatabaseConnectionData
+): YearConcentrationsRemoteStorage {
     override fun getAll(): List<RemoteYearConcentration> {
         TODO("Not yet implemented")
     }
@@ -12,7 +14,7 @@ class YearConcentrationsMySQLStorage: YearConcentrationsRemoteStorage {
         TODO("Not yet implemented")
     }
 
-    override fun delete(concentration: YearConcentration) {
+    override fun deleteById(id: Int) {
         TODO("Not yet implemented")
     }
 
