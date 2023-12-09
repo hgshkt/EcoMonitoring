@@ -8,7 +8,7 @@ class YearConcentrationsMySQLStorage(
     private val connectionData: DatabaseConnectionData
 ) : YearConcentrationsRemoteStorage {
 
-    private val tableName = "year_concentrations"
+    private val tableName = "year_concentration"
 
     private val columnIdName = "id"
     private val columnYearName = "year"
