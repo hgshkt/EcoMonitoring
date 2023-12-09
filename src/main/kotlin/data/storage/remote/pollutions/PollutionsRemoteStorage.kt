@@ -8,7 +8,7 @@ interface PollutionsRemoteStorage {
 
     fun add(pollutions: List<RemotePollution>)
 
-    fun delete(pollution: Pollution)
+    fun delete(pollution: RemotePollution)
 
     fun deleteAll()
 }

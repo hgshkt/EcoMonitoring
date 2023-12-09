@@ -81,7 +81,7 @@ class PollutionsMySQLStorage(
         }
     }
 
-    override fun delete(pollution: Pollution) {
+    override fun delete(pollution: RemotePollution) {
         DriverManager.getConnection(
             connectionData.url,
             connectionData.user,

@@ -1,10 +1,13 @@
 package data.repository.yearConcentrations.remote
 
-import data.mappers.domain.pollution.toRemote
-import data.mappers.remote.pollution.toDomain
+import data.mappers.domain.yearConcentration.toRemote
+import data.mappers.remote.yearConcentration.toDomain
+import data.storage.remote.yearConcentrations.YearConcentrationsRemoteStorage
+import data.storage.remote.yearConcentrations.model.RemoteYearConcentration
 import domain.data.repository.yearConcentration.remote.YearConcentrationsRemoteRepository
 import domain.model.YearConcentration
 import domain.model.data.remote.RemoteYearConcentrationData
+
 
 class YearConcentrationMySQLRepository(
     private val storage: YearConcentrationsRemoteStorage
