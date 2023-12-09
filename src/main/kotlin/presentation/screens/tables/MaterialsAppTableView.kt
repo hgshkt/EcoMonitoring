@@ -102,11 +102,7 @@ class MaterialsAppTableView : AppTableView() {
                 text("Fill data from file")
 
                 combobox(
-                    values = listOf(
-                        TableType.MATERIALS.tableName,
-                        TableType.ENTERPRISES.tableName,
-                        TableType.POLLUTION.tableName
-                    ).toObservable(),
+                    values = TableType.entries.map { it.tableName },
                     property = selectedTableType
                 ) {
                     prefWidth = buttonSizeWidth
