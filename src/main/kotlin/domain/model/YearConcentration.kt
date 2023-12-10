@@ -5,6 +5,6 @@ data class YearConcentration(
     val materialId: Int,
     val value: Double,
     val year: Int,
-    var carcinogenicRisk: Double = 0.0,
-    var nonCarcinogenicRisk: Double = 0.0
+    var carcinogenicRisk: Double,
+    var nonCarcinogenicRisk: Double
 )

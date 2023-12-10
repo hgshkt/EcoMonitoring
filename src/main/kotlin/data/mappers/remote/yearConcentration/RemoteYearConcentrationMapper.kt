@@ -8,7 +8,9 @@ fun RemoteYearConcentration.toDomain() = YearConcentration(
     id = id,
     materialId = materialId,
     value = value,
-    year = year
+    year = year,
+    carcinogenicRisk = carcinogenicRisk,
+    nonCarcinogenicRisk = nonCarcinogenicRisk
 )
 
 fun RemoteYearConcentration.toExcel() = ExcelYearConcentration(
