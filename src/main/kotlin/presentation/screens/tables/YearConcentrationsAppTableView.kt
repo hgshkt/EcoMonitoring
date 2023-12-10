@@ -1,6 +1,6 @@
 package presentation.screens.tables
 
-import domain.model.Pollution
+import domain.model.Material
 import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
@@ -29,18 +29,29 @@ class YearConcentrationsAppTableView : AppTableView() {
     private var selectedTableType = SimpleStringProperty(TableType.YEAR_CONCENTRATIONS.tableName)
 
     init {
-        val concentrations = useCases.getYearConcentrationsFromRemoteRepositoryUseCase
+        val concentrations = tableUseCases.getYearConcentrationsFromRemoteRepositoryUseCase
             .execute().concentrations
         observableConcentrations = concentrations.toObservable()
+
+        val materials = tableUseCases.getMaterialsFromRemoteRepositoryUseCase
+            .execute().materials
 
         title = _title
 
         root = hbox {
             val table = tableview(observableConcentrations) {
                 readonlyColumn("Id", YearConcentration::id)
+
+                readonlyColumn("Material", YearConcentration::materialId).cellFormat {
+                    val material = materials.find { material ->
+                        material.id == rowItem.materialId
+                    }!!
+                    graphic = hbox {
+                        text(material.name)
+                    }
+                }
                 readonlyColumn("Year", YearConcentration::year)
                 readonlyColumn("Value", YearConcentration::value)
-                readonlyColumn("Material id", YearConcentration::materialId)
 
                 readonlyColumn("Delete", YearConcentration::id).cellFormat { concentrationId ->
                     graphic = hbox(spacing = 5) {
