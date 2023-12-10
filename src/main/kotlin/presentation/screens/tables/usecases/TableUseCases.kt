@@ -1,5 +1,6 @@
 package presentation.screens.tables.usecases
 
+import data.obtained.RiskCalculatorImpl
 import data.repository.enterprises.excel.ExcelEnterpriseRepositoryImpl
 import data.repository.enterprises.remote.EnterpriseMySQLRepository
 import data.repository.materials.excel.ExcelMaterialRepositoryImpl
@@ -17,6 +18,7 @@ import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
 import data.storage.remote.yearConcentrations.YearConcentrationsMySQLStorage
+import domain.data.repository.material.remote.MaterialsRemoteRepository
 import domain.useCases.get.GetEnterprisesFromRemoteRepositoryUseCase
 import domain.useCases.get.GetMaterialsFromRemoteRepositoryUseCase
 import domain.useCases.get.GetPollutionsFromRemoteRepositoryUseCase
@@ -66,7 +68,13 @@ data class TableUseCases(
         ),
         excelRepository = ExcelYearConcentrationRepositoryImpl(
             storage = ExcelYearConcentrationStorageImpl()
-        )
+        ),
+        materialsRemoteRepository = MaterialMySQLRepository(
+            storage = MaterialMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        ),
+        riskCalculator = RiskCalculatorImpl()
     ),
     val getEnterprisesFromRemoteRepositoryUseCase: GetEnterprisesFromRemoteRepositoryUseCase
     = GetEnterprisesFromRemoteRepositoryUseCase(

@@ -14,10 +14,12 @@ class YearConcentrationsMySQLStorage(
     private val columnYearName = "year"
     private val columnValueName = "value"
     private val columnMaterialIdName = "material_id"
+    private val columnCarcinogenicRiskName = "carcinogenic_risk"
+    private val columnNonCarcinogenicRiskName = "non_carcinogenic_risk"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -40,8 +42,8 @@ class YearConcentrationsMySQLStorage(
                     materialId = resultSet.getInt(columnMaterialIdName),
                     value = resultSet.getDouble(columnValueName),
                     year = resultSet.getInt(columnYearName),
-                    carcinogenicRisk = 0.0,
-                    nonCarcinogenicRisk = 0.0
+                    carcinogenicRisk = resultSet.getDouble(columnCarcinogenicRiskName),
+                    nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName)
                 )
                 concentrations.add(concentration)
             }
@@ -80,8 +82,8 @@ class YearConcentrationsMySQLStorage(
                     materialId = resultSet.getInt(columnMaterialIdName),
                     year = resultSet.getInt(columnYearName),
                     value = resultSet.getDouble(columnValueName),
-                    carcinogenicRisk = 0.0,
-                    nonCarcinogenicRisk = 0.0
+                    carcinogenicRisk = resultSet.getDouble(columnCarcinogenicRiskName),
+                    nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName)
                 )
             }
 
@@ -112,6 +114,8 @@ class YearConcentrationsMySQLStorage(
                     preparedStatement.setInt(2, concentration.year)
                     preparedStatement.setDouble(3, concentration.value)
                     preparedStatement.setInt(4, concentration.materialId)
+                    preparedStatement.setDouble(5, concentration.carcinogenicRisk)
+                    preparedStatement.setDouble(6, concentration.nonCarcinogenicRisk)
 
                     preparedStatement.executeUpdate()
                 }

@@ -15,5 +15,7 @@ fun YearConcentration.toRemote() = RemoteYearConcentration(
     id = id,
     materialId = materialId,
     value = value,
-    year = year
+    year = year,
+    carcinogenicRisk = carcinogenicRisk,
+    nonCarcinogenicRisk = nonCarcinogenicRisk
 )
