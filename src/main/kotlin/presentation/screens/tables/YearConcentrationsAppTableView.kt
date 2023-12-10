@@ -61,7 +61,9 @@ class YearConcentrationsAppTableView : AppTableView() {
                                     id = concentrationId,
                                     materialId = rowItem.materialId,
                                     value = rowItem.value,
-                                    year = rowItem.year
+                                    year = rowItem.year,
+                                    carcinogenicRisk = 0.0,
+                                    nonCarcinogenicRisk = 0.0
                                 )
                                 useCases.delete.execute(concentration.id)
                                 update()

@@ -39,7 +39,9 @@ class YearConcentrationsMySQLStorage(
                     id = resultSet.getInt(columnIdName),
                     materialId = resultSet.getInt(columnMaterialIdName),
                     value = resultSet.getDouble(columnValueName),
-                    year = resultSet.getInt(columnYearName)
+                    year = resultSet.getInt(columnYearName),
+                    carcinogenicRisk = 0.0,
+                    nonCarcinogenicRisk = 0.0
                 )
                 concentrations.add(concentration)
             }
@@ -77,7 +79,9 @@ class YearConcentrationsMySQLStorage(
                     id = resultSet.getInt(columnIdName),
                     materialId = resultSet.getInt(columnMaterialIdName),
                     year = resultSet.getInt(columnYearName),
-                    value = resultSet.getDouble(columnValueName)
+                    value = resultSet.getDouble(columnValueName),
+                    carcinogenicRisk = 0.0,
+                    nonCarcinogenicRisk = 0.0
                 )
             }
 
