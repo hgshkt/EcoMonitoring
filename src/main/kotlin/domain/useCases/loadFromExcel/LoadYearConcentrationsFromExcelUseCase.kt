@@ -9,7 +9,7 @@ import domain.model.data.remote.RemoteYearConcentrationData
 class LoadYearConcentrationsFromExcelUseCase(
     private val remoteRepository: YearConcentrationsRemoteRepository,
     private val excelRepository: ExcelYearConcentrationRepository,
-    private val materialsRemoteRepository: MaterialsRemoteRepository
+    private val materialsRemoteRepository: MaterialsRemoteRepository,
     private val riskCalculator: RiskCalculator
 ) {
     fun execute(
