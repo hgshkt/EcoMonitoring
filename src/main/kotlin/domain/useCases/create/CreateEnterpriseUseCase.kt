@@ -5,6 +5,7 @@ import data.storage.DatabaseConnectionData
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import domain.data.repository.enterprise.remote.EnterprisesRemoteRepository
 import domain.model.Enterprise
+import java.sql.SQLIntegrityConstraintViolationException
 
 class CreateEnterpriseUseCase(
     private val repository: EnterprisesRemoteRepository = EnterpriseMySQLRepository(
@@ -13,7 +14,11 @@ class CreateEnterpriseUseCase(
         )
     )
 ) {
-    fun execute(enterprise: Enterprise) {
-        repository.add(enterprise)
+    fun execute(enterprise: Enterprise, sqlException: () -> Unit) {
+        try {
+            repository.add(enterprise)
+        } catch (exception: SQLIntegrityConstraintViolationException) {
+            sqlException()
+        }
     }
 }

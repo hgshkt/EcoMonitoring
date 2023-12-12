@@ -3,6 +3,7 @@ package presentation.screens.creating.createMaterial
 import domain.model.Material
 import domain.useCases.create.CreateMaterialUseCase
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Alert
 import tornadofx.*
 
 class CreateMaterialScreen : View() {
@@ -47,10 +48,16 @@ class CreateMaterialScreen : View() {
                     RfC = RfCProperty.value.toDouble(),
                     organ = organProperty.value
                 )
-                useCase.execute(material)
+                useCase.execute(material) {
+                    sqlException()
+                }
                 close()
             }
         }
+    }
+
+    private fun sqlException() {
+        alert(Alert.AlertType.ERROR, "SQL Error", "Pollution material id is not sent to the material")
     }
 
     init {

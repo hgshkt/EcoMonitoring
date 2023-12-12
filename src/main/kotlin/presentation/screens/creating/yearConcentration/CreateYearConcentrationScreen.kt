@@ -2,6 +2,7 @@ package presentation.screens.creating.yearConcentration
 
 import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Alert
 import tornadofx.*
 import java.time.LocalDate
 
@@ -33,35 +34,33 @@ class CreateYearConcentrationScreen : View() {
             values = materialNames
         )
 
-        text("year")
-
-        combobox(yearInputProperty) {
-            items = (1950..LocalDate.now().year).map { it.toString() }.toObservable()
-            isEditable = true
-            promptText = "year"
-
-            editor.textProperty().addListener { _, _, newValue ->
-                val filteredSuggestions = items.filter { year ->
-                    year.toString().contains(newValue, ignoreCase = true)
-                }
-                items.setAll(filteredSuggestions)
-            }
-        }
+        text("year (1950 - ${LocalDate.now().year})")
+        textfield(yearInputProperty)
 
         text("Value")
         textfield(valueInputProperty)
 
         button("Create") {
             action {
-                val concentration = YearConcentration(
-                    materialName = "-", // TODO
-                    value = valueInputProperty.value.toDouble(),
-                    year = yearInputProperty.value.toInt(),
-                )
-                useCases.createUseCase.execute(concentration)
-                close()
+                if (yearInputProperty.value.toInt() in 1950..LocalDate.now().year) {
+                    val concentration = YearConcentration(
+                        materialName = materialNameInputProperty.value,
+                        value = valueInputProperty.value.toDouble(),
+                        year = yearInputProperty.value.toInt(),
+                    )
+                    useCases.createUseCase.execute(concentration) {
+                        sqlException()
+                    }
+                    close()
+                } else {
+                    alert(Alert.AlertType.ERROR, "Error", "Input year 1950 - ${LocalDate.now().year}")
+                }
             }
         }
+    }
+
+    private fun sqlException() {
+        alert(Alert.AlertType.ERROR, "SQL Error", "Pollution material id is not sent to the material")
     }
 
     init {

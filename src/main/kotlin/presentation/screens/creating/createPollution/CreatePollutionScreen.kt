@@ -52,36 +52,28 @@ class CreatePollutionScreen : View() {
             values = materialNames
         )
 
-        text("year")
-
-        combobox(yearInputProperty) {
-            items = (1950..LocalDate.now().year).map { it.toString() }.toObservable()
-            isEditable = true
-            promptText = "year"
-
-            editor.textProperty().addListener { _, _, newValue ->
-                val filteredSuggestions = items.filter { year ->
-                    year.toString().contains(newValue, ignoreCase = true)
-                }
-                items.setAll(filteredSuggestions)
-            }
-        }
+        text("year (1950 - ${LocalDate.now().year})")
+        textfield(yearInputProperty)
 
         text("amount")
         textfield(amountInputProperty)
 
         button("Create") {
             action {
-                val pollution = Pollution(
-                    enterpriseName = enterpriseNameInputProperty.value,
-                    materialName = materialNameInputProperty.value,
-                    year = yearInputProperty.value.toInt(),
-                    materialAmount = amountInputProperty.value.toDouble()
-                )
-                useCases.createUseCase.execute(pollution) {
-                    sqlException()
+                if (yearInputProperty.value.toInt() in 1950..LocalDate.now().year) {
+                    val pollution = Pollution(
+                        enterpriseName = enterpriseNameInputProperty.value,
+                        materialName = materialNameInputProperty.value,
+                        year = yearInputProperty.value.toInt(),
+                        materialAmount = amountInputProperty.value.toDouble()
+                    )
+                    useCases.createUseCase.execute(pollution) {
+                        sqlException()
+                    }
+                    close()
+                } else {
+                    alert(Alert.AlertType.ERROR, "Error", "Input year 1950 - ${LocalDate.now().year}")
                 }
-                close()
             }
         }
     }

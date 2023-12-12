@@ -3,6 +3,7 @@ package presentation.screens.creating.createEnterprise
 import domain.model.Enterprise
 import domain.useCases.create.CreateEnterpriseUseCase
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Alert
 import tornadofx.*
 
 class CreateEnterpriseScreen: View() {
@@ -42,10 +43,16 @@ class CreateEnterpriseScreen: View() {
                     belonging = belongingInputProperty.value,
                     location = locationInputProperty.value
                 )
-                useCase.execute(enterprise)
+                useCase.execute(enterprise) {
+                    sqlException()
+                }
                 close()
             }
         }
+    }
+
+    private fun sqlException() {
+        alert(Alert.AlertType.ERROR, "SQL Error", "Pollution material id is not sent to the material")
     }
 
     init {

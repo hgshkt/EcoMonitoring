@@ -18,6 +18,8 @@ fun RemoteYearConcentration.toDomain(): YearConcentration {
         year = year,
         carcinogenicRisk = carcinogenicRisk,
         nonCarcinogenicRisk = nonCarcinogenicRisk,
-        organ = organ
+        organ = organ,
+        carcinogenicRiskLevel = carcinogenicRiskLevel,
+        nonCarcinogenicRiskLevel = nonCarcinogenicRiskLevel
     )
 }
