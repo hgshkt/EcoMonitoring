@@ -8,10 +8,7 @@ fun ExcelYearConcentration.toDomain() = YearConcentration(
     id = id,
     materialId = materialId,
     value = value,
-    year = year,
-    carcinogenicRisk = 0.0,
-    nonCarcinogenicRisk = 0.0,
-    organ = "-"
+    year = year
 )
 
 fun ExcelYearConcentration.toRemote() = RemoteYearConcentration(
