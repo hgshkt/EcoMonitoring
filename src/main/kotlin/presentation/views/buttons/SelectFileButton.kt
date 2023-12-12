@@ -50,7 +50,7 @@ class SelectFileButton(
                                 tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
                             }
                         }
-                    } catch (exception: Exceptio) {
+                    } catch (exception: Exception) {
                         alert(Alert.AlertType.ERROR, "Error", "SQL Exception")
                     }
                     action.invoke()
