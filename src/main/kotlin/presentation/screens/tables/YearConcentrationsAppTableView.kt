@@ -1,6 +1,5 @@
 package presentation.screens.tables
 
-import domain.model.Material
 import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
@@ -59,15 +58,7 @@ class YearConcentrationsAppTableView : AppTableView() {
                     graphic = hbox(spacing = 5) {
                         button("Delete") {
                             action {
-                                val concentration = YearConcentration(
-                                    id = concentrationId,
-                                    materialId = rowItem.materialId,
-                                    value = rowItem.value,
-                                    year = rowItem.year,
-                                    carcinogenicRisk = 0.0,
-                                    nonCarcinogenicRisk = 0.0
-                                )
-                                useCases.delete.execute(concentration.id)
+                                useCases.delete.execute(rowItem.id)
                                 update()
                             }
                         }
