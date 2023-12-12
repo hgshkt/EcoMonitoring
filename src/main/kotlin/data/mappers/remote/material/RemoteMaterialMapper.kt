@@ -17,5 +17,6 @@ fun RemoteMaterial.toDomain() = Material(
     name = name,
     gdk = gdk,
     dangerClass = dangerClass,
-    RfC = RfC
+    RfC = RfC,
+    organ = organ
 )
