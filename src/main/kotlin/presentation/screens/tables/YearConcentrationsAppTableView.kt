@@ -46,6 +46,8 @@ class YearConcentrationsAppTableView : AppTableView() {
                 readonlyColumn("Carcinogenic risk", YearConcentration::carcinogenicRisk)
                 readonlyColumn("Non carcinogenic risk", YearConcentration::nonCarcinogenicRisk)
                 readonlyColumn("Organ", YearConcentration::organ)
+                readonlyColumn("Carcinogenic Risk Level", YearConcentration::carcinogenicRiskLevel)
+                readonlyColumn("Non Carcinogenic Risk Level", YearConcentration::nonCarcinogenicRiskLevel)
 
                 readonlyColumn("Delete", YearConcentration::id).cellFormat { concentrationId ->
                     graphic = hbox(spacing = 5) {
