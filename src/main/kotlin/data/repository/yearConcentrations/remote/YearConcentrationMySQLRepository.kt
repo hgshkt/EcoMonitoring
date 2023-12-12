@@ -31,6 +31,7 @@ class YearConcentrationMySQLRepository(
                 val material = data.materials.find { material ->
                     material.id == concentration.materialId
                 }!!
+
                 concentration.organ = material.organ
 
                 storage.add(concentration)

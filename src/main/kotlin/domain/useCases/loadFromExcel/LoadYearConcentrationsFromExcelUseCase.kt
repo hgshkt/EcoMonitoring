@@ -25,7 +25,8 @@ class LoadYearConcentrationsFromExcelUseCase(
             val material = materialsData.materials.find { material ->
                 material.name == concentration.materialName
             }!!
-            riskCalculator.calculateRisk(material, concentration)
+
+            calculatedConcentrations.add(riskCalculator.calculateRisk(material, concentration))
         }
 
         val remoteData = RemoteYearConcentrationData(

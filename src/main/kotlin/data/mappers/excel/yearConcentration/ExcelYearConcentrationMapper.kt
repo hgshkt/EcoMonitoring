@@ -14,7 +14,7 @@ fun ExcelYearConcentration.toDomain(): YearConcentration {
 
     return YearConcentration(
         id = id,
-        materialName = materials.find { it.id == id }!!.name,
+        materialName = materials.find { it.id == materialId }!!.name,
         value = value,
         year = year,
     )
