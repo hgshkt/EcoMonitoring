@@ -6,7 +6,7 @@ import domain.model.Pollution
 interface PollutionsRemoteStorage {
     fun getAll(): List<RemotePollution>
 
-    fun add(pollutions: List<RemotePollution>)
+    fun add(pollution: RemotePollution)
 
     fun delete(pollution: RemotePollution)
 

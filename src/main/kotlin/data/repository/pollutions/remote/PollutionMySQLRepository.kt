@@ -9,7 +9,7 @@ import domain.model.data.remote.RemotePollutionData
 
 class PollutionMySQLRepository(
     private val storage: PollutionsRemoteStorage
-): PollutionsRemoteRepository {
+) : PollutionsRemoteRepository {
     override fun getData(): RemotePollutionData {
         val pollutions = storage.getAll().map {
             it.toDomain()
@@ -18,15 +18,13 @@ class PollutionMySQLRepository(
     }
 
     override fun addData(data: RemotePollutionData) {
-        val pollutions = data.pollutions.map {
-            it.toRemote()
+        data.pollutions.forEach {
+            storage.add(it.toRemote())
         }
-        storage.add(pollutions)
     }
 
     override fun add(pollution: Pollution) {
-        val list = listOf(pollution.toRemote())
-        storage.add(list)
+        storage.add(pollution.toRemote())
     }
 
     override fun delete(pollution: Pollution) {

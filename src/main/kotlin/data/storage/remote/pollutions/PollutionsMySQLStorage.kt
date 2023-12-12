@@ -60,7 +60,7 @@ class PollutionsMySQLStorage(
         return pollutions
     }
 
-    override fun add(pollutions: List<RemotePollution>) {
+    override fun add(pollution: RemotePollution) {
         DriverManager.getConnection(
             connectionData.url,
             connectionData.user,
@@ -68,18 +68,16 @@ class PollutionsMySQLStorage(
         ).use { connection ->
             connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-                for (pollution in pollutions) {
+                preparedStatement.setString(1, pollution.enterpriseName)
+                preparedStatement.setString(2, pollution.materialName)
+                preparedStatement.setInt(3, pollution.year)
+                preparedStatement.setDouble(4, pollution.materialAmount)
 
-                    preparedStatement.setString(1, pollution.enterpriseName)
-                    preparedStatement.setString(2, pollution.materialName)
-                    preparedStatement.setInt(3, pollution.year)
-                    preparedStatement.setDouble(4, pollution.materialAmount)
-
-                    preparedStatement.executeUpdate()
-                }
+                preparedStatement.executeUpdate()
             }
         }
     }
+
 
     override fun delete(pollution: RemotePollution) {
         DriverManager.getConnection(

@@ -2,6 +2,7 @@ package presentation.screens.creating.createPollution
 
 import domain.model.Pollution
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Alert
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
 import tornadofx.*
@@ -77,10 +78,16 @@ class CreatePollutionScreen : View() {
                     year = yearInputProperty.value.toInt(),
                     materialAmount = amountInputProperty.value.toDouble()
                 )
-                useCases.createUseCase.execute(pollution)
+                useCases.createUseCase.execute(pollution) {
+                    sqlException()
+                }
                 close()
             }
         }
+    }
+
+    private fun sqlException() {
+        alert(Alert.AlertType.ERROR, "SQL Error", "Pollution material id is not sent to the material")
     }
 
     init {

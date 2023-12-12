@@ -1,11 +1,13 @@
 package presentation.views.buttons
 
 import javafx.beans.property.SimpleStringProperty
+import javafx.scene.control.Alert
 import javafx.scene.control.Button
 import javafx.stage.FileChooser
 import presentation.screens.tables.TableType
 import presentation.screens.tables.usecases.TableUseCases
 import tornadofx.*
+import java.sql.SQLIntegrityConstraintViolationException
 
 class SelectFileButton(
     private var selectedTableType: SimpleStringProperty,
@@ -22,28 +24,39 @@ class SelectFileButton(
         height = buttonSizeHeight
 
         setOnAction {
-            val file = chooseFile(
-                "Select a File",
-                filters = arrayOf(FileChooser.ExtensionFilter("Excel Files", "*.xlsx")),
-                mode = FileChooserMode.Single
-            )[0]
+            try {
+                val file = chooseFile(
+                    "Select a File",
+                    filters = arrayOf(FileChooser.ExtensionFilter("Excel Files", "*.xlsx")),
+                    mode = FileChooserMode.Single
+                )[0]
 
-            file.apply {
-                when (selectedTableType.value) {
-                    TableType.MATERIALS.tableName -> {
-                        tableUseCases.loadMaterialsFromExcelUseCase.execute(path)
+                file.apply {
+                    try {
+                        when (selectedTableType.value) {
+                            TableType.MATERIALS.tableName -> {
+                                tableUseCases.loadMaterialsFromExcelUseCase.execute(path)
+                            }
+
+                            TableType.ENTERPRISES.tableName -> {
+                                tableUseCases.loadEnterprisesFromExcelUseCase.execute(path)
+                            }
+
+                            TableType.POLLUTION.tableName -> {
+                                tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
+                            }
+
+                            TableType.YEAR_CONCENTRATIONS.tableName -> {
+                                tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
+                            }
+                        }
+                    } catch (exception: Exceptio) {
+                        alert(Alert.AlertType.ERROR, "Error", "SQL Exception")
                     }
-                    TableType.ENTERPRISES.tableName -> {
-                        tableUseCases.loadEnterprisesFromExcelUseCase.execute(path)
-                    }
-                    TableType.POLLUTION.tableName -> {
-                        tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
-                    }
-                    TableType.YEAR_CONCENTRATIONS.tableName -> {
-                        tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
-                    }
+                    action.invoke()
                 }
-                action.invoke()
+            } catch (e: Exception) {
+                alert(Alert.AlertType.ERROR, "Error", "File not selected")
             }
         }
     }
