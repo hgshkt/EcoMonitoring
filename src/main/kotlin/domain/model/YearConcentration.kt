@@ -1,7 +1,7 @@
 package domain.model
 
 data class YearConcentration(
-    val id: Int,
+    var id: Int = -1,
     val materialId: Int,
     val value: Double,
     val year: Int,

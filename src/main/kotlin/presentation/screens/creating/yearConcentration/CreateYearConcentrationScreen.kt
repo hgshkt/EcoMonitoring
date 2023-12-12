@@ -1,35 +1,22 @@
-package presentation.screens.creating.createPollution
+package presentation.screens.creating.yearConcentration
 
-import domain.model.Pollution
+import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
-import javafx.scene.control.ComboBox
-import javafx.scene.control.TextField
 import tornadofx.*
 import java.time.LocalDate
 
-class CreatePollutionScreen : View() {
+class CreateYearConcentrationScreen : View() {
+    private val _title = "Create Year Concentration"
 
-    private val _title = "Create Pollution"
-
-    private val enterpriseNameInputProperty = SimpleStringProperty()
     private val materialNameInputProperty = SimpleStringProperty()
+    private val valueInputProperty = SimpleStringProperty()
     private val yearInputProperty = SimpleStringProperty()
-    private val amountInputProperty = SimpleStringProperty()
 
-    private val useCases = CreatePollutionScreenUseCases()
+    private val useCases = CreateYearConcentrationUseCases()
 
-    private var enterpriseNames: List<String> = listOf()
     private var materialNames: List<String> = listOf()
 
     override val root = vbox {
-
-        enterpriseNames = useCases
-            .getEnterprisesFromRemoteRepositoryUseCase
-            .execute()
-            .enterprises
-            .map {
-                it.name
-            }
 
         materialNames = useCases
             .getMaterialsFromRemoteRepositoryUseCase
@@ -39,11 +26,6 @@ class CreatePollutionScreen : View() {
                 it.name
             }
 
-        text("enterpriseName")
-        combobox(
-            property = enterpriseNameInputProperty,
-            values = enterpriseNames
-        )
 
         text("materialName")
         combobox(
@@ -66,18 +48,17 @@ class CreatePollutionScreen : View() {
             }
         }
 
-        text("amount")
-        textfield(amountInputProperty)
+        text("Value")
+        textfield(valueInputProperty)
 
         button("Create") {
             action {
-                val pollution = Pollution(
-                    enterpriseName = enterpriseNameInputProperty.value,
-                    materialName = materialNameInputProperty.value,
+                val concentration = YearConcentration(
+                    materialId = 0, // TODO
+                    value = valueInputProperty.value.toDouble(),
                     year = yearInputProperty.value.toInt(),
-                    materialAmount = amountInputProperty.value.toDouble()
                 )
-                useCases.createUseCase.execute(pollution)
+                useCases.createUseCase.execute(concentration)
                 close()
             }
         }

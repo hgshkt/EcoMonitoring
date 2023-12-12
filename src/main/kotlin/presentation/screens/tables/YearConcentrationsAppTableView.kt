@@ -1,12 +1,14 @@
 package presentation.screens.tables
 
 import domain.model.YearConcentration
+import domain.useCases.create.CreateYearConcentrationUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import presentation.screens.creating.createPollution.CreatePollutionScreen
+import presentation.screens.creating.yearConcentration.CreateYearConcentrationScreen
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.screens.tables.usecases.YearConcentrationTableViewUseCases
 import presentation.views.buttons.SelectFileButton
@@ -61,6 +63,15 @@ class YearConcentrationsAppTableView : AppTableView() {
                             action {
                                 useCases.delete.execute(rowItem.id)
                                 update()
+                            }
+                        }
+                    }
+                }
+                readonlyColumn("Edit", YearConcentration::id).cellFormat { concentrationId ->
+                    graphic = hbox(spacing = 5) {
+                        button("Edit") {
+                            action {
+                                replaceWith(CreateYearConcentrationScreen::class)
                             }
                         }
                     }
@@ -139,7 +150,7 @@ class YearConcentrationsAppTableView : AppTableView() {
 
                 button("Add concentrations") {
                     action {
-                        find<CreatePollutionScreen>().openWindow()
+                        find<CreateYearConcentrationScreen>().openWindow()
                         update()
                     }
                 }
