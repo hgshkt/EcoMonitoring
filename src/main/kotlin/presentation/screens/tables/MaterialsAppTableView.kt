@@ -31,7 +31,7 @@ class MaterialsAppTableView : AppTableView() {
 
     private var observableMaterials: ObservableList<Material>
 
-    private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
+    private var selectedTableType = SimpleStringProperty(TableType.MATERIALS.tableName)
 
     init {
         val materials = useCases.getMaterialsFromRemoteRepositoryUseCase.execute().materials
