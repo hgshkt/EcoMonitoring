@@ -6,7 +6,7 @@ import domain.model.YearConcentration
 
 fun ExcelYearConcentration.toDomain() = YearConcentration(
     id = id,
-    materialId = materialId,
+    materialName = "-",
     value = value,
     year = year
 )

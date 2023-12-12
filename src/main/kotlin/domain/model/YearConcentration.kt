@@ -2,7 +2,7 @@ package domain.model
 
 data class YearConcentration(
     var id: Int = -1,
-    val materialId: Int,
+    val materialName: String,
     val value: Double,
     val year: Int,
     var carcinogenicRisk: Double = 0.0,

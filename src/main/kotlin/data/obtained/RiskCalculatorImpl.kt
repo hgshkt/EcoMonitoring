@@ -17,22 +17,18 @@ class RiskCalculatorImpl : RiskCalculator {
     private val population = 3096500
 
     override fun calculateRisk(
-        materials: MutableList<Material>,
-        concentrations: MutableList<YearConcentration>
-    ): MutableList<YearConcentration> {
-        for (concentration in concentrations) {
+        material: Material,
+        concentration: YearConcentration
+    ): YearConcentration {
 
-            val material = materials.find {
-                concentration.materialId == it.id
-            }!!
 
-            concentration.calcCarcinogenicRisk()
-            concentration.calcCarcinogenicRiskLevel()
+        concentration.calcCarcinogenicRisk()
+        concentration.calcCarcinogenicRiskLevel()
 
-            concentration.calcNonCarcinogenicRisk(material)
-            concentration.calcNonCarcinogenicRiskLevel()
-        }
-        return concentrations
+        concentration.calcNonCarcinogenicRisk(material)
+        concentration.calcNonCarcinogenicRiskLevel()
+
+        return concentration
     }
 
     private fun YearConcentration.calcCarcinogenicRisk() {

@@ -109,7 +109,7 @@ class YearConcentrationsMySQLStorage(
     }
 
 
-    override fun add(concentrations: List<RemoteYearConcentration>) {
+    override fun add(concentration: RemoteYearConcentration) {
         DriverManager.getConnection(
             connectionData.url,
             connectionData.user,
@@ -117,20 +117,17 @@ class YearConcentrationsMySQLStorage(
         ).use { connection ->
             connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-                for (concentration in concentrations) {
+                preparedStatement.setInt(1, concentration.id)
+                preparedStatement.setInt(2, concentration.year)
+                preparedStatement.setDouble(3, concentration.value)
+                preparedStatement.setInt(4, concentration.materialId)
+                preparedStatement.setDouble(5, concentration.carcinogenicRisk)
+                preparedStatement.setDouble(6, concentration.nonCarcinogenicRisk)
+                preparedStatement.setString(7, concentration.organ)
+                preparedStatement.setString(8, concentration.carcinogenicRiskLevel)
+                preparedStatement.setString(9, concentration.nonCarcinogenicRiskLevel)
 
-                    preparedStatement.setInt(1, concentration.id)
-                    preparedStatement.setInt(2, concentration.year)
-                    preparedStatement.setDouble(3, concentration.value)
-                    preparedStatement.setInt(4, concentration.materialId)
-                    preparedStatement.setDouble(5, concentration.carcinogenicRisk)
-                    preparedStatement.setDouble(6, concentration.nonCarcinogenicRisk)
-                    preparedStatement.setString(7, concentration.organ)
-                    preparedStatement.setString(8, concentration.carcinogenicRiskLevel)
-                    preparedStatement.setString(9, concentration.nonCarcinogenicRiskLevel)
-
-                    preparedStatement.executeUpdate()
-                }
+                preparedStatement.executeUpdate()
             }
         }
     }

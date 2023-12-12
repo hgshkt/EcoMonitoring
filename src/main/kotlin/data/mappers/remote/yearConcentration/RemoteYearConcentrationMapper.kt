@@ -1,22 +1,23 @@
 package data.mappers.remote.yearConcentration
 
-import data.storage.excel.yearConcentrations.excel.ExcelYearConcentration
+import data.storage.DatabaseConnectionData
+import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.yearConcentrations.model.RemoteYearConcentration
 import domain.model.YearConcentration
 
-fun RemoteYearConcentration.toDomain() = YearConcentration(
-    id = id,
-    materialId = materialId,
-    value = value,
-    year = year,
-    carcinogenicRisk = carcinogenicRisk,
-    nonCarcinogenicRisk = nonCarcinogenicRisk,
-    organ = organ
-)
+fun RemoteYearConcentration.toDomain(): YearConcentration {
 
-fun RemoteYearConcentration.toExcel() = ExcelYearConcentration(
-    id = id,
-    materialId = materialId,
-    value = value,
-    year = year
-)
+    val materialStorage = MaterialMySQLStorage(DatabaseConnectionData())
+
+    val materials = materialStorage.getAll()
+
+    return YearConcentration(
+        id = id,
+        materialName = materials.find { it.id == id }!!.name,
+        value = value,
+        year = year,
+        carcinogenicRisk = carcinogenicRisk,
+        nonCarcinogenicRisk = nonCarcinogenicRisk,
+        organ = organ
+    )
+}

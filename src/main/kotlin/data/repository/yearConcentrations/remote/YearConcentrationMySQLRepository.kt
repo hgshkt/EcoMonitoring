@@ -2,8 +2,12 @@ package data.repository.yearConcentrations.remote
 
 import data.mappers.domain.yearConcentration.toRemote
 import data.mappers.remote.yearConcentration.toDomain
+import data.storage.remote.materials.MaterialRemoteStorage
 import data.storage.remote.yearConcentrations.YearConcentrationsRemoteStorage
+import domain.data.obtained.calculators.RiskCalculator
+import domain.data.repository.material.remote.MaterialsRemoteRepository
 import domain.data.repository.yearConcentration.remote.YearConcentrationsRemoteRepository
+import domain.model.Material
 import domain.model.YearConcentration
 import domain.model.data.remote.RemoteYearConcentrationData
 
@@ -19,22 +23,23 @@ class YearConcentrationMySQLRepository(
     }
 
     override fun addData(data: RemoteYearConcentrationData) {
-        val concentrations = data
-            .concentrations
+        data.concentrations
             .map { concentration ->
+                concentration.toRemote()
+            }.forEach { concentration ->
+
                 val material = data.materials.find { material ->
                     material.id == concentration.materialId
                 }!!
                 concentration.organ = material.organ
 
-                concentration.toRemote()
+                storage.add(concentration)
             }
-        storage.add(concentrations)
     }
 
-    override fun add(concentration: YearConcentration) {
-        val list = listOf(concentration.toRemote())
-        storage.add(list)
+    override fun add(concentration: YearConcentration, material: Material) {
+        concentration.organ = material.organ
+        storage.add(concentration.toRemote())
     }
 
     override fun deleteById(id: Int) {

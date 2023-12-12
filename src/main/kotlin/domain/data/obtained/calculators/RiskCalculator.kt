@@ -5,7 +5,7 @@ import domain.model.YearConcentration
 
 interface RiskCalculator {
     fun calculateRisk(
-        materials: MutableList<Material>,
-        concentrations: MutableList<YearConcentration>
-    ): MutableList<YearConcentration>
+        material: Material,
+        concentration: YearConcentration
+    ): YearConcentration
 }

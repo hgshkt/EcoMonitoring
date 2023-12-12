@@ -1,19 +1,20 @@
 package domain.useCases.create
 
-import data.repository.yearConcentrations.remote.YearConcentrationMySQLRepository
-import data.storage.DatabaseConnectionData
-import data.storage.remote.yearConcentrations.YearConcentrationsMySQLStorage
+import domain.data.obtained.calculators.RiskCalculator
+import domain.data.repository.material.remote.MaterialsRemoteRepository
 import domain.data.repository.yearConcentration.remote.YearConcentrationsRemoteRepository
 import domain.model.YearConcentration
 
 class CreateYearConcentrationUseCase(
-    private val repository: YearConcentrationsRemoteRepository = YearConcentrationMySQLRepository(
-        storage = YearConcentrationsMySQLStorage(
-            connectionData = DatabaseConnectionData()
-        )
-    )
+    private val repository: YearConcentrationsRemoteRepository,
+    private val materialsRemoteRepository: MaterialsRemoteRepository,
+    private val riskCalculator: RiskCalculator
 ) {
     fun execute(concentration: YearConcentration) {
-        repository.add(concentration)
+        val material = materialsRemoteRepository.getByName(concentration.materialName)
+
+        riskCalculator.calculateRisk(material, concentration)
+
+        repository.add(concentration, material)
     }
 }

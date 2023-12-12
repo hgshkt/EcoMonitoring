@@ -7,7 +7,7 @@ interface YearConcentrationsRemoteStorage {
 
     fun getById(id: Int): RemoteYearConcentration?
 
-    fun add(concentrations: List<RemoteYearConcentration>)
+    fun add(concentration: RemoteYearConcentration)
 
     fun deleteById(id: Int)
 

@@ -43,14 +43,7 @@ class YearConcentrationsAppTableView : AppTableView() {
             val table = tableview(observableConcentrations) {
                 readonlyColumn("Id", YearConcentration::id)
 
-                readonlyColumn("Material", YearConcentration::materialId).cellFormat {
-                    val material = materials.find { material ->
-                        material.id == rowItem.materialId
-                    }!!
-                    graphic = hbox {
-                        text(material.name)
-                    }
-                }
+                readonlyColumn("Material", YearConcentration::materialName)
                 readonlyColumn("Year", YearConcentration::year)
                 readonlyColumn("Value", YearConcentration::value)
                 readonlyColumn("Carcinogenic risk", YearConcentration::carcinogenicRisk)

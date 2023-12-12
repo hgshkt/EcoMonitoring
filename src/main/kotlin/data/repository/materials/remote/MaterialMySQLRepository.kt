@@ -15,6 +15,10 @@ class MaterialMySQLRepository(
         return RemoteMaterialData(materials = materials.toMutableList())
     }
 
+    override fun getByName(name: String): Material {
+        return storage.getByName(name)!!.toDomain()
+    }
+
     override fun addData(data: RemoteMaterialData) {
         val materials = data.materials.map { it.toRemote() }
         storage.add(materials)

@@ -54,7 +54,7 @@ class CreateYearConcentrationScreen : View() {
         button("Create") {
             action {
                 val concentration = YearConcentration(
-                    materialId = 0, // TODO
+                    materialName = "-", // TODO
                     value = valueInputProperty.value.toDouble(),
                     year = yearInputProperty.value.toInt(),
                 )
