@@ -21,23 +21,44 @@ class RiskCalculatorImpl : RiskCalculator {
         concentrations: MutableList<YearConcentration>
     ): MutableList<YearConcentration> {
         for (concentration in concentrations) {
+
             val material = materials.find {
                 concentration.materialId == it.id
             }!!
-            concentration.carcinogenicRisk = calcCarcinogenicRisk(concentration)
-            concentration.nonCarcinogenicRisk = calcNonCarcinogenicRisk(concentration, material)
+
+            concentration.calcCarcinogenicRisk()
+            concentration.calcCarcinogenicRiskLevel()
+
+            concentration.calcNonCarcinogenicRisk(material)
+            concentration.calcNonCarcinogenicRiskLevel()
         }
         return concentrations
     }
 
-    private fun calcCarcinogenicRisk(
-        concentration: YearConcentration
-    ) = (((concentration.value * Tout * Vout) + (concentration.value * Tin * Vin)) * EF * ED) /
-            (BW * AT * 365) * population
+    private fun YearConcentration.calcCarcinogenicRisk() {
+        carcinogenicRisk = (((value * Tout * Vout) + (value * Tin * Vin)) * EF * ED) /
+                (BW * AT * 365) * population
+    }
 
+    private fun YearConcentration.calcCarcinogenicRiskLevel() {
+        RiskLevel.entries.forEach { riskLevel ->
+            if (riskLevel.condition(value)) {
+                carcinogenicRiskLevel = riskLevel.toString()
+                return
+            }
+        }
+    }
 
-    private fun calcNonCarcinogenicRisk(
-        concentration: YearConcentration,
+    private fun YearConcentration.calcNonCarcinogenicRisk(
         material: Material
-    ) = concentration.value * material.RfC
+    ) = value * material.RfC
+
+    private fun YearConcentration.calcNonCarcinogenicRiskLevel() {
+        RiskLevel.entries.forEach { riskLevel ->
+            if (riskLevel.condition(value)) {
+                nonCarcinogenicRiskLevel = riskLevel.toString()
+                return
+            }
+        }
+    }
 }

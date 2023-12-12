@@ -7,5 +7,7 @@ data class YearConcentration(
     val year: Int,
     var carcinogenicRisk: Double,
     var nonCarcinogenicRisk: Double,
-    var organ: String = "-"
+    var organ: String = "-",
+    var carcinogenicRiskLevel: String,
+    var nonCarcinogenicRiskLevel: String
 )
