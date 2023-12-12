@@ -5,7 +5,7 @@ import domain.useCases.create.CreateMaterialUseCase
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
 
-class CreateMaterialScreen: View() {
+class CreateMaterialScreen : View() {
 
     private val _title = "Create Material"
 
@@ -14,6 +14,7 @@ class CreateMaterialScreen: View() {
     private val gdkInputProperty = SimpleStringProperty()
     private val dangerClassInputProperty = SimpleStringProperty()
     private val RfCProperty = SimpleStringProperty()
+    private val organProperty = SimpleStringProperty()
 
     private val useCase = CreateMaterialUseCase()
 
@@ -33,6 +34,9 @@ class CreateMaterialScreen: View() {
         text("RfC")
         textfield(RfCProperty)
 
+        text("Organ")
+        textfield(organProperty)
+
         button("Create") {
             action {
                 val material = Material(
@@ -41,7 +45,7 @@ class CreateMaterialScreen: View() {
                     gdk = gdkInputProperty.value.toDouble(),
                     dangerClass = dangerClassInputProperty.value.toInt(),
                     RfC = RfCProperty.value.toDouble(),
-                    organ = organ
+                    organ = organProperty.value
                 )
                 useCase.execute(material)
                 close()
