@@ -1,9 +1,10 @@
 package data.obtained
 
+import domain.data.obtained.calculators.DamageCalculator
 import domain.model.Material
 import domain.model.YearConcentration
 
-class DamagesCalculator {
+class DamagesCalculatorImpl: DamageCalculator {
 
     private val poBi: Double = 1.0
 
@@ -53,7 +54,7 @@ class DamagesCalculator {
     private val po = 0
 
 
-    fun calcDamage(
+    override fun calcDamage(
         material: Material,
         concentration: YearConcentration
     ): Double {
