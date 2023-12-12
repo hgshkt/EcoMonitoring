@@ -34,9 +34,6 @@ class YearConcentrationsAppTableView : AppTableView() {
             .execute().concentrations
         observableConcentrations = concentrations.toObservable()
 
-        val materials = tableUseCases.getMaterialsFromRemoteRepositoryUseCase
-            .execute().materials
-
         title = _title
 
         root = hbox {
