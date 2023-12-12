@@ -26,7 +26,7 @@ class PollutionsAppTableView : AppTableView() {
 
     private var observablePollutions: ObservableList<Pollution>
 
-    private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
+    private var selectedTableType = SimpleStringProperty(TableType.POLLUTION.tableName)
 
     init {
         val pollutions = useCases.getPollutionsFromRemoteRepositoryUseCase.execute().pollutions
