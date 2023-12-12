@@ -51,7 +51,9 @@ class RiskCalculatorImpl : RiskCalculator {
 
     private fun YearConcentration.calcNonCarcinogenicRisk(
         material: Material
-    ) = value * material.RfC
+    ) {
+        nonCarcinogenicRisk = value * material.RfC
+    }
 
     private fun YearConcentration.calcNonCarcinogenicRiskLevel() {
         RiskLevel.entries.forEach { riskLevel ->

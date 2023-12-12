@@ -17,10 +17,12 @@ class YearConcentrationsMySQLStorage(
     private val columnCarcinogenicRiskName = "carcinogenic_risk"
     private val columnNonCarcinogenicRiskName = "non_carcinogenic_risk"
     private val columnOrganName = "organ"
+    private val columnCarcinogenicRiskLevelName = "carcinogation_risk_level"
+    private val columnNonCarcinogenicRiskLevelName = "non_carcinogation_risk_level"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -45,7 +47,9 @@ class YearConcentrationsMySQLStorage(
                     year = resultSet.getInt(columnYearName),
                     carcinogenicRisk = resultSet.getDouble(columnCarcinogenicRiskName),
                     nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName),
-                    organ = resultSet.getString(columnOrganName)
+                    organ = resultSet.getString(columnOrganName),
+                    carcinogenicRiskLevel = resultSet.getString(columnCarcinogenicRiskLevelName),
+                    nonCarcinogenicRiskLevel = resultSet.getString(columnNonCarcinogenicRiskLevelName)
                 )
                 concentrations.add(concentration)
             }
@@ -86,7 +90,9 @@ class YearConcentrationsMySQLStorage(
                     value = resultSet.getDouble(columnValueName),
                     carcinogenicRisk = resultSet.getDouble(columnCarcinogenicRiskName),
                     nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName),
-                    organ = resultSet.getString(columnOrganName)
+                    organ = resultSet.getString(columnOrganName),
+                    carcinogenicRiskLevel = resultSet.getString(columnCarcinogenicRiskLevelName),
+                    nonCarcinogenicRiskLevel = resultSet.getString(columnNonCarcinogenicRiskLevelName)
                 )
             }
 
@@ -120,6 +126,8 @@ class YearConcentrationsMySQLStorage(
                     preparedStatement.setDouble(5, concentration.carcinogenicRisk)
                     preparedStatement.setDouble(6, concentration.nonCarcinogenicRisk)
                     preparedStatement.setString(7, concentration.organ)
+                    preparedStatement.setString(8, concentration.carcinogenicRiskLevel)
+                    preparedStatement.setString(9, concentration.nonCarcinogenicRiskLevel)
 
                     preparedStatement.executeUpdate()
                 }
