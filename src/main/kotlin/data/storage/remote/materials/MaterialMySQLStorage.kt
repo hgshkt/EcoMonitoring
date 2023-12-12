@@ -15,11 +15,12 @@ class MaterialMySQLStorage(
     private val columnGdkName = "gdk"
     private val columnDangerClassName = "danger_class"
     private val columnRfCName = "RfC"
+    private val columnOrganName = "organ"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -39,7 +40,14 @@ class MaterialMySQLStorage(
 
             while (resultSet.next()) {
                 materials.add(
-                    element = getMaterialFromResultSet(resultSet)
+                    element = RemoteMaterial(
+                        id = resultSet.getInt(columnIdName),
+                        name = resultSet.getString(columnNameName),
+                        gdk = resultSet.getDouble(columnGdkName),
+                        dangerClass = resultSet.getInt(columnDangerClassName),
+                        RfC = resultSet.getDouble(columnRfCName),
+                        organ = resultSet.getString(columnOrganName)
+                    )
                 )
             }
             resultSet.close()
@@ -69,7 +77,14 @@ class MaterialMySQLStorage(
             var material: RemoteMaterial? = null
 
             if (resultSet.next()) {
-                material = getMaterialFromResultSet(resultSet)
+                material = RemoteMaterial(
+                    id = resultSet.getInt(columnIdName),
+                    name = resultSet.getString(columnNameName),
+                    gdk = resultSet.getDouble(columnGdkName),
+                    dangerClass = resultSet.getInt(columnDangerClassName),
+                    RfC = resultSet.getDouble(columnRfCName),
+                    organ = resultSet.getString(columnOrganName)
+                )
             }
 
             resultSet.close()
@@ -101,6 +116,7 @@ class MaterialMySQLStorage(
                     preparedStatement.setDouble(3, material.gdk)
                     preparedStatement.setInt(4, material.dangerClass)
                     preparedStatement.setDouble(5, material.RfC)
+                    preparedStatement.setString(6, material.organ)
 
                     preparedStatement.executeUpdate()
                 }
@@ -126,7 +142,14 @@ class MaterialMySQLStorage(
             var material: RemoteMaterial? = null
 
             if (resultSet.next()) {
-                material = getMaterialFromResultSet(resultSet)
+                material = RemoteMaterial(
+                    id = resultSet.getInt(columnIdName),
+                    name = resultSet.getString(columnNameName),
+                    gdk = resultSet.getDouble(columnGdkName),
+                    dangerClass = resultSet.getInt(columnDangerClassName),
+                    RfC = resultSet.getDouble(columnRfCName),
+                    organ = resultSet.getString(columnOrganName)
+                )
             }
 
             resultSet.close()
@@ -164,23 +187,5 @@ class MaterialMySQLStorage(
                 statement.executeUpdate(deleteAllQuery)
             }
         }
-    }
-
-    private fun getMaterialFromResultSet(
-        resultSet: ResultSet
-    ): RemoteMaterial {
-        val id = resultSet.getInt(columnIdName)
-        val name = resultSet.getString(columnNameName)
-        val gdk = resultSet.getDouble(columnGdkName)
-        val dangerClass = resultSet.getInt(columnDangerClassName)
-        val RfC = resultSet.getDouble(columnRfCName)
-
-        return RemoteMaterial(
-            id = id,
-            name = name,
-            gdk = gdk,
-            dangerClass = dangerClass,
-            RfC = RfC
-        )
     }
 }

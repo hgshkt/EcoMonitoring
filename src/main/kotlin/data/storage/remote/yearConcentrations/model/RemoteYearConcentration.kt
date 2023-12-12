@@ -7,5 +7,5 @@ data class RemoteYearConcentration(
     val year: Int,
     val carcinogenicRisk: Double = 0.0,
     val nonCarcinogenicRisk: Double = 0.0,
-    val organ: String
+    var organ: String
 )

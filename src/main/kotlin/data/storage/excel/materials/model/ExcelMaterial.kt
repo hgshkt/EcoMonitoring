@@ -5,5 +5,6 @@ data class ExcelMaterial(
     val name: String,
     val gdk: Double,
     val dangerClass: Int,
-    val RfC: Double
+    val RfC: Double,
+    val organ: String
 )

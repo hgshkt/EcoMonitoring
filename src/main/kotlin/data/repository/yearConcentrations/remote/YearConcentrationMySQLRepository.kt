@@ -10,7 +10,7 @@ import domain.model.data.remote.RemoteYearConcentrationData
 
 class YearConcentrationMySQLRepository(
     private val storage: YearConcentrationsRemoteStorage
-): YearConcentrationsRemoteRepository {
+) : YearConcentrationsRemoteRepository {
     override fun getData(): RemoteYearConcentrationData {
         val concentrations = storage.getAll().map {
             it.toDomain()
@@ -19,9 +19,16 @@ class YearConcentrationMySQLRepository(
     }
 
     override fun addData(data: RemoteYearConcentrationData) {
-        val concentrations = data.concentrations.map {
-            it.toRemote()
-        }
+        val concentrations = data
+            .concentrations
+            .map { concentration ->
+                val material = data.materials.find { material ->
+                    material.id == concentration.materialId
+                }!!
+                concentration.organ = material.organ
+
+                concentration.toRemote()
+            }
         storage.add(concentrations)
     }
 

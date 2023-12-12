@@ -40,7 +40,8 @@ class CreateMaterialScreen: View() {
                     name = nameInputProperty.value,
                     gdk = gdkInputProperty.value.toDouble(),
                     dangerClass = dangerClassInputProperty.value.toInt(),
-                    RfC = RfCProperty.value.toDouble()
+                    RfC = RfCProperty.value.toDouble(),
+                    organ = organ
                 )
                 useCase.execute(material)
                 close()

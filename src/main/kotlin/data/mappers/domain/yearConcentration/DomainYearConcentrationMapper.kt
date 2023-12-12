@@ -17,5 +17,6 @@ fun YearConcentration.toRemote() = RemoteYearConcentration(
     value = value,
     year = year,
     carcinogenicRisk = carcinogenicRisk,
-    nonCarcinogenicRisk = nonCarcinogenicRisk
+    nonCarcinogenicRisk = nonCarcinogenicRisk,
+    organ = organ
 )

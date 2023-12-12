@@ -15,16 +15,17 @@ class LoadYearConcentrationsFromExcelUseCase(
     fun execute(
         filePath: String
     ) {
-        val concentrations = excelRepository.getData(filePath).concentrations
-        val materials = materialsRemoteRepository.getData().materials
+        val concentrations = excelRepository.getData(filePath)
+        val materials = materialsRemoteRepository.getData()
 
         val calculatedConcentrations = riskCalculator.calculateRisk(
-            materials,
-            concentrations
+            materials.materials,
+            concentrations.concentrations
         )
 
         val remoteData = RemoteYearConcentrationData(
-            concentrations = calculatedConcentrations
+            concentrations = calculatedConcentrations,
+            materials = materials.materials
         )
 
         remoteRepository.addData(remoteData)

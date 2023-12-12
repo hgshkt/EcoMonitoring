@@ -9,7 +9,8 @@ fun Material.toExcel() = ExcelMaterial(
     name = name,
     gdk = gdk,
     dangerClass = dangerClass,
-    RfC = RfC
+    RfC = RfC,
+    organ = organ
 )
 
 fun Material.toRemote() = RemoteMaterial(
@@ -17,5 +18,6 @@ fun Material.toRemote() = RemoteMaterial(
     name = name,
     gdk = gdk,
     dangerClass = dangerClass,
-    RfC = RfC
+    RfC = RfC,
+    organ = organ
 )
