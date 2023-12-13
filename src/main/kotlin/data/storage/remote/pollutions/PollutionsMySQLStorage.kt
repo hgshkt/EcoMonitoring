@@ -11,15 +11,15 @@ class PollutionsMySQLStorage(
 
     private val tableName = "pollutions"
 
-    private val columnEnterpriseName = "enterprise_name"
-    private val columnMaterialName = "material_name"
+    private val columnEnterpriseIdName = "enterprise_id"
+    private val columnMaterialIdName = "material_id"
     private val columnYearName = "year"
     private val columnAmountName = "material_amount"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
-    private val deleteQuery = "DELETE FROM $tableName WHERE $columnAmountName = ? AND " +
-            "$columnMaterialName = ? AND $columnYearName = ? AND $columnAmountName = ?"
+    private val deleteQuery = "DELETE FROM $tableName WHERE $columnEnterpriseIdName = ? AND " +
+            "$columnMaterialIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
     override fun getAll(): List<RemotePollution> {
@@ -36,16 +36,11 @@ class PollutionsMySQLStorage(
             val resultSet: ResultSet = statement.executeQuery(getAllQuery)
 
             while (resultSet.next()) {
-                val enterpriseName = resultSet.getString(columnEnterpriseName)
-                val materialName = resultSet.getString(columnMaterialName)
-                val year = resultSet.getInt(columnYearName)
-                val materialAmount = resultSet.getDouble(columnAmountName)
-
                 val pollution = RemotePollution(
-                    enterpriseName = enterpriseName,
-                    materialName = materialName,
-                    year = year,
-                    materialAmount = materialAmount
+                    enterpriseId = resultSet.getInt(columnEnterpriseIdName),
+                    materialId = resultSet.getInt(columnMaterialIdName),
+                    year = resultSet.getInt(columnYearName),
+                    materialAmount = resultSet.getDouble(columnAmountName)
                 )
                 pollutions.add(pollution)
             }
@@ -68,8 +63,8 @@ class PollutionsMySQLStorage(
         ).use { connection ->
             connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-                preparedStatement.setString(1, pollution.enterpriseName)
-                preparedStatement.setString(2, pollution.materialName)
+                preparedStatement.setInt(1, pollution.enterpriseId)
+                preparedStatement.setInt(2, pollution.materialId)
                 preparedStatement.setInt(3, pollution.year)
                 preparedStatement.setDouble(4, pollution.materialAmount)
 
@@ -87,10 +82,8 @@ class PollutionsMySQLStorage(
         ).use { connection ->
             connection.prepareStatement(deleteQuery).use { prepareStatement ->
 
-                prepareStatement.setString(1, pollution.enterpriseName)
-                prepareStatement.setString(2, pollution.materialName)
-                prepareStatement.setInt(3, pollution.year)
-                prepareStatement.setDouble(4, pollution.materialAmount)
+                prepareStatement.setInt(1, pollution.enterpriseId)
+                prepareStatement.setInt(2, pollution.materialId)
 
                 prepareStatement.executeUpdate()
             }
@@ -102,8 +95,8 @@ class PollutionsMySQLStorage(
             connectionData.url,
             connectionData.user,
             connectionData.password
-        ).use { connectoin ->
-            connectoin.createStatement().use { statement ->
+        ).use { connection ->
+            connection.createStatement().use { statement ->
                 statement.executeUpdate(deleteAllQuery)
             }
         }

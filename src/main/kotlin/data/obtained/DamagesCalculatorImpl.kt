@@ -46,13 +46,6 @@ class DamagesCalculatorImpl: DamageCalculator {
      */
     private var Kzi = 0.0
 
-    /**
-     * середньорічна  концентрація  i-тої забруднюючої
-     * речовини за даними прямих інструментальних вимірів на стаціонарних
-     * постах за попередній рік, мг/куб.м
-     */
-    private val po = 0
-
 
     override fun calcDamage(
         material: Material,
