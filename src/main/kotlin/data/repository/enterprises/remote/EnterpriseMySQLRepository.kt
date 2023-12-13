@@ -16,13 +16,17 @@ class EnterpriseMySQLRepository(
     }
 
     override fun addData(data: RemoteEnterpriseData) {
-        val enterprises = data.enterprises.map { it.toRemote() }
-        storage.add(enterprises)
+        data.enterprises.forEach {
+            storage.add(it.toRemote())
+        }
     }
 
     override fun add(enterprise: Enterprise) {
-        val list = listOf(enterprise.toRemote())
-        storage.add(list)
+        storage.add(enterprise.toRemote())
+    }
+
+    override fun update(enterprise: Enterprise) {
+        storage.update(enterprise.toRemote())
     }
 
     override fun deleteById(id: Int) {

@@ -2,26 +2,27 @@ package presentation.screens.creating.createEnterprise
 
 import domain.model.Enterprise
 import domain.useCases.create.CreateEnterpriseUseCase
+import domain.useCases.update.UpdateEnterpriseUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
+import presentation.controllers.CreateEnterpriseController
 import tornadofx.*
 
-class CreateEnterpriseScreen: View() {
+class CreateEnterpriseScreen : View() {
+
+    private val controller: CreateEnterpriseController by inject()
 
     private val _title = "Create Enterprise"
 
-    private val idInputProperty = SimpleStringProperty()
-    private val nameInputProperty = SimpleStringProperty()
-    private val activityInputProperty = SimpleStringProperty()
-    private val belongingInputProperty = SimpleStringProperty()
-    private val locationInputProperty = SimpleStringProperty()
+    private val nameInputProperty = SimpleStringProperty(controller.name)
+    private val activityInputProperty = SimpleStringProperty(controller.activity)
+    private val belongingInputProperty = SimpleStringProperty(controller.belonging)
+    private val locationInputProperty = SimpleStringProperty(controller.location)
 
-    private val useCase = CreateEnterpriseUseCase()
+    private val create = CreateEnterpriseUseCase()
+    private val update = UpdateEnterpriseUseCase()
 
     override val root = vbox {
-        text("id")
-        textfield(idInputProperty)
-
         text("name")
         textfield(nameInputProperty)
 
@@ -34,18 +35,21 @@ class CreateEnterpriseScreen: View() {
         text("location")
         textfield(locationInputProperty)
 
-        button("Create") {
+        button(if (controller.edit) "Edit" else "Create") {
             action {
                 val enterprise = Enterprise(
-                    id = idInputProperty.value.toInt(),
+                    id = controller.id,
                     name = nameInputProperty.value,
                     activity = activityInputProperty.value,
                     belonging = belongingInputProperty.value,
                     location = locationInputProperty.value
                 )
-                useCase.execute(enterprise) {
-                    sqlException()
-                }
+                if (controller.edit)
+                    update.execute(enterprise)
+                else
+                    create.execute(enterprise) {
+                        sqlException()
+                    }
                 close()
             }
         }

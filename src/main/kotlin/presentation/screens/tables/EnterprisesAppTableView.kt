@@ -6,6 +6,7 @@ import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
+import presentation.controllers.CreateEnterpriseController
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.tables.usecases.EnterpriseTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
@@ -27,7 +28,7 @@ class EnterprisesAppTableView : AppTableView() {
     override val root: Parent
 
     init {
-        val enterprises = useCases.getEnterprisesFromRemoteRepositoryUseCase.execute().enterprises
+        val enterprises = useCases.getAll.execute().enterprises
         observableEnterprises = enterprises.toObservable()
 
         title = _title
@@ -46,6 +47,22 @@ class EnterprisesAppTableView : AppTableView() {
                             action {
                                 useCases.delete.execute(id)
                                 update()
+                            }
+                        }
+                    }
+                }
+                readonlyColumn("Edit", Enterprise::id).cellFormat { enterprise ->
+                    graphic = hbox(spacing = 5) {
+                        button("Edit") {
+                            action {
+                                val controller = find(CreateEnterpriseController::class)
+                                controller.id = rowItem.id
+                                controller.name = rowItem.name
+                                controller.activity = rowItem.activity
+                                controller.belonging = rowItem.belonging
+                                controller.location = rowItem.location
+                                controller.edit = true
+                                find<CreateEnterpriseScreen>(CreateEnterpriseController::class to controller).openWindow()
                             }
                         }
                     }
@@ -123,7 +140,14 @@ class EnterprisesAppTableView : AppTableView() {
 
                 button("Add enterprise") {
                     action {
-                        find<CreateEnterpriseScreen>().openWindow()
+                        val controller = find(CreateEnterpriseController::class)
+                        controller.id = 0
+                        controller.name = ""
+                        controller.activity = ""
+                        controller.belonging = ""
+                        controller.location = ""
+                        controller.edit = false
+                        find<CreateEnterpriseScreen>(mapOf(CreateEnterpriseController::class to controller)).openWindow()
                         update()
                     }
                 }

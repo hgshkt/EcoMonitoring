@@ -22,6 +22,8 @@ class EnterprisesMySQLStorage(
     private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
+    private val updateQuery = "UPDATE $tableName SET $columnNameName = ?, $columnActivityName = ?," +
+             "$columnBelongingName = ?, $columnLocationName = ? WHERE $columnIdName = ?"
 
     override fun getAll(): List<RemoteEnterprise> {
         val enterprises = mutableListOf<RemoteEnterprise>()
@@ -85,7 +87,7 @@ class EnterprisesMySQLStorage(
         return null
     }
 
-    override fun add(enterprises: List<RemoteEnterprise>) {
+    override fun add(enterprise: RemoteEnterprise) {
         DriverManager.getConnection(
             connectionData.url,
             connectionData.user,
@@ -94,16 +96,33 @@ class EnterprisesMySQLStorage(
 
             connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-                for (enterprise in enterprises) {
+                preparedStatement.setInt(1, enterprise.id)
+                preparedStatement.setString(2, enterprise.name)
+                preparedStatement.setString(3, enterprise.activity)
+                preparedStatement.setString(4, enterprise.belonging)
+                preparedStatement.setString(5, enterprise.location)
 
-                    preparedStatement.setInt(1, enterprise.id)
-                    preparedStatement.setString(2, enterprise.name)
-                    preparedStatement.setString(3, enterprise.activity)
-                    preparedStatement.setString(4, enterprise.belonging)
-                    preparedStatement.setString(5, enterprise.location)
+                preparedStatement.executeUpdate()
+            }
+        }
+    }
 
-                    preparedStatement.executeUpdate()
-                }
+    override fun update(enterprise: RemoteEnterprise) {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).use { connection ->
+
+            connection.prepareStatement(updateQuery).use { preparedStatement ->
+
+                preparedStatement.setString(1, enterprise.name)
+                preparedStatement.setString(2, enterprise.activity)
+                preparedStatement.setString(3, enterprise.belonging)
+                preparedStatement.setString(4, enterprise.location)
+                preparedStatement.setInt(5, enterprise.id)
+
+                preparedStatement.executeUpdate()
             }
         }
     }

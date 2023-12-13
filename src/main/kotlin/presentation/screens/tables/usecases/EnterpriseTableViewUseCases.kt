@@ -6,9 +6,10 @@ import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import domain.useCases.delete.DeleteAllEnterpriseUseCase
 import domain.useCases.delete.DeleteEnterpriseByIdUseCase
 import domain.useCases.get.GetEnterprisesFromRemoteRepositoryUseCase
+import domain.useCases.update.UpdateEnterpriseUseCase
 
 data class EnterpriseTableViewUseCases(
-    val getEnterprisesFromRemoteRepositoryUseCase: GetEnterprisesFromRemoteRepositoryUseCase
+    val getAll: GetEnterprisesFromRemoteRepositoryUseCase
     = GetEnterprisesFromRemoteRepositoryUseCase(
         repository = EnterpriseMySQLRepository(
             storage = EnterprisesMySQLStorage(
@@ -29,5 +30,6 @@ data class EnterpriseTableViewUseCases(
                 connectionData = DatabaseConnectionData()
             )
         )
-    )
+    ),
+    val update: UpdateEnterpriseUseCase = UpdateEnterpriseUseCase()
 )
