@@ -51,22 +51,22 @@ class EnterprisesAppTableView : AppTableView() {
                         }
                     }
                 }
-                readonlyColumn("Edit", Enterprise::id).cellFormat { enterprise ->
-                    graphic = hbox(spacing = 5) {
-                        button("Edit") {
-                            action {
-                                val controller = find(CreateEnterpriseController::class)
-                                controller.id = rowItem.id
-                                controller.name = rowItem.name
-                                controller.activity = rowItem.activity
-                                controller.belonging = rowItem.belonging
-                                controller.location = rowItem.location
-                                controller.edit = true
-                                find<CreateEnterpriseScreen>(CreateEnterpriseController::class to controller).openWindow()
-                            }
-                        }
-                    }
-                }
+//                readonlyColumn("Edit", Enterprise::id).cellFormat { enterprise ->
+//                    graphic = hbox(spacing = 5) {
+//                        button("Edit") {
+//                            action {
+//                                val controller = find(CreateEnterpriseController::class)
+//                                controller.id = rowItem.id
+//                                controller.name = rowItem.name
+//                                controller.activity = rowItem.activity
+//                                controller.belonging = rowItem.belonging
+//                                controller.location = rowItem.location
+//                                controller.edit = true
+//                                find<CreateEnterpriseScreen>(CreateEnterpriseController::class to controller).openWindow()
+//                            }
+//                        }
+//                    }
+//                }
             }
 
             HBox.setHgrow(table, Priority.ALWAYS)

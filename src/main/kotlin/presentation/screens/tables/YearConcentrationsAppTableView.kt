@@ -59,15 +59,15 @@ class YearConcentrationsAppTableView : AppTableView() {
                         }
                     }
                 }
-                readonlyColumn("Edit", YearConcentration::id).cellFormat { concentrationId ->
-                    graphic = hbox(spacing = 5) {
-                        button("Edit") {
-                            action {
-                                replaceWith(CreateYearConcentrationScreen::class)
-                            }
-                        }
-                    }
-                }
+//                readonlyColumn("Edit", YearConcentration::id).cellFormat { concentrationId ->
+//                    graphic = hbox(spacing = 5) {
+//                        button("Edit") {
+//                            action {
+//                                replaceWith(CreateYearConcentrationScreen::class)
+//                            }
+//                        }
+//                    }
+//                }
             }
 
             HBox.setHgrow(table, Priority.ALWAYS)
