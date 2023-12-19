@@ -1,19 +1,17 @@
 package presentation.screens.tables
 
 import domain.model.YearConcentration
-import domain.useCases.create.CreateYearConcentrationUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import presentation.screens.creating.createPollution.CreatePollutionScreen
 import presentation.screens.creating.yearConcentration.CreateYearConcentrationScreen
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.screens.tables.usecases.YearConcentrationTableViewUseCases
 import presentation.views.buttons.SelectFileButton
-import presentation.views.buttons.buttonSizeHeight
-import presentation.views.buttons.buttonSizeWidth
+import presentation.style.buttonSizeHeight
+import presentation.style.buttonSizeWidth
 import tornadofx.*
 
 class YearConcentrationsAppTableView : AppTableView() {

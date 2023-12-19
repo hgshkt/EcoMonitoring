@@ -5,6 +5,7 @@ import domain.useCases.create.CreateMaterialUseCase
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
+import presentation.style.creatingWindowWidth
 import tornadofx.*
 
 class CreateMaterialScreen : View() {
@@ -21,6 +22,8 @@ class CreateMaterialScreen : View() {
     private val useCase = CreateMaterialUseCase()
 
     override val root = vbox {
+        prefWidth = creatingWindowWidth.toDouble()
+
         text("№")
         textfield(idInputProperty)
 

@@ -3,6 +3,7 @@ package presentation.screens.creating.yearConcentration
 import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
+import presentation.style.creatingWindowWidth
 import tornadofx.*
 import java.time.LocalDate
 
@@ -18,6 +19,7 @@ class CreateYearConcentrationScreen : View() {
     private var materialNames: List<String> = listOf()
 
     override val root = vbox {
+        prefWidth = creatingWindowWidth.toDouble()
 
         materialNames = useCases
             .getMaterialsFromRemoteRepositoryUseCase

@@ -6,6 +6,7 @@ import domain.useCases.update.UpdateEnterpriseUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import presentation.controllers.CreateEnterpriseController
+import presentation.style.creatingWindowWidth
 import tornadofx.*
 
 class CreateEnterpriseScreen : View() {
@@ -23,6 +24,8 @@ class CreateEnterpriseScreen : View() {
     private val update = UpdateEnterpriseUseCase()
 
     override val root = vbox {
+        prefWidth = creatingWindowWidth.toDouble()
+
         text("name")
         textfield(nameInputProperty)
 

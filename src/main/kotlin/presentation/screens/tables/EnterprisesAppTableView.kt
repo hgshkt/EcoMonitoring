@@ -11,8 +11,8 @@ import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.tables.usecases.EnterpriseTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
-import presentation.views.buttons.buttonSizeHeight
-import presentation.views.buttons.buttonSizeWidth
+import presentation.style.buttonSizeHeight
+import presentation.style.buttonSizeWidth
 import tornadofx.*
 
 class EnterprisesAppTableView : AppTableView() {

@@ -10,8 +10,8 @@ import presentation.screens.creating.createPollution.CreatePollutionScreen
 import presentation.screens.tables.usecases.PollutionTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
-import presentation.views.buttons.buttonSizeHeight
-import presentation.views.buttons.buttonSizeWidth
+import presentation.style.buttonSizeHeight
+import presentation.style.buttonSizeWidth
 import tornadofx.*
 
 class PollutionsAppTableView : AppTableView() {

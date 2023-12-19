@@ -6,8 +6,9 @@ import javafx.scene.control.Button
 import javafx.stage.FileChooser
 import presentation.screens.tables.TableType
 import presentation.screens.tables.usecases.TableUseCases
+import presentation.style.buttonSizeHeight
+import presentation.style.buttonSizeWidth
 import tornadofx.*
-import java.sql.SQLIntegrityConstraintViolationException
 
 class SelectFileButton(
     private var selectedTableType: SimpleStringProperty,

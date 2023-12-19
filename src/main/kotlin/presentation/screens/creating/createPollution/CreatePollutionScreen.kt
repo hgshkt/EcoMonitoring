@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
+import presentation.style.creatingWindowWidth
 import tornadofx.*
 import java.time.LocalDate
 
@@ -23,6 +24,7 @@ class CreatePollutionScreen : View() {
     private var materialNames: List<String> = listOf()
 
     override val root = vbox {
+        prefWidth = creatingWindowWidth.toDouble()
 
         enterpriseNames = useCases
             .getEnterprisesFromRemoteRepositoryUseCase

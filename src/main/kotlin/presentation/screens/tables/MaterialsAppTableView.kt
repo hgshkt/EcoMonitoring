@@ -1,23 +1,17 @@
 package presentation.screens.tables
 
-import data.repository.materials.remote.MaterialMySQLRepository
-import data.storage.DatabaseConnectionData
-import data.storage.remote.materials.MaterialMySQLStorage
-import domain.model.Enterprise
 import domain.model.Material
-import domain.useCases.get.GetMaterialsFromRemoteRepositoryUseCase
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.creating.createMaterial.CreateMaterialScreen
 import presentation.screens.tables.usecases.MaterialTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.views.buttons.SelectFileButton
-import presentation.views.buttons.buttonSizeHeight
-import presentation.views.buttons.buttonSizeWidth
+import presentation.style.buttonSizeHeight
+import presentation.style.buttonSizeWidth
 import tornadofx.*
 
 class MaterialsAppTableView : AppTableView() {
