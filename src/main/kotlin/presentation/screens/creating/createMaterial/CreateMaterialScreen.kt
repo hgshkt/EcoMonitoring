@@ -20,7 +20,7 @@ class CreateMaterialScreen : View() {
     private val useCase = CreateMaterialUseCase()
 
     override val root = vbox {
-        text("id")
+        text("№")
         textfield(idInputProperty)
 
         text("name")

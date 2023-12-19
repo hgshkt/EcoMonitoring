@@ -41,10 +41,10 @@ class MaterialsAppTableView : AppTableView() {
 
         root = hbox {
             val table = tableview(observableMaterials) {
-                readonlyColumn("Id", Material::id)
-                readonlyColumn("Enterprise Id", Material::name)
-                readonlyColumn("Material Id", Material::gdk)
-                readonlyColumn("Year", Material::dangerClass)
+                readonlyColumn("№", Material::id)
+                readonlyColumn("Name", Material::name)
+                readonlyColumn("Gdk", Material::gdk)
+                readonlyColumn("Danger class", Material::dangerClass)
                 readonlyColumn("RfC", Material::RfC)
 
                 readonlyColumn("Delete", Material::id).cellFormat { id ->
