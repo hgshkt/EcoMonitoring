@@ -2,6 +2,7 @@ package presentation.screens.creating.createMaterial
 
 import domain.model.Material
 import domain.useCases.create.CreateMaterialUseCase
+import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import tornadofx.*
@@ -13,9 +14,9 @@ class CreateMaterialScreen : View() {
     private val idInputProperty = SimpleStringProperty()
     private val nameInputProperty = SimpleStringProperty()
     private val gdkInputProperty = SimpleStringProperty()
-    private val dangerClassInputProperty = SimpleStringProperty()
+    private val dangerClassInputProperty = SimpleIntegerProperty().also { it.value = 1 }
     private val RfCProperty = SimpleStringProperty()
-    private val organProperty = SimpleStringProperty()
+    private val organProperty = SimpleStringProperty().also { it.value = organs.first() }
 
     private val useCase = CreateMaterialUseCase()
 
@@ -30,13 +31,19 @@ class CreateMaterialScreen : View() {
         textfield(gdkInputProperty)
 
         text("dangerClass")
-        textfield(dangerClassInputProperty)
+        combobox(
+            property = dangerClassInputProperty,
+            values = listOf(1, 2, 3, 4)
+        )
 
         text("RfC")
         textfield(RfCProperty)
 
         text("Organ")
-        textfield(organProperty)
+        combobox(
+            property = organProperty,
+            values = organs
+        )
 
         button("Create") {
             action {
@@ -44,7 +51,7 @@ class CreateMaterialScreen : View() {
                     id = idInputProperty.value.toInt(),
                     name = nameInputProperty.value,
                     gdk = gdkInputProperty.value.toDouble(),
-                    dangerClass = dangerClassInputProperty.value.toInt(),
+                    dangerClass = dangerClassInputProperty.value,
                     RfC = RfCProperty.value.toDouble(),
                     organ = organProperty.value
                 )
@@ -62,5 +69,26 @@ class CreateMaterialScreen : View() {
 
     init {
         title = _title
+    }
+
+    companion object {
+        val organs = listOf(
+            "Нирки",
+            "Печінка",
+            "Органи дихання",
+            "М'язова система",
+            "ЦНС",
+            "Нервова система",
+            "Розвиток",
+            "ШКТ",
+            "Репродукція",
+            "Гормональна система",
+            "Кісткова система",
+            "Волосся",
+            "Імунитет",
+            "Серцево-судинна система",
+            "Кров",
+            "Маса тіла"
+        )
     }
 }
