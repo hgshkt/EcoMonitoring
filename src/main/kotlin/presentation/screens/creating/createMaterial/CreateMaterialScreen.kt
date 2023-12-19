@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import presentation.style.creatingWindowWidth
+import presentation.views.DoubleValueTextField
 import tornadofx.*
 
 class CreateMaterialScreen : View() {
@@ -14,9 +15,7 @@ class CreateMaterialScreen : View() {
 
     private val idInputProperty = SimpleStringProperty()
     private val nameInputProperty = SimpleStringProperty()
-    private val gdkInputProperty = SimpleStringProperty()
     private val dangerClassInputProperty = SimpleIntegerProperty().also { it.value = 1 }
-    private val RfCProperty = SimpleStringProperty()
     private val organProperty = SimpleStringProperty().also { it.value = organs.first() }
 
     private val useCase = CreateMaterialUseCase()
@@ -31,7 +30,8 @@ class CreateMaterialScreen : View() {
         textfield(nameInputProperty)
 
         text("gdk")
-        textfield(gdkInputProperty)
+        val gdkTextField = DoubleValueTextField()
+        add(gdkTextField)
 
         text("dangerClass")
         combobox(
@@ -40,7 +40,8 @@ class CreateMaterialScreen : View() {
         )
 
         text("RfC")
-        textfield(RfCProperty)
+        val rfcTextField = DoubleValueTextField()
+        add(rfcTextField)
 
         text("Organ")
         combobox(
@@ -53,9 +54,9 @@ class CreateMaterialScreen : View() {
                 val material = Material(
                     id = idInputProperty.value.toInt(),
                     name = nameInputProperty.value,
-                    gdk = gdkInputProperty.value.toDouble(),
+                    gdk = gdkTextField.text.toDouble(),
                     dangerClass = dangerClassInputProperty.value,
-                    RfC = RfCProperty.value.toDouble(),
+                    RfC = rfcTextField.text.toDouble(),
                     organ = organProperty.value
                 )
                 useCase.execute(material) {

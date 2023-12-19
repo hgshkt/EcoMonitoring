@@ -3,9 +3,8 @@ package presentation.screens.creating.createPollution
 import domain.model.Pollution
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
-import javafx.scene.control.ComboBox
-import javafx.scene.control.TextField
 import presentation.style.creatingWindowWidth
+import presentation.views.DoubleValueTextField
 import tornadofx.*
 import java.time.LocalDate
 
@@ -16,7 +15,6 @@ class CreatePollutionScreen : View() {
     private val enterpriseNameInputProperty = SimpleStringProperty()
     private val materialNameInputProperty = SimpleStringProperty()
     private val yearInputProperty = SimpleStringProperty()
-    private val amountInputProperty = SimpleStringProperty()
 
     private val useCases = CreatePollutionScreenUseCases()
 
@@ -58,7 +56,8 @@ class CreatePollutionScreen : View() {
         textfield(yearInputProperty)
 
         text("amount")
-        textfield(amountInputProperty)
+        val amountTextField = DoubleValueTextField()
+        add(amountTextField)
 
         button("Create") {
             action {
@@ -67,7 +66,7 @@ class CreatePollutionScreen : View() {
                         enterpriseName = enterpriseNameInputProperty.value,
                         materialName = materialNameInputProperty.value,
                         year = yearInputProperty.value.toInt(),
-                        materialAmount = amountInputProperty.value.toDouble()
+                        materialAmount = amountTextField.text.toDouble()
                     )
                     useCases.createUseCase.execute(pollution) {
                         sqlException()

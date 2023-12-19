@@ -16,7 +16,8 @@ class MaterialMySQLRepository(
     }
 
     override fun getByName(name: String): Material {
-        return storage.getByName(name)!!.toDomain()
+        return storage.getByName(name)!!
+            .toDomain()
     }
 
     override fun addData(data: RemoteMaterialData) {

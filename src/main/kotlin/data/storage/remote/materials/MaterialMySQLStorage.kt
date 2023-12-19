@@ -137,7 +137,7 @@ class MaterialMySQLStorage(
 
             preparedStatement.setString(1, name)
 
-            val resultSet: ResultSet = preparedStatement.executeQuery(getByNameQuery)
+            val resultSet: ResultSet = preparedStatement.executeQuery()
 
             var material: RemoteMaterial? = null
 

@@ -4,6 +4,7 @@ import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import presentation.style.creatingWindowWidth
+import presentation.views.DoubleValueTextField
 import tornadofx.*
 import java.time.LocalDate
 
@@ -40,14 +41,15 @@ class CreateYearConcentrationScreen : View() {
         textfield(yearInputProperty)
 
         text("Value")
-        textfield(valueInputProperty)
+        val valueTextField = DoubleValueTextField()
+        add(valueTextField)
 
         button("Create") {
             action {
                 if (yearInputProperty.value.toInt() in 1950..LocalDate.now().year) {
                     val concentration = YearConcentration(
                         materialName = materialNameInputProperty.value,
-                        value = valueInputProperty.value.toDouble(),
+                        value = valueTextField.text.toDouble(),
                         year = yearInputProperty.value.toInt(),
                     )
                     useCases.createUseCase.execute(concentration) {
