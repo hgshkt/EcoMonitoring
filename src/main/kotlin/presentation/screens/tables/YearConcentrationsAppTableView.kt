@@ -40,7 +40,7 @@ class YearConcentrationsAppTableView : AppTableView() {
 
                 readonlyColumn("Material", YearConcentration::materialName)
                 readonlyColumn("Year", YearConcentration::year)
-                readonlyColumn("Value", YearConcentration::value)
+                readonlyColumn("Value (mg/m^3)", YearConcentration::value)
                 readonlyColumn("Carcinogenic risk", YearConcentration::carcinogenicRisk)
                 readonlyColumn("Non carcinogenic risk", YearConcentration::nonCarcinogenicRisk)
                 readonlyColumn("Organ", YearConcentration::organ)
