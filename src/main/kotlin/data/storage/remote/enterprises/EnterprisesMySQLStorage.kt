@@ -19,11 +19,12 @@ class EnterprisesMySQLStorage(
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?)"
+    private val insertQuery =
+        "INSERT INTO $tableName ($columnNameName, $columnActivityName, $columnBelongingName, $columnLocationName) VALUES (?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
     private val updateQuery = "UPDATE $tableName SET $columnNameName = ?, $columnActivityName = ?," +
-             "$columnBelongingName = ?, $columnLocationName = ? WHERE $columnIdName = ?"
+            "$columnBelongingName = ?, $columnLocationName = ? WHERE $columnIdName = ?"
 
     override fun getAll(): List<RemoteEnterprise> {
         val enterprises = mutableListOf<RemoteEnterprise>()
@@ -96,11 +97,16 @@ class EnterprisesMySQLStorage(
 
             connection.prepareStatement(insertQuery).use { preparedStatement ->
 
-                preparedStatement.setInt(1, enterprise.id)
-                preparedStatement.setString(2, enterprise.name)
-                preparedStatement.setString(3, enterprise.activity)
-                preparedStatement.setString(4, enterprise.belonging)
-                preparedStatement.setString(5, enterprise.location)
+                preparedStatement.setString(1, enterprise.name)
+                preparedStatement.setString(2, enterprise.activity)
+
+                preparedStatement.setString(3,
+                    if (enterprise.belonging.isEmpty())
+                        enterprise.belonging
+                    else "-*-"
+                )
+
+                preparedStatement.setString(4, enterprise.location)
 
                 preparedStatement.executeUpdate()
             }
