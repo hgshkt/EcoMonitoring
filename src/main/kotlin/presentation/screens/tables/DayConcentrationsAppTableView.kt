@@ -36,13 +36,29 @@ class DayConcentrationsAppTableView : AppTableView() {
 
         root = hbox {
             val table = tableview(observableConcentrations) {
-                readonlyColumn("Id", DayConcentration::id)
-
                 readonlyColumn("Material", DayConcentration::materialName)
                 readonlyColumn("Year", DayConcentration::year)
-                readonlyColumn("Value (mg/m^3)", DayConcentration::value)
-                readonlyColumn("Carcinogenic risk", DayConcentration::carcinogenicRisk)
-                readonlyColumn("Non carcinogenic risk", DayConcentration::nonCarcinogenicRisk)
+                readonlyColumn("Value (mg/m^3)", DayConcentration::value).cellFormat {
+                    graphic = hbox(spacing) {
+                        text(
+                            if (it != -1.0) it.toString() else "no info"
+                        )
+                    }
+                }
+                readonlyColumn("Carcinogenic risk", DayConcentration::carcinogenicRisk).cellFormat {
+                    graphic = hbox(spacing) {
+                        text(
+                            if (it != -1.0) it.toString() else "no info"
+                        )
+                    }
+                }
+                readonlyColumn("Non carcinogenic risk", DayConcentration::nonCarcinogenicRisk).cellFormat {
+                    graphic = hbox(spacing) {
+                        text(
+                            if (it != -1.0) it.toString() else "no info"
+                        )
+                    }
+                }
                 readonlyColumn("Organ", DayConcentration::organ)
 
                 readonlyColumn("Delete", DayConcentration::id).cellFormat { concentrationId ->

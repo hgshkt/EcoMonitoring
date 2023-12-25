@@ -30,13 +30,18 @@ class RiskCalculatorImpl : RiskCalculator {
     }
 
     private fun DayConcentration.calcCarcinogenicRisk() {
-        carcinogenicRisk = (((value * Tout * Vout) + (value * Tin * Vin)) * EF * ED) * population /
+        carcinogenicRisk =
+            if(value == -1.0) -1.0
+        else (((value * Tout * Vout) + (value * Tin * Vin)) * EF * ED)  /
                 (BW * AT * 365)
     }
 
     private fun DayConcentration.calcNonCarcinogenicRisk(
         material: Material
     ) {
-        nonCarcinogenicRisk = value * material.RfC
+        nonCarcinogenicRisk =
+            if (value == -1.0) -1.0
+        else
+            value * material.RfC
     }
 }

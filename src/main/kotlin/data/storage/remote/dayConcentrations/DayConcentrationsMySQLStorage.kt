@@ -17,12 +17,10 @@ class DayConcentrationsMySQLStorage(
     private val columnCarcinogenicRiskName = "carcinogenic_risk"
     private val columnNonCarcinogenicRiskName = "non_carcinogenic_risk"
     private val columnOrganName = "organ"
-    private val columnCarcinogenicRiskLevelName = "carcinogation_risk_level"
-    private val columnNonCarcinogenicRiskLevelName = "non_carcinogation_risk_level"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
