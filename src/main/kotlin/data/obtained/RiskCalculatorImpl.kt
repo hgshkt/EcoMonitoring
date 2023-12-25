@@ -23,10 +23,8 @@ class RiskCalculatorImpl : RiskCalculator {
 
 
         concentration.calcCarcinogenicRisk()
-        concentration.calcCarcinogenicRiskLevel()
 
         concentration.calcNonCarcinogenicRisk(material)
-        concentration.calcNonCarcinogenicRiskLevel()
 
         return concentration
     }
@@ -36,27 +34,9 @@ class RiskCalculatorImpl : RiskCalculator {
                 (BW * AT * 365)
     }
 
-    private fun DayConcentration.calcCarcinogenicRiskLevel() {
-        RiskLevel.entries.forEach { riskLevel ->
-            if (riskLevel.condition(value)) {
-                carcinogenicRiskLevel = riskLevel.toString()
-                return
-            }
-        }
-    }
-
     private fun DayConcentration.calcNonCarcinogenicRisk(
         material: Material
     ) {
         nonCarcinogenicRisk = value * material.RfC
-    }
-
-    private fun DayConcentration.calcNonCarcinogenicRiskLevel() {
-        RiskLevel.entries.forEach { riskLevel ->
-            if (riskLevel.condition(value)) {
-                nonCarcinogenicRiskLevel = riskLevel.toString()
-                return
-            }
-        }
     }
 }

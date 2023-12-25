@@ -8,7 +8,7 @@ class DayConcentrationsMySQLStorage(
     private val connectionData: DatabaseConnectionData
 ) : DayConcentrationsRemoteStorage {
 
-    private val tableName = "year_concentration"
+    private val tableName = "day_concentration"
 
     private val columnIdName = "id"
     private val columnYearName = "year"
@@ -47,10 +47,8 @@ class DayConcentrationsMySQLStorage(
                     year = resultSet.getInt(columnYearName),
                     carcinogenicRisk = resultSet.getDouble(columnCarcinogenicRiskName),
                     nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName),
-                    organ = resultSet.getString(columnOrganName),
-                    carcinogenicRiskLevel = resultSet.getString(columnCarcinogenicRiskLevelName),
-                    nonCarcinogenicRiskLevel = resultSet.getString(columnNonCarcinogenicRiskLevelName)
-                )
+                    organ = resultSet.getString(columnOrganName)
+                    )
                 concentrations.add(concentration)
             }
 
@@ -90,9 +88,7 @@ class DayConcentrationsMySQLStorage(
                     value = resultSet.getDouble(columnValueName),
                     carcinogenicRisk = resultSet.getDouble(columnCarcinogenicRiskName),
                     nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName),
-                    organ = resultSet.getString(columnOrganName),
-                    carcinogenicRiskLevel = resultSet.getString(columnCarcinogenicRiskLevelName),
-                    nonCarcinogenicRiskLevel = resultSet.getString(columnNonCarcinogenicRiskLevelName)
+                    organ = resultSet.getString(columnOrganName)
                 )
             }
 
@@ -124,8 +120,6 @@ class DayConcentrationsMySQLStorage(
                 preparedStatement.setDouble(5, concentration.carcinogenicRisk)
                 preparedStatement.setDouble(6, concentration.nonCarcinogenicRisk)
                 preparedStatement.setString(7, concentration.organ)
-                preparedStatement.setString(8, concentration.carcinogenicRiskLevel)
-                preparedStatement.setString(9, concentration.nonCarcinogenicRiskLevel)
 
                 preparedStatement.executeUpdate()
             }

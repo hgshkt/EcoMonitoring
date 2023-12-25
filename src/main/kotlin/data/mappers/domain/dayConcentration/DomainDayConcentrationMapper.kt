@@ -18,8 +18,6 @@ fun DayConcentration.toRemote():RemoteDayConcentration {
         year = year,
         carcinogenicRisk = carcinogenicRisk,
         nonCarcinogenicRisk = nonCarcinogenicRisk,
-        organ = organ,
-        carcinogenicRiskLevel = carcinogenicRiskLevel,
-        nonCarcinogenicRiskLevel = nonCarcinogenicRiskLevel
+        organ = organ
     )
 }
