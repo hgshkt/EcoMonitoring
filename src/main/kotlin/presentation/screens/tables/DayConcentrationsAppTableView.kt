@@ -1,62 +1,69 @@
 package presentation.screens.tables
 
-import domain.model.Pollution
+import domain.model.DayConcentration
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import presentation.screens.creating.createPollution.CreatePollutionScreen
-import presentation.screens.tables.usecases.PollutionTableViewUseCases
+import presentation.screens.creating.dayConcentration.CreateDayConcentrationScreen
 import presentation.screens.tables.usecases.TableUseCases
+import presentation.screens.tables.usecases.DayConcentrationTableViewUseCases
 import presentation.views.buttons.SelectFileButton
 import presentation.style.buttonSizeHeight
 import presentation.style.buttonSizeWidth
 import tornadofx.*
 
-class PollutionsAppTableView : AppTableView() {
-
-    private val _title = "Pollutions"
+class DayConcentrationsAppTableView : AppTableView() {
+    private val _title = "Day Concentrations"
 
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var useCases: PollutionTableViewUseCases = PollutionTableViewUseCases()
+    private var useCases: DayConcentrationTableViewUseCases = DayConcentrationTableViewUseCases()
 
     override val root: Parent
 
-    private var observablePollutions: ObservableList<Pollution>
+    private var observableConcentrations: ObservableList<DayConcentration>
 
-    private var selectedTableType = SimpleStringProperty(TableType.POLLUTION.tableName)
+    private var selectedTableType = SimpleStringProperty(TableType.DAY_CONCENTRATIONS.tableName)
 
     init {
-        val pollutions = useCases.getPollutionsFromRemoteRepositoryUseCase.execute().pollutions
-        observablePollutions = pollutions.toObservable()
+        val concentrations = tableUseCases.getDayConcentrationsFromRemoteRepositoryUseCase
+            .execute().concentrations
+        observableConcentrations = concentrations.toObservable()
 
         title = _title
 
         root = hbox {
-            val table = tableview(observablePollutions) {
-                readonlyColumn("Enterprise name", Pollution::enterpriseName)
-                readonlyColumn("Material name", Pollution::materialName)
-                readonlyColumn("Year", Pollution::year)
-                readonlyColumn("MaterialAmount", Pollution::materialAmount)
+            val table = tableview(observableConcentrations) {
+                readonlyColumn("Id", DayConcentration::id)
 
-                readonlyColumn("Delete", Pollution::enterpriseName).cellFormat { enterpriseName ->
+                readonlyColumn("Material", DayConcentration::materialName)
+                readonlyColumn("Year", DayConcentration::year)
+                readonlyColumn("Value (mg/m^3)", DayConcentration::value)
+                readonlyColumn("Carcinogenic risk", DayConcentration::carcinogenicRisk)
+                readonlyColumn("Non carcinogenic risk", DayConcentration::nonCarcinogenicRisk)
+                readonlyColumn("Organ", DayConcentration::organ)
+
+                readonlyColumn("Delete", DayConcentration::id).cellFormat { concentrationId ->
                     graphic = hbox(spacing = 5) {
                         button("Delete") {
                             action {
-                                val pollution = Pollution(
-                                    enterpriseName = enterpriseName,
-                                    materialName = rowItem.materialName,
-                                    year = rowItem.year,
-                                    materialAmount = rowItem.materialAmount
-                                )
-                                useCases.delete.execute(pollution)
+                                useCases.delete.execute(rowItem.id)
                                 update()
                             }
                         }
                     }
                 }
+//                readonlyColumn("Edit", YearConcentration::id).cellFormat { concentrationId ->
+//                    graphic = hbox(spacing = 5) {
+//                        button("Edit") {
+//                            action {
+//                                replaceWith(CreateYearConcentrationScreen::class)
+//                            }
+//                        }
+//                    }
+//                }
             }
 
             HBox.setHgrow(table, Priority.ALWAYS)
@@ -96,7 +103,7 @@ class PollutionsAppTableView : AppTableView() {
                 }
 
                 region {
-                    prefHeight  = 30.0
+                    prefHeight = 30.0
                 }
 
                 text("Fill data from file")
@@ -118,25 +125,25 @@ class PollutionsAppTableView : AppTableView() {
                 )
 
                 region {
-                    prefHeight  = 30.0
+                    prefHeight = 30.0
                 }
 
                 text("Other functions")
 
-                button("Update"){
+                button("Update") {
                     action {
                         update()
                     }
                 }
 
-                button("Add pollutions") {
+                button("Add concentrations") {
                     action {
-                        find<CreatePollutionScreen>().openWindow()
+                        find<CreateDayConcentrationScreen>().openWindow()
                         update()
                     }
                 }
 
-                button("Remove all pollutions") {
+                button("Remove all concentrations") {
                     action {
                         useCases.deleteAll.execute()
                         update()
@@ -147,9 +154,9 @@ class PollutionsAppTableView : AppTableView() {
     }
 
     private fun update() {
-        observablePollutions.clear()
-        val newData =  tableUseCases.getPollutionsFromRemoteRepositoryUseCase
-            .execute().pollutions
-        observablePollutions.addAll(newData)
+        observableConcentrations.clear()
+        val newData = tableUseCases.getDayConcentrationsFromRemoteRepositoryUseCase
+            .execute().concentrations
+        observableConcentrations.addAll(newData)
     }
 }

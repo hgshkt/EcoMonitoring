@@ -2,7 +2,7 @@ package data.obtained
 
 import domain.data.obtained.calculators.RiskCalculator
 import domain.model.Material
-import domain.model.YearConcentration
+import domain.model.DayConcentration
 
 class RiskCalculatorImpl : RiskCalculator {
 
@@ -18,8 +18,8 @@ class RiskCalculatorImpl : RiskCalculator {
 
     override fun calculateRisk(
         material: Material,
-        concentration: YearConcentration
-    ): YearConcentration {
+        concentration: DayConcentration
+    ): DayConcentration {
 
 
         concentration.calcCarcinogenicRisk()
@@ -31,12 +31,12 @@ class RiskCalculatorImpl : RiskCalculator {
         return concentration
     }
 
-    private fun YearConcentration.calcCarcinogenicRisk() {
-        carcinogenicRisk = (((value * Tout * Vout) + (value * Tin * Vin)) * EF * ED) /
-                (BW * AT * 365) * population
+    private fun DayConcentration.calcCarcinogenicRisk() {
+        carcinogenicRisk = (((value * Tout * Vout) + (value * Tin * Vin)) * EF * ED) * population /
+                (BW * AT * 365)
     }
 
-    private fun YearConcentration.calcCarcinogenicRiskLevel() {
+    private fun DayConcentration.calcCarcinogenicRiskLevel() {
         RiskLevel.entries.forEach { riskLevel ->
             if (riskLevel.condition(value)) {
                 carcinogenicRiskLevel = riskLevel.toString()
@@ -45,13 +45,13 @@ class RiskCalculatorImpl : RiskCalculator {
         }
     }
 
-    private fun YearConcentration.calcNonCarcinogenicRisk(
+    private fun DayConcentration.calcNonCarcinogenicRisk(
         material: Material
     ) {
         nonCarcinogenicRisk = value * material.RfC
     }
 
-    private fun YearConcentration.calcNonCarcinogenicRiskLevel() {
+    private fun DayConcentration.calcNonCarcinogenicRiskLevel() {
         RiskLevel.entries.forEach { riskLevel ->
             if (riskLevel.condition(value)) {
                 nonCarcinogenicRiskLevel = riskLevel.toString()

@@ -47,8 +47,8 @@ class SelectFileButton(
                                 tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
                             }
 
-                            TableType.YEAR_CONCENTRATIONS.tableName -> {
-                                tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
+                            TableType.DAY_CONCENTRATIONS.tableName -> {
+                                tableUseCases.loadDayConcentrationsFromExcelUseCase.execute(path)
                             }
                         }
                     } catch (exception: Exception) {
