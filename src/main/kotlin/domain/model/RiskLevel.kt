@@ -4,42 +4,42 @@ import java.lang.IllegalArgumentException
 
 enum class RiskLevel(val levelName: String) {
     HIGH("HIGH") {
-        override fun condition(concentration: Double): Boolean {
-            return concentration >= 0.001
+        override fun condition(risk: Double): Boolean {
+            return risk >= 0.001
         }
 
     },
     MEDIUM("MEDIUM") {
-        override fun condition(concentration: Double): Boolean {
-            return concentration < 0.001 && concentration >= 0.0001
+        override fun condition(risk: Double): Boolean {
+            return risk < 0.001 && risk >= 0.0001
         }
 
     },
     LOW("LOW") {
-        override fun condition(concentration: Double): Boolean {
-            return concentration < 0.0001 && concentration >= 0.000001
+        override fun condition(risk: Double): Boolean {
+            return risk < 0.0001 && risk >= 0.000001
         }
 
     },
     MINIMUM("MINIMUM") {
-        override fun condition(concentration: Double): Boolean {
-            return concentration < 0.000001
+        override fun condition(risk: Double): Boolean {
+            return risk < 0.000001
         }
 
     },
     UNDEFINED("UNDEFINED") {
-        override fun condition(concentration: Double) = true
+        override fun condition(risk: Double) = true
 
     };
 
-    abstract fun condition(concentration: Double): Boolean
+    abstract fun condition(risk: Double): Boolean
 
     companion object {
-        fun find(concentration: Double): RiskLevel {
-            if(concentration == -1.0) return UNDEFINED
+        fun find(risk: Double): RiskLevel {
+            if(risk == -1.0) return UNDEFINED
 
             entries.forEach { riskLevel ->
-                if (riskLevel.condition(concentration)) return riskLevel
+                if (riskLevel.condition(risk)) return riskLevel
             }
             return UNDEFINED
         }

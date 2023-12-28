@@ -50,7 +50,13 @@ data class TableUseCases(
         ),
         excelRepository = ExcelPollutionRepositoryImpl(
             storage = PollutionsExcelStorageImpl()
-        )
+        ),
+        remoteMaterialRepository = MaterialMySQLRepository(
+            storage = MaterialMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        ),
+        riskCalculator = RiskCalculatorImpl()
     ),
     val getEnterprisesFromRemoteRepositoryUseCase: GetEnterprisesFromRemoteRepositoryUseCase
     = GetEnterprisesFromRemoteRepositoryUseCase(

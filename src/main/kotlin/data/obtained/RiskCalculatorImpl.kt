@@ -3,6 +3,7 @@ package data.obtained
 import domain.data.obtained.calculators.RiskCalculator
 import domain.model.Material
 import domain.model.Pollution
+import domain.model.RiskLevel
 
 class RiskCalculatorImpl : RiskCalculator {
 
@@ -47,9 +48,9 @@ class RiskCalculatorImpl : RiskCalculator {
 }
 
 private fun Pollution.calcNonCarcinogenicRiskLevel() {
-    TODO()
+    carcinogenicRiskLevel = RiskLevel.find(carcinogenicRisk).levelName
 }
 
 private fun Pollution.calcCarcinogenicRiskLevel() {
-    TODO()
+    nonCarcinogenicRiskLevel = RiskLevel.find(nonCarcinogenicRisk).levelName
 }
