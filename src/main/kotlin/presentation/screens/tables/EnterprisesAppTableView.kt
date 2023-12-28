@@ -96,13 +96,6 @@ class EnterprisesAppTableView : AppTableView() {
                         replaceWith(PollutionsAppTableView::class)
                     }
                 }
-                button(TableType.DAY_CONCENTRATIONS.tableName) {
-                    prefWidth = buttonSizeWidth
-                    prefHeight = buttonSizeHeight
-                    action {
-                        replaceWith(DayConcentrationsAppTableView::class)
-                    }
-                }
 
                 region {
                     prefHeight = 30.0

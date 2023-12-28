@@ -2,7 +2,7 @@ package data.obtained
 
 import domain.data.obtained.calculators.RiskCalculator
 import domain.model.Material
-import domain.model.DayConcentration
+import domain.model.Pollution
 
 class RiskCalculatorImpl : RiskCalculator {
 
@@ -18,30 +18,38 @@ class RiskCalculatorImpl : RiskCalculator {
 
     override fun calculateRisk(
         material: Material,
-        concentration: DayConcentration
-    ): DayConcentration {
+        pollution: Pollution
+    ): Pollution {
+        pollution.calcCarcinogenicRisk()
+        pollution.calcCarcinogenicRiskLevel()
 
+        pollution.calcNonCarcinogenicRisk(material)
+        pollution.calcNonCarcinogenicRiskLevel()
 
-        concentration.calcCarcinogenicRisk()
-
-        concentration.calcNonCarcinogenicRisk(material)
-
-        return concentration
+        return pollution
     }
 
-    private fun DayConcentration.calcCarcinogenicRisk() {
+    private fun Pollution.calcCarcinogenicRisk() {
         carcinogenicRisk =
-            if(value == -1.0) -1.0
-        else (((value * Tout * Vout) + (value * Tin * Vin)) * EF * ED)  /
+            if(concentration == -1.0) -1.0
+        else (((concentration * Tout * Vout) + (concentration * Tin * Vin)) * EF * ED)  /
                 (BW * AT * 365)
     }
 
-    private fun DayConcentration.calcNonCarcinogenicRisk(
+    private fun Pollution.calcNonCarcinogenicRisk(
         material: Material
     ) {
         nonCarcinogenicRisk =
-            if (value == -1.0) -1.0
+            if (concentration == -1.0) -1.0
         else
-            value * material.RfC
+            concentration * material.RfC
     }
+}
+
+private fun Pollution.calcNonCarcinogenicRiskLevel() {
+    TODO()
+}
+
+private fun Pollution.calcCarcinogenicRiskLevel() {
+    TODO()
 }

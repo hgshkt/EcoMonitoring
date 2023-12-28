@@ -2,7 +2,7 @@ package data.obtained
 
 import domain.data.obtained.calculators.DamageCalculator
 import domain.model.Material
-import domain.model.DayConcentration
+import domain.model.Pollution
 
 class DamagesCalculatorImpl: DamageCalculator {
 
@@ -49,11 +49,11 @@ class DamagesCalculatorImpl: DamageCalculator {
 
     override fun calcDamage(
         material: Material,
-        concentration: DayConcentration
+        pollution: Pollution
     ): Double {
         Ai = 1 / material.gdk
         Kt = Knas * Kf
-        Kzi = concentration.value / material.gdk
+        Kzi = pollution.concentration / material.gdk
         return mi() * 1.1 * P * Ai * Kt * Kzi
     }
 

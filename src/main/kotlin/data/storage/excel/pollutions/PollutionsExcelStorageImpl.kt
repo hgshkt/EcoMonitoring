@@ -21,7 +21,8 @@ class PollutionsExcelStorageImpl: PollutionsExcelStorage {
                         enterpriseName = row.getCell(0).stringCellValue,
                         materialName = row.getCell(1).stringCellValue,
                         materialAmount = row.getCell(2).numericCellValue,
-                        year = row.getCell(3).numericCellValue.toInt()
+                        year = row.getCell(3).numericCellValue.toInt(),
+                        concentration = row.getCell(4).numericCellValue
                     )
                 )
             }

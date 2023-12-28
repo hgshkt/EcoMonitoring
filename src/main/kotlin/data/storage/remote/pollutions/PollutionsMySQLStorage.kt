@@ -15,9 +15,14 @@ class PollutionsMySQLStorage(
     private val columnMaterialIdName = "material_id"
     private val columnYearName = "year"
     private val columnAmountName = "material_amount"
+    private val columnConcentrationName = "concentration"
+    private val columnCarcinogenicRiskName = "carcinogenic_risk"
+    private val columnCarcinogenicRiskLevelName = "carcinogenic_risk_level"
+    private val columnNonCarcinogenicRiskName = "non_carcinogenic_risk"
+    private val columnNonCarcinogenicRiskLevelName = "non_carcinogenic_risk_level"
 
     private val getAllQuery = "SELECT * FROM $tableName"
-    private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnEnterpriseIdName = ? AND " +
             "$columnMaterialIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
@@ -40,7 +45,12 @@ class PollutionsMySQLStorage(
                     enterpriseId = resultSet.getInt(columnEnterpriseIdName),
                     materialId = resultSet.getInt(columnMaterialIdName),
                     year = resultSet.getInt(columnYearName),
-                    materialAmount = resultSet.getDouble(columnAmountName)
+                    materialAmount = resultSet.getDouble(columnAmountName),
+                    concentration = resultSet.getDouble(columnConcentrationName),
+                    carcinogenicRisk = resultSet.getDouble(columnCarcinogenicRiskName),
+                    carcinogenicRiskLevel = resultSet.getString(columnCarcinogenicRiskLevelName),
+                    nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName),
+                    nonCarcinogenicRiskLevel = resultSet.getString(columnNonCarcinogenicRiskLevelName),
                 )
                 pollutions.add(pollution)
             }
@@ -67,6 +77,11 @@ class PollutionsMySQLStorage(
                 preparedStatement.setInt(2, pollution.materialId)
                 preparedStatement.setInt(3, pollution.year)
                 preparedStatement.setDouble(4, pollution.materialAmount)
+                preparedStatement.setDouble(5, pollution.concentration)
+                preparedStatement.setDouble(6, pollution.carcinogenicRisk)
+                preparedStatement.setString(7, pollution.carcinogenicRiskLevel)
+                preparedStatement.setDouble(8, pollution.nonCarcinogenicRisk)
+                preparedStatement.setString(9, pollution.nonCarcinogenicRiskLevel)
 
                 preparedStatement.executeUpdate()
             }

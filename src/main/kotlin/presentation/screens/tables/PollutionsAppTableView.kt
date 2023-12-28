@@ -49,7 +49,8 @@ class PollutionsAppTableView : AppTableView() {
                                     enterpriseName = enterpriseName,
                                     materialName = rowItem.materialName,
                                     year = rowItem.year,
-                                    materialAmount = rowItem.materialAmount
+                                    materialAmount = rowItem.materialAmount,
+                                    concentration = rowItem.concentration
                                 )
                                 useCases.delete.execute(pollution)
                                 update()
@@ -85,13 +86,6 @@ class PollutionsAppTableView : AppTableView() {
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(PollutionsAppTableView::class)
-                    }
-                }
-                button(TableType.DAY_CONCENTRATIONS.tableName) {
-                    prefWidth = buttonSizeWidth
-                    prefHeight = buttonSizeHeight
-                    action {
-                        replaceWith(DayConcentrationsAppTableView::class)
                     }
                 }
 

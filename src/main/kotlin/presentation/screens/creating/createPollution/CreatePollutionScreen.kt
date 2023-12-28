@@ -66,7 +66,12 @@ class CreatePollutionScreen : View() {
                         enterpriseName = enterpriseNameInputProperty.value,
                         materialName = materialNameInputProperty.value,
                         year = yearInputProperty.value.toInt(),
-                        materialAmount = amountTextField.text.toDouble()
+                        materialAmount = amountTextField.text.toDouble(),
+                        concentration = TODO(),
+                        carcinogenicRisk  = TODO(),
+                        carcinogenicRiskLevel = TODO(),
+                        nonCarcinogenicRisk = TODO(),
+                        nonCarcinogenicRiskLevel = TODO()
                     )
                     useCases.createUseCase.execute(pollution) {
                         sqlException()

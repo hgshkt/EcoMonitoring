@@ -18,6 +18,11 @@ fun RemotePollution.toDomain(): Pollution {
         enterpriseName = enterprises.find {it.id == enterpriseId}?.name ?: "Not found",
         materialName = materials.find {it.id == materialId}?.name ?: "Not found",
         year = year,
-        materialAmount = materialAmount
+        materialAmount = materialAmount,
+        concentration = concentration,
+        carcinogenicRisk = carcinogenicRisk,
+        carcinogenicRiskLevel = carcinogenicRiskLevel,
+        nonCarcinogenicRisk = nonCarcinogenicRisk,
+        nonCarcinogenicRiskLevel = nonCarcinogenicRiskLevel
     )
 }

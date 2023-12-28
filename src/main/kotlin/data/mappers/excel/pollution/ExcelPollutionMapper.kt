@@ -11,7 +11,8 @@ fun ExcelPollution.toDomain() = Pollution(
     enterpriseName = enterpriseName,
     materialName = materialName,
     year = year,
-    materialAmount = materialAmount
+    materialAmount = materialAmount,
+    concentration = concentration
 )
 
 fun ExcelPollution.toRemote(): RemotePollution {
@@ -26,6 +27,11 @@ fun ExcelPollution.toRemote(): RemotePollution {
         enterpriseId = enterprises.find {it.name == enterpriseName}!!.id,
         materialId = materials.find {it.name == materialName}!!.id,
         year = year,
-        materialAmount = materialAmount
+        materialAmount = materialAmount,
+        concentration = concentration,
+        carcinogenicRisk = -1.0,
+        carcinogenicRiskLevel = "-",
+        nonCarcinogenicRisk = -1.0,
+        nonCarcinogenicRiskLevel = "-"
     )
 }

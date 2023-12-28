@@ -19,6 +19,11 @@ fun Pollution.toRemote(): RemotePollution {
         enterpriseId = enterprises.find {it.name == enterpriseName}!!.id,
         materialId = materials.find {it.name == materialName}!!.id,
         year = year,
-        materialAmount = materialAmount
+        materialAmount = materialAmount,
+        concentration = concentration,
+        carcinogenicRisk = carcinogenicRisk,
+        carcinogenicRiskLevel = carcinogenicRiskLevel,
+        nonCarcinogenicRisk = nonCarcinogenicRisk,
+        nonCarcinogenicRiskLevel = nonCarcinogenicRiskLevel
     )
 }
