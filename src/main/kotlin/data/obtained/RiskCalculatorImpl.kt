@@ -47,10 +47,12 @@ class RiskCalculatorImpl : RiskCalculator {
     }
 }
 
-private fun Pollution.calcNonCarcinogenicRiskLevel() {
-    carcinogenicRiskLevel = RiskLevel.find(carcinogenicRisk).levelName
+private fun Pollution.calcCarcinogenicRiskLevel() {
+    nonCarcinogenicRiskLevel = RiskLevel.find(carcinogenicRisk).levelName
 }
 
-private fun Pollution.calcCarcinogenicRiskLevel() {
-    nonCarcinogenicRiskLevel = RiskLevel.find(nonCarcinogenicRisk).levelName
+private fun Pollution.calcNonCarcinogenicRiskLevel() {
+    carcinogenicRiskLevel = RiskLevel.find(nonCarcinogenicRisk).levelName
 }
+
+

@@ -40,6 +40,23 @@ class PollutionsAppTableView : AppTableView() {
                 readonlyColumn("Material name", Pollution::materialName)
                 readonlyColumn("Year", Pollution::year)
                 readonlyColumn("MaterialAmount", Pollution::materialAmount)
+                readonlyColumn("Concentration", Pollution::concentration).cellFormat {
+                    graphic = hbox {
+                        text(if (it == -1.0) "no info" else it.toString())
+                    }
+                }
+                readonlyColumn("Carcinogenic Risk", Pollution::carcinogenicRisk).cellFormat {
+                    graphic = hbox {
+                        text(if (it == -1.0) "no info" else it.toString())
+                    }
+                }
+                readonlyColumn("Carcinogenic Risk Level", Pollution::carcinogenicRiskLevel)
+                readonlyColumn("Non Carcinogenic Risk", Pollution::nonCarcinogenicRisk).cellFormat {
+                    graphic = hbox {
+                        text(if (it == -1.0) "no info" else it.toString())
+                    }
+                }
+                readonlyColumn("Non Carcinogenic Risk Level", Pollution::nonCarcinogenicRiskLevel)
 
                 readonlyColumn("Delete", Pollution::enterpriseName).cellFormat { enterpriseName ->
                     graphic = hbox(spacing = 5) {
@@ -90,7 +107,7 @@ class PollutionsAppTableView : AppTableView() {
                 }
 
                 region {
-                    prefHeight  = 30.0
+                    prefHeight = 30.0
                 }
 
                 text("Fill data from file")
@@ -112,12 +129,12 @@ class PollutionsAppTableView : AppTableView() {
                 )
 
                 region {
-                    prefHeight  = 30.0
+                    prefHeight = 30.0
                 }
 
                 text("Other functions")
 
-                button("Update"){
+                button("Update") {
                     action {
                         update()
                     }
@@ -142,7 +159,7 @@ class PollutionsAppTableView : AppTableView() {
 
     private fun update() {
         observablePollutions.clear()
-        val newData =  tableUseCases.getPollutionsFromRemoteRepositoryUseCase
+        val newData = tableUseCases.getPollutionsFromRemoteRepositoryUseCase
             .execute().pollutions
         observablePollutions.addAll(newData)
     }
