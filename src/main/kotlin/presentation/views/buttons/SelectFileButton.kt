@@ -25,7 +25,7 @@ class SelectFileButton(
         height = buttonSizeHeight
 
         setOnAction {
-//            try {
+            try {
                 val file = chooseFile(
                     "Select a File",
                     filters = arrayOf(FileChooser.ExtensionFilter("Excel Files", "*.xlsx")),
@@ -33,7 +33,7 @@ class SelectFileButton(
                 )[0]
 
                 file.apply {
-//                    try {
+                    try {
                         when (selectedTableType.value) {
                             TableType.MATERIALS.tableName -> {
                                 tableUseCases.loadMaterialsFromExcelUseCase.execute(path)
@@ -47,14 +47,14 @@ class SelectFileButton(
                                 tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
                             }
                         }
-//                    } catch (exception: Exception) {
-//                        alert(Alert.AlertType.ERROR, "Error", "SQL Exception")
-//                    }
+                    } catch (exception: Exception) {
+                        alert(Alert.AlertType.ERROR, "Error", "SQL Exception")
+                    }
                     action.invoke()
                 }
-//            } catch (e: Exception) {
-//                alert(Alert.AlertType.ERROR, "Error", "File not selected")
-//            }
+            } catch (e: Exception) {
+                alert(Alert.AlertType.ERROR, "Error", "File not selected")
+            }
         }
     }
 }
