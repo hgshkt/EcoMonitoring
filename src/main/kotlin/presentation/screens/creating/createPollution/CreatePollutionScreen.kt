@@ -59,6 +59,10 @@ class CreatePollutionScreen : View() {
         val amountTextField = DoubleValueTextField()
         add(amountTextField)
 
+        text("concentration")
+        val concentrationTextField = DoubleValueTextField()
+        add(concentrationTextField)
+
         button("Create") {
             action {
                 if (yearInputProperty.value.toInt() in 1950..LocalDate.now().year) {
@@ -66,12 +70,8 @@ class CreatePollutionScreen : View() {
                         enterpriseName = enterpriseNameInputProperty.value,
                         materialName = materialNameInputProperty.value,
                         year = yearInputProperty.value.toInt(),
-                        materialAmount = amountTextField.text.toDouble(),
-                        concentration = TODO(),
-                        carcinogenicRisk  = TODO(),
-                        carcinogenicRiskLevel = TODO(),
-                        nonCarcinogenicRisk = TODO(),
-                        nonCarcinogenicRiskLevel = TODO()
+                        materialAmount = concentrationTextField.text.toDouble(),
+                        concentration = concentrationTextField.text.toDouble()
                     )
                     useCases.createUseCase.execute(pollution) {
                         sqlException()
