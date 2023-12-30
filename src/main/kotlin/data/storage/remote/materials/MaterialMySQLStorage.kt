@@ -16,11 +16,13 @@ class MaterialMySQLStorage(
     private val columnDangerClassName = "danger_class"
     private val columnRfCName = "RfC"
     private val columnOrganName = "organ"
+    private val columnGdvName = "gdv"
+    private val columnMassEmissionsName = "mass_emissions"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -46,7 +48,9 @@ class MaterialMySQLStorage(
                         gdk = resultSet.getDouble(columnGdkName),
                         dangerClass = resultSet.getInt(columnDangerClassName),
                         RfC = resultSet.getDouble(columnRfCName),
-                        organ = resultSet.getString(columnOrganName)
+                        organ = resultSet.getString(columnOrganName),
+                        gdv = resultSet.getInt(columnGdvName),
+                        massEmissions = resultSet.getInt(columnMassEmissionsName)
                     )
                 )
             }
@@ -83,7 +87,9 @@ class MaterialMySQLStorage(
                     gdk = resultSet.getDouble(columnGdkName),
                     dangerClass = resultSet.getInt(columnDangerClassName),
                     RfC = resultSet.getDouble(columnRfCName),
-                    organ = resultSet.getString(columnOrganName)
+                    organ = resultSet.getString(columnOrganName),
+                    gdv = resultSet.getInt(columnGdvName),
+                    massEmissions = resultSet.getInt(columnMassEmissionsName)
                 )
             }
 
@@ -117,6 +123,8 @@ class MaterialMySQLStorage(
                     preparedStatement.setInt(4, material.dangerClass)
                     preparedStatement.setDouble(5, material.RfC)
                     preparedStatement.setString(6, material.organ)
+                    preparedStatement.setInt(7, material.gdv)
+                    preparedStatement.setInt(8, material.massEmissions)
 
                     preparedStatement.executeUpdate()
                 }
@@ -148,7 +156,9 @@ class MaterialMySQLStorage(
                     gdk = resultSet.getDouble(columnGdkName),
                     dangerClass = resultSet.getInt(columnDangerClassName),
                     RfC = resultSet.getDouble(columnRfCName),
-                    organ = resultSet.getString(columnOrganName)
+                    organ = resultSet.getString(columnOrganName),
+                    gdv = resultSet.getInt(columnGdvName),
+                    massEmissions = resultSet.getInt(columnMassEmissionsName)
                 )
             }
 
