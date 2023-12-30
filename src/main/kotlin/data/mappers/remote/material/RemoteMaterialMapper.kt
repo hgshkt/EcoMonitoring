@@ -10,7 +10,9 @@ fun RemoteMaterial.toExcel() = ExcelMaterial(
     gdk = gdk,
     dangerClass = dangerClass,
     RfC = RfC,
-    organ = organ
+    organ = organ,
+    gdv = gdv,
+    massEmissions = massEmissions
 )
 
 fun RemoteMaterial.toDomain() = Material(
@@ -19,5 +21,7 @@ fun RemoteMaterial.toDomain() = Material(
     gdk = gdk,
     dangerClass = dangerClass,
     RfC = RfC,
-    organ = organ
+    organ = organ,
+    gdv = gdv,
+    massEmissions = massEmissions
 )
