@@ -49,6 +49,14 @@ class CreateMaterialScreen : View() {
             values = organs
         )
 
+        text("Gdv")
+        val gdvTextField = IntValueTextField()
+        add(gdvTextField)
+
+        text("Mass Emissions")
+        val massEmissionsTextField = IntValueTextField()
+        add(massEmissionsTextField)
+
         button("Create") {
             action {
                 val material = Material(
@@ -57,7 +65,9 @@ class CreateMaterialScreen : View() {
                     gdk = gdkTextField.text.toDouble(),
                     dangerClass = dangerClassInputProperty.value,
                     RfC = rfcTextField.text.toDouble(),
-                    organ = organProperty.value
+                    organ = organProperty.value,
+                    gdv = gdvTextField.text.toInt(),
+                    massEmissions = massEmissionsTextField.text.toInt()
                 )
                 useCase.execute(material) {
                     sqlException()
