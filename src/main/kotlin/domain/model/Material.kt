@@ -6,5 +6,7 @@ data class Material(
     val gdk: Double,
     val dangerClass: Int,
     val RfC: Double,
-    val organ: String
+    val organ: String,
+    val gdv: Int,
+    val massEmissions: Int
 )
