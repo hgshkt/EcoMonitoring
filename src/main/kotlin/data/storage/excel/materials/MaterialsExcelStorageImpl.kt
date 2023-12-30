@@ -22,7 +22,9 @@ class MaterialsExcelStorageImpl:  MaterialsExcelStorage{
                         gdk = row.getCell(2).numericCellValue,
                         dangerClass = row.getCell(3).numericCellValue.toInt(),
                         RfC = row.getCell(4).numericCellValue,
-                        organ = row.getCell(5).stringCellValue
+                        organ = row.getCell(5).stringCellValue,
+                        gdv = row.getCell(6).numericCellValue.toInt(),
+                        massEmissions = row.getCell(7).numericCellValue.toInt()
                     )
                 )
             }
