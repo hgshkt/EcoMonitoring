@@ -7,6 +7,8 @@ interface YearConcentrationRemoteStorage {
 
     fun add(concentration: RemoteYearConcentration)
 
+    fun update(concentration: RemoteYearConcentration)
+
     fun deleteById(id: Int)
 
     fun deleteAll()
