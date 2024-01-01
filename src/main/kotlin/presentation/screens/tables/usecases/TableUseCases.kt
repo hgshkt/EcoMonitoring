@@ -7,6 +7,7 @@ import data.repository.materials.excel.ExcelMaterialRepositoryImpl
 import data.repository.materials.remote.MaterialMySQLRepository
 import data.repository.pollutions.excel.ExcelPollutionRepositoryImpl
 import data.repository.pollutions.remote.PollutionMySQLRepository
+import data.repository.yearConcentrations.remote.YearConcentrationRemoteRepository
 import data.storage.DatabaseConnectionData
 import data.storage.excel.enterprises.EnterpriseExcelStorageImpl
 import data.storage.excel.materials.MaterialsExcelStorageImpl
@@ -14,9 +15,11 @@ import data.storage.excel.pollutions.PollutionsExcelStorageImpl
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
+import data.storage.remote.yearConcentration.YearConcentrationMySQLStorage
 import domain.useCases.get.GetEnterprisesFromRemoteRepositoryUseCase
 import domain.useCases.get.GetMaterialsFromRemoteRepositoryUseCase
 import domain.useCases.get.GetPollutionsFromRemoteRepositoryUseCase
+import domain.useCases.get.GetYearConcentrationsFromRemoteRepositoryUseCase
 import domain.useCases.loadFromExcel.LoadEnterprisesFromExcelUseCase
 import domain.useCases.loadFromExcel.LoadMaterialsFromExcelUseCase
 import domain.useCases.loadFromExcel.LoadPollutionsFromExcelUseCase
@@ -81,5 +84,13 @@ data class TableUseCases(
                 connectionData = DatabaseConnectionData()
             )
         )
-    )
+    ),
+    val getYearConcentrationsFromRemoteRepositoryUseCase: GetYearConcentrationsFromRemoteRepositoryUseCase =
+        GetYearConcentrationsFromRemoteRepositoryUseCase(
+            repository = YearConcentrationRemoteRepository(
+                storage = YearConcentrationMySQLStorage(
+                    connectionData = DatabaseConnectionData()
+                )
+            )
+        )
 )

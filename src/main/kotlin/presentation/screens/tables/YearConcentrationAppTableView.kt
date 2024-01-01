@@ -9,6 +9,7 @@ import javafx.scene.layout.Priority
 import presentation.controllers.CreateEnterpriseController
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.tables.usecases.TableUseCases
+import presentation.screens.tables.usecases.YearConcentrationTableViewUseCases
 import presentation.style.buttonSizeHeight
 import presentation.style.buttonSizeWidth
 import presentation.views.buttons.SelectFileButton
