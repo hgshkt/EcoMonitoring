@@ -8,9 +8,7 @@ class LoadEnterprisesFromExcelUseCase(
     private val remoteRepository: EnterprisesRemoteRepository,
     private val excelRepository: ExcelEnterpriseRepository
 ) {
-    fun execute(
-        filePath: String
-    ) {
+    fun execute(filePath: String) {
         val excelData = excelRepository.getData(filePath)
         val remoteData = excelData.toRemote()
         remoteRepository.addData(remoteData)

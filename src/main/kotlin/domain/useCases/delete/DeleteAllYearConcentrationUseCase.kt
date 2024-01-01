@@ -1,4 +1,12 @@
 package domain.useCases.delete
 
-class DeleteAllYearConcentrationUseCase {
+import domain.data.repository.yearConcentration.remote.YearConcentrationRemoteRepository
+
+class DeleteAllYearConcentrationUseCase(
+    private val repository: YearConcentrationRemoteRepository
+) {
+
+    fun execute() {
+        repository.deleteAll()
+    }
 }
