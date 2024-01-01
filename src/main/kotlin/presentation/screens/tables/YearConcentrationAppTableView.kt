@@ -1,6 +1,6 @@
 package presentation.screens.tables
 
-import domain.model.Enterprise
+import domain.model.YearConcentration
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
@@ -8,39 +8,37 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import presentation.controllers.CreateEnterpriseController
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
-import presentation.screens.tables.usecases.EnterpriseTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
-import presentation.views.buttons.SelectFileButton
 import presentation.style.buttonSizeHeight
 import presentation.style.buttonSizeWidth
+import presentation.views.buttons.SelectFileButton
 import tornadofx.*
 
-class EnterprisesAppTableView : AppTableView() {
+class YearConcentrationAppTableView : AppTableView() {
 
-    private val _title = "Enterprises"
-    private var useCases: EnterpriseTableViewUseCases = EnterpriseTableViewUseCases()
+    private val _title = "Year concentrations"
+    private var useCases: YearConcentrationTableViewUseCases = YearConcentrationTableViewUseCases()
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var selectedTableType = SimpleStringProperty(TableType.ENTERPRISES.tableName)
+    private var selectedTableType = SimpleStringProperty(TableType.YEAR_CONCENTRATIONS.tableName)
 
-    private var observableEnterprises: ObservableList<Enterprise>
+    private var observableConcentrations: ObservableList<YearConcentration>
 
     override val root: Parent
 
     init {
-        val enterprises = useCases.getAll.execute().enterprises
-        observableEnterprises = enterprises.toObservable()
+        val concentrations = useCases.getAll.execute()
+        observableConcentrations = concentrations.toObservable()
 
         title = _title
 
         root = hbox {
-            val table = tableview(observableEnterprises) {
-                readonlyColumn("Name", Enterprise::name)
-                readonlyColumn("Activity", Enterprise::activity)
-                readonlyColumn("Belonging", Enterprise::belonging)
-                readonlyColumn("Location", Enterprise::location)
+            val table = tableview(observableConcentrations) {
+                readonlyColumn("Material", YearConcentration::materialName)
+                readonlyColumn("Year", YearConcentration::year)
+                readonlyColumn("Value", YearConcentration::value)
 
-                readonlyColumn("Delete", Enterprise::id).cellFormat { id ->
+                readonlyColumn("Delete", YearConcentration::id).cellFormat { id ->
                     graphic = hbox(spacing = 5) {
                         button("Delete") {
                             action {
@@ -50,22 +48,6 @@ class EnterprisesAppTableView : AppTableView() {
                         }
                     }
                 }
-//                readonlyColumn("Edit", Enterprise::id).cellFormat { enterprise ->
-//                    graphic = hbox(spacing = 5) {
-//                        button("Edit") {
-//                            action {
-//                                val controller = find(CreateEnterpriseController::class)
-//                                controller.id = rowItem.id
-//                                controller.name = rowItem.name
-//                                controller.activity = rowItem.activity
-//                                controller.belonging = rowItem.belonging
-//                                controller.location = rowItem.location
-//                                controller.edit = true
-//                                find<CreateEnterpriseScreen>(CreateEnterpriseController::class to controller).openWindow()
-//                            }
-//                        }
-//                    }
-//                }
             }
 
             HBox.setHgrow(table, Priority.ALWAYS)
@@ -162,9 +144,10 @@ class EnterprisesAppTableView : AppTableView() {
     }
 
     private fun update() {
-        observableEnterprises.clear()
-        val newData = tableUseCases.getEnterprisesFromRemoteRepositoryUseCase
-            .execute().enterprises
-        observableEnterprises.addAll(newData)
+        observableConcentrations.clear()
+        val newData = tableUseCases
+            .getYearConcentrationsFromRemoteRepositoryUseCase
+            .execute()
+        observableConcentrations.addAll(newData)
     }
 }

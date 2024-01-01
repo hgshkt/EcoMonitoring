@@ -4,5 +4,5 @@ enum class TableType(val tableName: String) {
     MATERIALS("materials"),
     ENTERPRISES("enterprises"),
     POLLUTION("pollutions"),
-    DAY_CONCENTRATIONS("day concentrations")
+    YEAR_CONCENTRATIONS("year concentrations")
 }
