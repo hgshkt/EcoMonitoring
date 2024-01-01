@@ -83,6 +83,13 @@ class MaterialsAppTableView : AppTableView() {
                         replaceWith(PollutionsAppTableView::class)
                     }
                 }
+                button(TableType.YEAR_CONCENTRATIONS.tableName) {
+                    prefWidth = buttonSizeWidth
+                    prefHeight = buttonSizeHeight
+                    action {
+                        replaceWith(YearConcentrationAppTableView::class)
+                    }
+                }
 
                 region {
                     prefHeight = 30.0
