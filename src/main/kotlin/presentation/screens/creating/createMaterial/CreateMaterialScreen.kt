@@ -1,12 +1,13 @@
 package presentation.screens.creating.createMaterial
 
+import com.sun.javafx.scene.control.IntegerField
 import domain.model.Material
 import domain.useCases.create.CreateMaterialUseCase
 import javafx.beans.property.SimpleIntegerProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import presentation.style.creatingWindowWidth
-import presentation.views.DoubleValueTextField
+import presentation.views.textField.DoubleValueTextField
 import tornadofx.*
 
 class CreateMaterialScreen : View() {
@@ -50,11 +51,11 @@ class CreateMaterialScreen : View() {
         )
 
         text("Gdv")
-        val gdvTextField = IntValueTextField()
+        val gdvTextField = IntegerField()
         add(gdvTextField)
 
         text("Mass Emissions")
-        val massEmissionsTextField = IntValueTextField()
+        val massEmissionsTextField = IntegerField()
         add(massEmissionsTextField)
 
         button("Create") {
@@ -66,8 +67,8 @@ class CreateMaterialScreen : View() {
                     dangerClass = dangerClassInputProperty.value,
                     RfC = rfcTextField.text.toDouble(),
                     organ = organProperty.value,
-                    gdv = gdvTextField.text.toInt(),
-                    massEmissions = massEmissionsTextField.text.toInt()
+                    gdv = gdvTextField.value,
+                    massEmissions = massEmissionsTextField.value
                 )
                 useCase.execute(material) {
                     sqlException()

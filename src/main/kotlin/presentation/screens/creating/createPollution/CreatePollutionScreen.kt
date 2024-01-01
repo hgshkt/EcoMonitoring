@@ -4,7 +4,7 @@ import domain.model.Pollution
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import presentation.style.creatingWindowWidth
-import presentation.views.DoubleValueTextField
+import presentation.views.textField.DoubleValueTextField
 import tornadofx.*
 import java.time.LocalDate
 

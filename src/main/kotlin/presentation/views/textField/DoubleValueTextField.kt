@@ -1,6 +1,5 @@
-package presentation.views
+package presentation.views.textField
 
-import javafx.beans.property.SimpleStringProperty
 import javafx.beans.value.ObservableValue
 import javafx.scene.control.TextField
 
