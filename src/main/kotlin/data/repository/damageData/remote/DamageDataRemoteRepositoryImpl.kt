@@ -1,4 +1,4 @@
-package data.repository.damageData
+package data.repository.damageData.remote
 
 import data.mappers.domain.damageData.toRemote
 import data.mappers.remote.damageData.toDomain
