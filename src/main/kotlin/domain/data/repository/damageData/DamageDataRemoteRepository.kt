@@ -7,4 +7,6 @@ interface DamageDataRemoteRepository {
     fun put(data: DamageData)
 
     fun get(): DamageData
+
+    fun delete()
 }

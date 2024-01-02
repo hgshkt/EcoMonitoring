@@ -42,7 +42,7 @@ class DamageDataRemoteStorageImpl(
         }
     }
 
-    override fun get(): RemoteDamageData {
+    override fun get(): RemoteDamageData? {
         DriverManager.getConnection(
             connectionData.url,
             connectionData.user,
@@ -50,13 +50,24 @@ class DamageDataRemoteStorageImpl(
         ).createStatement().use { statement ->
             val resultSet = statement.executeQuery(getQuery)
 
-            return RemoteDamageData(
-                population = resultSet.getInt(columnPopulationName),
-                P = resultSet.getInt(columnPName),
-                kf = resultSet.getDouble(columnKfName),
-                knas = resultSet.getDouble(columnKnasName),
-                kt = resultSet.getDouble(columnKtName),
-            )
+            if (resultSet.next())
+                return RemoteDamageData(
+                    population = resultSet.getInt(columnPopulationName),
+                    P = resultSet.getInt(columnPName),
+                    kf = resultSet.getDouble(columnKfName),
+                    knas = resultSet.getDouble(columnKnasName),
+                    kt = resultSet.getDouble(columnKtName),
+                )
+
+            else return null
         }
+    }
+
+    override fun delete() {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).prepareStatement(deleteQuery).executeUpdate()
     }
 }

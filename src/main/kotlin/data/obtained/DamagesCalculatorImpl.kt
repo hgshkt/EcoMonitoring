@@ -28,20 +28,20 @@ class DamagesCalculatorImpl : DamageCalculator {
      * коефіцієнт,  що залежить  від  чисельності  жителів
      * населеного пункту
      */
-    private val Knas: Double
-        get() {
-            return if (POPULATION in 0..100000) {
-                1.0
-            } else if (POPULATION in 100000..250000) {
-                1.2
-            } else if (POPULATION in 250000..500000) {
-                1.35
-            } else if (POPULATION in 500000..1000000) {
-                1.55
-            } else if (POPULATION > 1000000) {
-                1.8
-            } else 0.0
-        }
+    private val Knas: Double = 0.0
+//        get() {
+//            return if (POPULATION in 0..100000) {
+//                1.0
+//            } else if (POPULATION in 100000..250000) {
+//                1.2
+//            } else if (POPULATION in 250000..500000) {
+//                1.35
+//            } else if (POPULATION in 500000..1000000) {
+//                1.55
+//            } else if (POPULATION > 1000000) {
+//                1.8
+//            } else 0.0
+//        }
 
     /**
      * коефіцієнт,  що  враховує  народногосподарське значення

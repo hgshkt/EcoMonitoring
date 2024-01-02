@@ -103,11 +103,11 @@ class EnterprisesAppTableView : AppTableView() {
                         replaceWith(YearConcentrationAppTableView::class)
                     }
                 }
-                button("Calculator") {
+                button(TableType.DAMAGE_DATA.tableName) {
                     prefWidth = buttonSizeWidth
                     prefHeight = buttonSizeHeight
                     action {
-                        replaceWith(DamageCalculatorScreen::class)
+                        replaceWith(DamageDataAppTableView::class)
                     }
                 }
 

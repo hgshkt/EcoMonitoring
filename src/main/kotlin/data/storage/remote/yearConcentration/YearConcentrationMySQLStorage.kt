@@ -19,8 +19,14 @@ class YearConcentrationMySQLStorage(
     private val columnValueName = "value"
 
     private val getAllQuery = "SELECT * FROM $tableName"
+
     private val insertQuery =
         "INSERT INTO $tableName($columnMaterialIdName, $columnYearName, $columnValueName) VALUES(?, ?, ?)"
+
+    private val updateQuery = "UPDATE $tableName SET (" +
+            "$columnMaterialIdName = ?, $columnYearName = ?, $columnValueName = ?)" +
+            "WHERE $columnIdName = ?"
+
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -72,6 +78,24 @@ class YearConcentrationMySQLStorage(
                 preparedStatement.setDouble(3, concentration.value)
 
                 preparedStatement.executeUpdate()
+            }
+        }
+    }
+
+    override fun update(concentration: RemoteYearConcentration) {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).use { connection ->
+            connection.prepareStatement(updateQuery).use { prepareStatement ->
+                prepareStatement.setInt(1, concentration.materialId)
+                prepareStatement.setInt(2, concentration.year)
+                prepareStatement.setDouble(3, concentration.value)
+
+                prepareStatement.setInt(4, concentration.id)
+
+                prepareStatement.executeUpdate()
             }
         }
     }

@@ -1,79 +1,62 @@
 package presentation.screens.tables
 
-import domain.model.Pollution
+import domain.data.emptyData.EmptyData.emptyDamageData
+import domain.model.DamageData
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import presentation.screens.calculator.DamageCalculatorScreen
-import presentation.screens.creating.createPollution.CreatePollutionScreen
-import presentation.screens.tables.usecases.PollutionTableViewUseCases
+import presentation.screens.tables.usecases.DamageDataTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
-import presentation.views.buttons.SelectFileButton
 import presentation.style.buttonSizeHeight
 import presentation.style.buttonSizeWidth
+import presentation.views.buttons.SelectFileButton
 import tornadofx.*
 
-class PollutionsAppTableView : AppTableView() {
+class DamageDataAppTableView : AppTableView() {
 
-    private val _title = "Pollutions"
-
+    private val _title = "Damage data"
+    private var useCases: DamageDataTableViewUseCases = DamageDataTableViewUseCases()
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var useCases: PollutionTableViewUseCases = PollutionTableViewUseCases()
+    private var selectedTableType = SimpleStringProperty(TableType.DAMAGE_DATA.tableName)
+
+    private var observableDamageData: ObservableList<DamageData>
 
     override val root: Parent
 
-    private var observablePollutions: ObservableList<Pollution>
-
-    private var selectedTableType = SimpleStringProperty(TableType.POLLUTION.tableName)
-
     init {
-        val pollutions = useCases.getPollutionsFromRemoteRepositoryUseCase.execute().pollutions
-        observablePollutions = pollutions.toObservable()
+        val damageData = useCases.get.execute()
+        observableDamageData = listOf(damageData).toObservable()
 
         title = _title
 
         root = hbox {
-            val table = tableview(observablePollutions) {
-                readonlyColumn("Enterprise name", Pollution::enterpriseName)
-                readonlyColumn("Material name", Pollution::materialName)
-                readonlyColumn("Year", Pollution::year)
-                readonlyColumn("MaterialAmount", Pollution::materialAmount)
-                readonlyColumn("Concentration", Pollution::concentration).cellFormat {
+            val table = tableview(observableDamageData) {
+                readonlyColumn("Population", DamageData::population).cellFormat {
                     graphic = hbox {
-                        text(if (it == -1.0) "no info" else it.toString())
+                        text(if (it == emptyDamageData.population) "" else it.toString())
                     }
                 }
-                readonlyColumn("Carcinogenic Risk", Pollution::carcinogenicRisk).cellFormat {
+                readonlyColumn("Minimum salary", DamageData::P).cellFormat {
                     graphic = hbox {
-                        text(if (it == -1.0) "no info" else it.toString())
+                        text(if (it == emptyDamageData.P) "" else it.toString())
                     }
                 }
-                readonlyColumn("Carcinogenic Risk Level", Pollution::carcinogenicRiskLevel)
-                readonlyColumn("Non Carcinogenic Risk", Pollution::nonCarcinogenicRisk).cellFormat {
+                readonlyColumn("Kf", DamageData::kf).cellFormat {
                     graphic = hbox {
-                        text(if (it == -1.0) "no info" else it.toString())
+                        text(if (it == emptyDamageData.kf) "" else it.toString())
                     }
                 }
-                readonlyColumn("Non Carcinogenic Risk Level", Pollution::nonCarcinogenicRiskLevel)
-
-                readonlyColumn("Delete", Pollution::enterpriseName).cellFormat { enterpriseName ->
-                    graphic = hbox(spacing = 5) {
-                        button("Delete") {
-                            action {
-                                val pollution = Pollution(
-                                    enterpriseName = enterpriseName,
-                                    materialName = rowItem.materialName,
-                                    year = rowItem.year,
-                                    materialAmount = rowItem.materialAmount,
-                                    concentration = rowItem.concentration
-                                )
-                                useCases.delete.execute(pollution)
-                                update()
-                            }
-                        }
+                readonlyColumn("Knas", DamageData::knas).cellFormat {
+                    graphic = hbox {
+                        text(if (it == emptyDamageData.knas) "" else it.toString())
+                    }
+                }
+                readonlyColumn("Kt", DamageData::kt).cellFormat {
+                    graphic = hbox {
+                        text(if (it == emptyDamageData.kt) "" else it.toString())
                     }
                 }
             }
@@ -81,7 +64,6 @@ class PollutionsAppTableView : AppTableView() {
             HBox.setHgrow(table, Priority.ALWAYS)
 
             vbox {
-                prefWidth = buttonSizeWidth
 
                 text("Tables:")
 
@@ -155,16 +137,9 @@ class PollutionsAppTableView : AppTableView() {
                     }
                 }
 
-                button("Add pollutions") {
+                button("Remove data") {
                     action {
-                        find<CreatePollutionScreen>().openWindow()
-                        update()
-                    }
-                }
-
-                button("Remove all pollutions") {
-                    action {
-                        useCases.deleteAll.execute()
+                        useCases.delete.execute()
                         update()
                     }
                 }
@@ -173,9 +148,8 @@ class PollutionsAppTableView : AppTableView() {
     }
 
     private fun update() {
-        observablePollutions.clear()
-        val newData = tableUseCases.getPollutionsFromRemoteRepositoryUseCase
-            .execute().pollutions
-        observablePollutions.addAll(newData)
+        observableDamageData.clear()
+        val newData = tableUseCases.getDamageData.execute()
+        observableDamageData.add(newData)
     }
 }
