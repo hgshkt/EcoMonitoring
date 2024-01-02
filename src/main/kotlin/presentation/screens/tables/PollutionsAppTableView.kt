@@ -6,6 +6,7 @@ import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
+import presentation.screens.calculator.DamageCalculatorScreen
 import presentation.screens.creating.createPollution.CreatePollutionScreen
 import presentation.screens.tables.usecases.PollutionTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
@@ -110,6 +111,13 @@ class PollutionsAppTableView : AppTableView() {
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(YearConcentrationAppTableView::class)
+                    }
+                }
+                button("Calculator") {
+                    prefWidth = buttonSizeWidth
+                    prefHeight = buttonSizeHeight
+                    action {
+                        replaceWith(DamageCalculatorScreen::class)
                     }
                 }
 

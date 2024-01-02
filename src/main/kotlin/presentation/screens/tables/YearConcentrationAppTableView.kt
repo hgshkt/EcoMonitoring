@@ -7,6 +7,7 @@ import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import presentation.controllers.CreateEnterpriseController
+import presentation.screens.calculator.DamageCalculatorScreen
 import presentation.screens.creating.createEnterprise.CreateEnterpriseScreen
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.screens.tables.usecases.YearConcentrationTableViewUseCases
@@ -83,6 +84,13 @@ class YearConcentrationAppTableView : AppTableView() {
                     prefHeight = buttonSizeHeight
                     action {
                         replaceWith(YearConcentrationAppTableView::class)
+                    }
+                }
+                button("Calculator") {
+                    prefWidth = buttonSizeWidth
+                    prefHeight = buttonSizeHeight
+                    action {
+                        replaceWith(DamageCalculatorScreen::class)
                     }
                 }
 
