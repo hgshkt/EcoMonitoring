@@ -1,11 +1,9 @@
 package data.obtained
 
-import data.obtained.EcoData.POPULATION
 import domain.data.obtained.calculators.DamageCalculator
 import domain.model.Material
 import domain.model.Pollution
 import domain.model.RiskLevel
-import domain.model.YearConcentration
 
 class DamagesCalculatorImpl : DamageCalculator {
 

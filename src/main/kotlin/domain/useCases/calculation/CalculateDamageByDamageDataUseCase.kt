@@ -1,7 +1,6 @@
 package domain.useCases.calculation
 
 import domain.data.obtained.calculators.DamageCalculator
-import domain.model.calculation.DamageData
 
 class CalculateDamageByDamageDataUseCase(
     private val calculator: DamageCalculator
