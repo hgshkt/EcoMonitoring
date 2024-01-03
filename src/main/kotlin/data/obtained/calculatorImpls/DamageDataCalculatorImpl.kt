@@ -5,13 +5,12 @@ import domain.model.DamageData
 
 class DamageDataCalculatorImpl: DamageDataCalculator {
     override fun calculate(data: DamageData): DamageData {
-        return DamageData(
-            population = data.population,
-            knas = data.knas(),
-            kf = data.kf,
-            kt = data.kt(),
-            P = data.P
-        )
+
+        with(data) {
+            knas = knas()
+            kt = kt()
+        }
+        return data
     }
 
     private fun DamageData.kt(): Double {

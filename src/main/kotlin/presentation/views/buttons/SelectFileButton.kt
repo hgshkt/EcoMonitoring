@@ -46,6 +46,14 @@ class SelectFileButton(
                             TableType.POLLUTION.tableName -> {
                                 tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
                             }
+
+                            TableType.YEAR_CONCENTRATIONS.tableName -> {
+                                tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
+                            }
+
+                            TableType.DAMAGE_DATA.tableName -> {
+                                tableUseCases.loadDamageDataFromExcelUseCase.execute(path)
+                            }
                         }
                     } catch (exception: Exception) {
                         alert(Alert.AlertType.ERROR, "Error", "SQL Exception")

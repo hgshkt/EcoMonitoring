@@ -1,6 +1,8 @@
 package presentation.screens.tables.usecases
 
 import data.obtained.RiskCalculatorImpl
+import data.obtained.calculatorImpls.DamageDataCalculatorImpl
+import data.repository.damageData.excel.ExcelDamageDataRepositoryImpl
 import data.repository.damageData.remote.DamageDataRemoteRepositoryImpl
 import data.repository.enterprises.excel.ExcelEnterpriseRepositoryImpl
 import data.repository.enterprises.remote.EnterpriseMySQLRepository
@@ -8,20 +10,21 @@ import data.repository.materials.excel.ExcelMaterialRepositoryImpl
 import data.repository.materials.remote.MaterialMySQLRepository
 import data.repository.pollutions.excel.ExcelPollutionRepositoryImpl
 import data.repository.pollutions.remote.PollutionMySQLRepository
+import data.repository.yearConcentrations.excel.ExcelYearConcentrationRepositoryImpl
 import data.repository.yearConcentrations.remote.YearConcentrationRemoteRepository
 import data.storage.DatabaseConnectionData
+import data.storage.excel.damageData.DamageDataExcelStorageImpl
 import data.storage.excel.enterprises.EnterpriseExcelStorageImpl
 import data.storage.excel.materials.MaterialsExcelStorageImpl
 import data.storage.excel.pollutions.PollutionsExcelStorageImpl
+import data.storage.excel.yearConcentration.ExcelYearConcentrationImpl
 import data.storage.remote.damageData.DamageDataRemoteStorageImpl
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
 import data.storage.remote.yearConcentration.YearConcentrationMySQLStorage
 import domain.useCases.get.*
-import domain.useCases.loadFromExcel.LoadEnterprisesFromExcelUseCase
-import domain.useCases.loadFromExcel.LoadMaterialsFromExcelUseCase
-import domain.useCases.loadFromExcel.LoadPollutionsFromExcelUseCase
+import domain.useCases.loadFromExcel.*
 
 data class TableUseCases(
     val loadEnterprisesFromExcelUseCase: LoadEnterprisesFromExcelUseCase = LoadEnterprisesFromExcelUseCase(
@@ -60,6 +63,30 @@ data class TableUseCases(
         ),
         riskCalculator = RiskCalculatorImpl()
     ),
+    val loadYearConcentrationsFromExcelUseCase: LoadYearConcentrationsFromExcelUseCase
+    = LoadYearConcentrationsFromExcelUseCase(
+        remoteRepository = YearConcentrationRemoteRepository(
+            storage = YearConcentrationMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        ),
+        excelRepository = ExcelYearConcentrationRepositoryImpl(
+            storage = ExcelYearConcentrationImpl()
+        )
+    ),
+    val loadDamageDataFromExcelUseCase: LoadDamageDataFromExcelUseCase
+    = LoadDamageDataFromExcelUseCase(
+        excelRepository = ExcelDamageDataRepositoryImpl(
+            storage = DamageDataExcelStorageImpl()
+        ),
+        remoteRepository = DamageDataRemoteRepositoryImpl(
+            storage = DamageDataRemoteStorageImpl(
+                connectionData = DatabaseConnectionData()
+            )
+        ),
+        calculator = DamageDataCalculatorImpl()
+    ),
+
     val getEnterprisesFromRemoteRepositoryUseCase: GetEnterprisesFromRemoteRepositoryUseCase
     = GetEnterprisesFromRemoteRepositoryUseCase(
         repository = EnterpriseMySQLRepository(
