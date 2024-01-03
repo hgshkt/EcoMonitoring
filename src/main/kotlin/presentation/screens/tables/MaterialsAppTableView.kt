@@ -44,8 +44,16 @@ class MaterialsAppTableView : AppTableView() {
                 readonlyColumn("Gdv", Material::gdv)
                 readonlyColumn("Organ", Material::organ)
                 readonlyColumn("Mass emissions", Material::massEmissions)
-                readonlyColumn("Ai", Material::Ai)
-                readonlyColumn("Kzi", Material::Kzi)
+                readonlyColumn("Ai", Material::Ai).cellFormat {
+                    graphic = hbox {
+                        text(if (it == -1.0) "no info" else it.toString())
+                    }
+                }
+                readonlyColumn("Kzi", Material::Kzi).cellFormat {
+                    graphic = hbox {
+                        text(if (it == -1.0) "no info" else it.toString())
+                    }
+                }
 
                 readonlyColumn("Delete", Material::id).cellFormat { id ->
                     graphic = hbox(spacing = 5) {

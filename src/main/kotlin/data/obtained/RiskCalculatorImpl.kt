@@ -15,7 +15,6 @@ class RiskCalculatorImpl : RiskCalculator {
     private val ED = 30
     private val BW = 70
     private val AT = 70
-    private val population = 3096500
 
     override fun calculateRisk(
         material: Material,
