@@ -1,7 +1,7 @@
 package domain.data.repository.pollution.excel
 
-import domain.model.data.excel.ExcelPollutionData
+import domain.model.Pollution
 
 interface ExcelPollutionRepository {
-    fun getData(fileName: String): ExcelPollutionData
+    fun getData(fileName: String): MutableList<Pollution>
 }

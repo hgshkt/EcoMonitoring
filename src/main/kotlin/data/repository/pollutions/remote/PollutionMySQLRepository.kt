@@ -17,8 +17,8 @@ class PollutionMySQLRepository(
         return RemotePollutionData(pollutions = pollutions.toMutableList())
     }
 
-    override fun addData(data: RemotePollutionData) {
-        data.pollutions.forEach {
+    override fun addData(pollutions: MutableList<Pollution>) {
+        pollutions.forEach {
             storage.add(it.toRemote())
         }
     }

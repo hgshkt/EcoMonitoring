@@ -11,6 +11,8 @@ class DamageCalculatorImpl: DamageCalculator {
         pollution: Pollution,
         damageData: DamageData
     ): Double {
-        return pollution.materialAmount * 1.1 * damageData.P * material.Ai * damageData.kt * material.Kzi
+        val damage = pollution.materialAmount * 1.1 * damageData.P * material.Ai * damageData.kt * material.Kzi
+        pollution.damage = damage
+        return damage
     }
 }

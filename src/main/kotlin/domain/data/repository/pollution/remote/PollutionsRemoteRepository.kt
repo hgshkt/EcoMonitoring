@@ -6,7 +6,7 @@ import domain.model.data.remote.RemotePollutionData
 interface PollutionsRemoteRepository {
     fun getData(): RemotePollutionData
 
-    fun addData(data: RemotePollutionData)
+    fun addData(pollutions: MutableList<Pollution>)
     fun add(pollution: Pollution)
 
     fun delete(pollution: Pollution)
