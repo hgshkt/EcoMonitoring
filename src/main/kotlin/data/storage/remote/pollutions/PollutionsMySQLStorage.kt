@@ -2,7 +2,6 @@ package data.storage.remote.pollutions
 
 import data.storage.DatabaseConnectionData
 import data.storage.remote.pollutions.model.RemotePollution
-import domain.model.Pollution
 import java.sql.*
 
 class PollutionsMySQLStorage(
@@ -27,6 +26,9 @@ class PollutionsMySQLStorage(
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnEnterpriseIdName = ? AND " +
             "$columnMaterialIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
+
+    private val updateQuery = "UPDATE $tableName SET $columnDamageName = ? " +
+            "WHERE $columnMaterialIdName = ? AND $columnEnterpriseIdName = ? AND $columnYearName = ?"
 
     override fun getAll(): List<RemotePollution> {
         val pollutions = mutableListOf<RemotePollution>()
@@ -116,6 +118,23 @@ class PollutionsMySQLStorage(
         ).use { connection ->
             connection.createStatement().use { statement ->
                 statement.executeUpdate(deleteAllQuery)
+            }
+        }
+    }
+
+    override fun updateDamage(pollution: RemotePollution) {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).prepareStatement(updateQuery).use {
+            with(it) {
+                setDouble(1, pollution.damage)
+                setInt(2, pollution.materialId)
+                setInt(3, pollution.enterpriseId)
+                setInt(4, pollution.year)
+
+                executeUpdate()
             }
         }
     }

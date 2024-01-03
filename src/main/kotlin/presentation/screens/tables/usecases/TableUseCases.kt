@@ -98,7 +98,18 @@ data class TableUseCases(
                 connectionData = DatabaseConnectionData()
             )
         ),
-        calculator = DamageDataCalculatorImpl()
+        calculator = DamageDataCalculatorImpl(),
+        pollutionRepository = PollutionMySQLRepository(
+            storage = PollutionsMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        ),
+        damageCalculator = DamageCalculatorImpl(),
+        materialRepository = MaterialMySQLRepository(
+            storage = MaterialMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        )
     ),
 
     val getEnterprisesFromRemoteRepositoryUseCase: GetEnterprisesFromRemoteRepositoryUseCase

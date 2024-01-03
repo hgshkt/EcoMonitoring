@@ -11,4 +11,6 @@ interface PollutionsRemoteStorage {
     fun delete(pollution: RemotePollution)
 
     fun deleteAll()
+
+    fun updateDamage(pollution: RemotePollution)
 }

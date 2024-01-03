@@ -27,7 +27,6 @@ class LoadPollutionsFromExcelUseCase(
             damageCalculator.calcDamage(material, pollution, damageData)
         }
 
-
         remoteRepository.addData(pollutions)
     }
 }

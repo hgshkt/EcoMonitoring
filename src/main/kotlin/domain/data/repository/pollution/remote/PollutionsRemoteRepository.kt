@@ -12,4 +12,6 @@ interface PollutionsRemoteRepository {
     fun delete(pollution: Pollution)
 
     fun deleteAll()
+
+    fun updateDamage(pollution: Pollution)
 }

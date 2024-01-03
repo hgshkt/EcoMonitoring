@@ -6,6 +6,7 @@ import data.storage.remote.damageData.DamageDataRemoteStorage
 import domain.data.emptyData.EmptyData.emptyDamageData
 import domain.data.repository.damageData.DamageDataRemoteRepository
 import domain.model.DamageData
+import domain.model.Pollution
 
 class DamageDataRemoteRepositoryImpl(
     private val storage: DamageDataRemoteStorage
