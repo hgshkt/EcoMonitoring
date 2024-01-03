@@ -1,10 +1,13 @@
 package presentation.screens.creating.createPollution
 
+import data.obtained.DamageCalculatorImpl
 import data.obtained.RiskCalculatorImpl
+import data.repository.damageData.remote.DamageDataRemoteRepositoryImpl
 import data.repository.enterprises.remote.EnterpriseMySQLRepository
 import data.repository.materials.remote.MaterialMySQLRepository
 import data.repository.pollutions.remote.PollutionMySQLRepository
 import data.storage.DatabaseConnectionData
+import data.storage.remote.damageData.DamageDataRemoteStorageImpl
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
@@ -38,6 +41,12 @@ data class CreatePollutionScreenUseCases(
         riskCalculator = RiskCalculatorImpl(),
         materialsRemoteRepository = MaterialMySQLRepository(
             storage = MaterialMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        ),
+        damageCalculator = DamageCalculatorImpl(),
+        damageDataRemoteRepository = DamageDataRemoteRepositoryImpl(
+            storage = DamageDataRemoteStorageImpl(
                 connectionData = DatabaseConnectionData()
             )
         )

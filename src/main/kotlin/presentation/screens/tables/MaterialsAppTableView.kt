@@ -42,7 +42,10 @@ class MaterialsAppTableView : AppTableView() {
                 readonlyColumn("Danger class", Material::dangerClass)
                 readonlyColumn("RfC", Material::RfC)
                 readonlyColumn("Gdv", Material::gdv)
+                readonlyColumn("Organ", Material::organ)
                 readonlyColumn("Mass emissions", Material::massEmissions)
+                readonlyColumn("Ai", Material::Ai)
+                readonlyColumn("Kzi", Material::Kzi)
 
                 readonlyColumn("Delete", Material::id).cellFormat { id ->
                     graphic = hbox(spacing = 5) {

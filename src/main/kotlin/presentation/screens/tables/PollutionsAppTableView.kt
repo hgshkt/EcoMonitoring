@@ -59,6 +59,8 @@ class PollutionsAppTableView : AppTableView() {
                 }
                 readonlyColumn("Non Carcinogenic Risk Level", Pollution::nonCarcinogenicRiskLevel)
 
+                readonlyColumn("Damage", Pollution::damage)
+
                 readonlyColumn("Delete", Pollution::enterpriseName).cellFormat { enterpriseName ->
                     graphic = hbox(spacing = 5) {
                         button("Delete") {

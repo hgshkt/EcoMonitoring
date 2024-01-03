@@ -24,6 +24,7 @@ fun Pollution.toRemote(): RemotePollution {
         carcinogenicRisk = carcinogenicRisk,
         carcinogenicRiskLevel = carcinogenicRiskLevel,
         nonCarcinogenicRisk = nonCarcinogenicRisk,
-        nonCarcinogenicRiskLevel = nonCarcinogenicRiskLevel
+        nonCarcinogenicRiskLevel = nonCarcinogenicRiskLevel,
+        damage = damage
     )
 }
