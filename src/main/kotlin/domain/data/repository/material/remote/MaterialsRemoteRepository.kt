@@ -15,4 +15,6 @@ interface MaterialsRemoteRepository {
     fun deleteById(id: Int)
 
     fun deleteAll()
+
+    fun update(material: Material)
 }

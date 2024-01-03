@@ -37,4 +37,8 @@ class MaterialMySQLRepository(
     override fun deleteAll() {
         storage.deleteAll()
     }
+
+    override fun update(material: Material) {
+        storage.update(material.toRemote())
+    }
 }

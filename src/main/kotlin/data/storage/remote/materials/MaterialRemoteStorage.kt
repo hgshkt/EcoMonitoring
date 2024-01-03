@@ -14,4 +14,5 @@ interface MaterialRemoteStorage {
     fun deleteById(id: Int)
 
     fun deleteAll()
+    fun update(material: RemoteMaterial)
 }

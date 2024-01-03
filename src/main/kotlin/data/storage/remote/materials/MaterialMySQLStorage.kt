@@ -27,6 +27,10 @@ class MaterialMySQLStorage(
     private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
+    private val updateQuery = "UPDATE $tableName SET $columnNameName = ?, " +
+            "$columnGdkName = ?, $columnDangerClassName = ?, $columnRfCName = ?, $columnOrganName = ?, " +
+            "$columnGdvName = ?, $columnMassEmissionsName = ?, $columnAiName = ?, $columnKziName =? " +
+            "WHERE $columnIdName = ?"
 
     override fun getAll(): List<RemoteMaterial> {
 
@@ -65,6 +69,30 @@ class MaterialMySQLStorage(
             e.printStackTrace()
         }
         return materials
+    }
+
+    override fun update(material: RemoteMaterial) {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).prepareStatement(updateQuery).use {
+            with(it) {
+                setString(1, material.name)
+                setDouble(2, material.gdk)
+                setInt(3, material.dangerClass)
+                setDouble(4, material.RfC)
+                setString(5, material.organ)
+                setInt(6, material.gdv)
+                setInt(7, material.massEmissions)
+                setDouble(8, material.Ai)
+                setDouble(9, material.Kzi)
+
+                setInt(10, material.id)
+
+                executeUpdate()
+            }
+        }
     }
 
     override fun getById(id: Int): RemoteMaterial? {
