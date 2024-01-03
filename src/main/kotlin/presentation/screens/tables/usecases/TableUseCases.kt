@@ -2,6 +2,7 @@ package presentation.screens.tables.usecases
 
 import data.obtained.RiskCalculatorImpl
 import data.obtained.calculatorImpls.DamageDataCalculatorImpl
+import data.obtained.calculatorImpls.MaterialCalculatorImpl
 import data.repository.damageData.excel.ExcelDamageDataRepositoryImpl
 import data.repository.damageData.remote.DamageDataRemoteRepositoryImpl
 import data.repository.enterprises.excel.ExcelEnterpriseRepositoryImpl
@@ -23,6 +24,7 @@ import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
 import data.storage.remote.pollutions.PollutionsMySQLStorage
 import data.storage.remote.yearConcentration.YearConcentrationMySQLStorage
+import domain.data.obtained.calculators.MaterialCalculator
 import domain.useCases.get.*
 import domain.useCases.loadFromExcel.*
 
@@ -72,7 +74,13 @@ data class TableUseCases(
         ),
         excelRepository = ExcelYearConcentrationRepositoryImpl(
             storage = ExcelYearConcentrationImpl()
-        )
+        ),
+        materialRemoteRepository = MaterialMySQLRepository(
+            storage = MaterialMySQLStorage(
+                connectionData = DatabaseConnectionData()
+            )
+        ),
+        calculator = MaterialCalculatorImpl()
     ),
     val loadDamageDataFromExcelUseCase: LoadDamageDataFromExcelUseCase
     = LoadDamageDataFromExcelUseCase(

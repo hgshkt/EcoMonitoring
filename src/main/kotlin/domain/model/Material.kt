@@ -8,5 +8,7 @@ data class Material(
     val RfC: Double,
     val organ: String,
     val gdv: Int,
-    val massEmissions: Int
+    val massEmissions: Int,
+    var Ai: Double,
+    var Kzi: Double
 )

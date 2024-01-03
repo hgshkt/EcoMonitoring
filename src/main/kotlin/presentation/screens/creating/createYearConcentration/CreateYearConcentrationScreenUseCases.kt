@@ -1,5 +1,6 @@
 package presentation.screens.creating.createYearConcentration
 
+import data.obtained.calculatorImpls.MaterialCalculatorImpl
 import data.repository.materials.remote.MaterialMySQLRepository
 import data.repository.yearConcentrations.remote.YearConcentrationRemoteRepository
 import data.storage.DatabaseConnectionData
@@ -23,6 +24,13 @@ data class CreateYearConcentrationScreenUseCases(
                 storage = YearConcentrationMySQLStorage(
                     connectionData = DatabaseConnectionData()
                 )
-            )
-        )
+            ),
+            materialRemoteRepository = MaterialMySQLRepository(
+                storage = MaterialMySQLStorage(
+                    connectionData = DatabaseConnectionData()
+                )
+            ),
+            calculator = MaterialCalculatorImpl()
+        ),
+
 )

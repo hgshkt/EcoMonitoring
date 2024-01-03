@@ -1,8 +1,8 @@
 package domain.useCases.loadFromExcel
 
-import domain.data.mappers.toRemote
 import domain.data.repository.material.excel.ExcelMaterialRepository
 import domain.data.repository.material.remote.MaterialsRemoteRepository
+import domain.model.data.remote.RemoteMaterialData
 
 class LoadMaterialsFromExcelUseCase(
     private val remoteRepository: MaterialsRemoteRepository,
@@ -11,8 +11,7 @@ class LoadMaterialsFromExcelUseCase(
     fun execute(
         filePath: String
     ) {
-        val excelData = excelRepository.getData(filePath)
-        val remoteData = excelData.toRemote()
-        remoteRepository.addData(remoteData)
+        val materials = excelRepository.load(filePath)
+        remoteRepository.addData(RemoteMaterialData(materials))
     }
 }

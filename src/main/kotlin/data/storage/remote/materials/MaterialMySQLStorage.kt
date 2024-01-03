@@ -18,11 +18,13 @@ class MaterialMySQLStorage(
     private val columnOrganName = "organ"
     private val columnGdvName = "gdv"
     private val columnMassEmissionsName = "mass_emissions"
+    private val columnAiName = "Ai"
+    private val columnKziName = "Kzi"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val getByIdQuery = "SELECT * FROM $tableName WHERE $columnIdName = ?"
     private val getByNameQuery = "SELECT * FROM $tableName WHERE $columnNameName = ?"
-    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
@@ -50,7 +52,9 @@ class MaterialMySQLStorage(
                         RfC = resultSet.getDouble(columnRfCName),
                         organ = resultSet.getString(columnOrganName),
                         gdv = resultSet.getInt(columnGdvName),
-                        massEmissions = resultSet.getInt(columnMassEmissionsName)
+                        massEmissions = resultSet.getInt(columnMassEmissionsName),
+                        Ai = resultSet.getDouble(columnAiName),
+                        Kzi = resultSet.getDouble(columnKziName)
                     )
                 )
             }
@@ -89,7 +93,9 @@ class MaterialMySQLStorage(
                     RfC = resultSet.getDouble(columnRfCName),
                     organ = resultSet.getString(columnOrganName),
                     gdv = resultSet.getInt(columnGdvName),
-                    massEmissions = resultSet.getInt(columnMassEmissionsName)
+                    massEmissions = resultSet.getInt(columnMassEmissionsName),
+                    Ai = resultSet.getDouble(columnAiName),
+                    Kzi = resultSet.getDouble(columnKziName)
                 )
             }
 
@@ -125,6 +131,8 @@ class MaterialMySQLStorage(
                     preparedStatement.setString(6, material.organ)
                     preparedStatement.setInt(7, material.gdv)
                     preparedStatement.setInt(8, material.massEmissions)
+                    preparedStatement.setDouble(9, material.Ai)
+                    preparedStatement.setDouble(10, material.Kzi)
 
                     preparedStatement.executeUpdate()
                 }
@@ -158,7 +166,9 @@ class MaterialMySQLStorage(
                     RfC = resultSet.getDouble(columnRfCName),
                     organ = resultSet.getString(columnOrganName),
                     gdv = resultSet.getInt(columnGdvName),
-                    massEmissions = resultSet.getInt(columnMassEmissionsName)
+                    massEmissions = resultSet.getInt(columnMassEmissionsName),
+                    Ai = resultSet.getDouble(columnAiName),
+                    Kzi = resultSet.getDouble(columnKziName)
                 )
             }
 

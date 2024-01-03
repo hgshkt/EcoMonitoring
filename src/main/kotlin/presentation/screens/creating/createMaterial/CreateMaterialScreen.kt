@@ -68,7 +68,9 @@ class CreateMaterialScreen : View() {
                     RfC = rfcTextField.text.toDouble(),
                     organ = organProperty.value,
                     gdv = gdvTextField.value,
-                    massEmissions = massEmissionsTextField.value
+                    massEmissions = massEmissionsTextField.value,
+                    Ai = -1.0,
+                    Kzi = -1.0
                 )
                 useCase.execute(material) {
                     sqlException()

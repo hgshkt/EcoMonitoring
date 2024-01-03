@@ -12,16 +12,7 @@ fun ExcelMaterial.toDomain() = Material(
     RfC = RfC,
     organ = organ,
     gdv = gdv,
-    massEmissions = massEmissions
-)
-
-fun ExcelMaterial.toRemote() = RemoteMaterial(
-    id = id,
-    name = name,
-    gdk = gdk,
-    dangerClass = dangerClass,
-    RfC = RfC,
-    organ = organ,
-    gdv = gdv,
-    massEmissions = massEmissions
+    massEmissions = massEmissions,
+    Ai = -1.0,
+    Kzi = -1.0
 )

@@ -23,5 +23,7 @@ fun RemoteMaterial.toDomain() = Material(
     RfC = RfC,
     organ = organ,
     gdv = gdv,
-    massEmissions = massEmissions
+    massEmissions = massEmissions,
+    Ai = Ai,
+    Kzi = Kzi
 )

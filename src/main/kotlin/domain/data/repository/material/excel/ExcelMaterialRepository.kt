@@ -1,7 +1,7 @@
 package domain.data.repository.material.excel
 
-import domain.model.data.excel.ExcelMaterialData
+import domain.model.Material
 
 interface ExcelMaterialRepository {
-    fun getData(fileName: String): ExcelMaterialData
+    fun load(fileName: String): MutableList<Material>
 }

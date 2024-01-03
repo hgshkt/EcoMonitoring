@@ -94,25 +94,25 @@ val pollution = Pollution(
     nonCarcinogenicRisk = 0.0000436,
     nonCarcinogenicRiskLevel = RiskLevel.MEDIUM.levelName
 )
-
-val material = Material(
-    id = 1,
-    name = "material 1",
-    gdk = 0.04,
-    dangerClass = 3,
-    RfC = 0.04,
-    organ = "organ 1",
-    gdv = 325,
-    massEmissions = 1000
-)
-
-fun main() {
-    val calculator = DamagesCalculatorImpl()
-
-    val damage = calculator.calcDamage(
-        material = material,
-        pollution = pollution
-    )
-
-    println(damage)
-}
+//
+//val material = Material(
+//    id = 1,
+//    name = "material 1",
+//    gdk = 0.04,
+//    dangerClass = 3,
+//    RfC = 0.04,
+//    organ = "organ 1",
+//    gdv = 325,
+//    massEmissions = 1000
+//)
+//
+//fun main() {
+//    val calculator = DamagesCalculatorImpl()
+//
+//    val damage = calculator.calcDamage(
+//        material = material,
+//        pollution = pollution
+//    )
+//
+//    println(damage)
+//}

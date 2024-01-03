@@ -8,5 +8,7 @@ data class RemoteMaterial(
     val RfC: Double,
     val organ: String,
     val gdv: Int,
-    val massEmissions: Int
+    val massEmissions: Int,
+    val Ai: Double,
+    val Kzi: Double
 )

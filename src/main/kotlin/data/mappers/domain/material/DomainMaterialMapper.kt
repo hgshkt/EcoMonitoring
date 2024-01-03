@@ -23,5 +23,7 @@ fun Material.toRemote() = RemoteMaterial(
     RfC = RfC,
     organ = organ,
     gdv = gdv,
-    massEmissions = massEmissions
+    massEmissions = massEmissions,
+    Ai = Ai,
+    Kzi = Kzi
 )
