@@ -10,5 +10,6 @@ data class RemotePollution(
     var carcinogenicRiskLevel: String,
     var nonCarcinogenicRisk: Double,
     var nonCarcinogenicRiskLevel: String,
-    var damage: Double
+    var damage: Double,
+    var tax: Double
 )

@@ -10,5 +10,6 @@ data class Pollution(
     var carcinogenicRiskLevel: String = "-",
     var nonCarcinogenicRisk: Double = -1.0,
     var nonCarcinogenicRiskLevel: String = "-",
-    var damage: Double = -1.0
+    var damage: Double = -1.0,
+    var tax: Double = -1.0
 )
