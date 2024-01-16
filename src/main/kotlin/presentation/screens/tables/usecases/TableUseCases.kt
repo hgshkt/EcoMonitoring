@@ -19,7 +19,7 @@ import data.storage.excel.damageData.DamageDataExcelStorageImpl
 import data.storage.excel.enterprises.EnterpriseExcelStorageImpl
 import data.storage.excel.materials.MaterialsExcelStorageImpl
 import data.storage.excel.pollutions.PollutionsExcelStorageImpl
-import data.storage.excel.yearConcentration.ExcelYearConcentrationImpl
+import data.storage.excel.yearConcentration.ExcelYearConcentrationStorageImpl
 import data.storage.remote.damageData.DamageDataRemoteStorageImpl
 import data.storage.remote.enterprises.EnterprisesMySQLStorage
 import data.storage.remote.materials.MaterialMySQLStorage
@@ -79,7 +79,7 @@ data class TableUseCases(
             )
         ),
         excelRepository = ExcelYearConcentrationRepositoryImpl(
-            storage = ExcelYearConcentrationImpl()
+            storage = ExcelYearConcentrationStorageImpl()
         ),
         materialRemoteRepository = MaterialMySQLRepository(
             storage = MaterialMySQLStorage(

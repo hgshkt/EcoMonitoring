@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import java.io.FileInputStream
 
-class ExcelYearConcentrationImpl: YearConcentrationExcelStorage {
+class ExcelYearConcentrationStorageImpl: YearConcentrationExcelStorage {
     override fun load(fileName: String): MutableList<ExcelYearConcentration> {
         val concentrations = mutableListOf<ExcelYearConcentration>()
 
