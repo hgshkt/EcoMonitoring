@@ -2,12 +2,12 @@ package data.repository.yearConcentrations.remote
 
 import data.mappers.domain.yearConcentration.toRemote
 import data.mappers.remote.yearConcentration.toDomain
-import data.storage.remote.yearConcentration.YearConcentrationMySQLStorage
+import data.storage.remote.yearConcentration.YearConcentrationRemoteStorage
 import domain.data.repository.yearConcentration.remote.YearConcentrationRemoteRepository
 import domain.model.YearConcentration
 
 class YearConcentrationRemoteRepository(
-    private val storage: YearConcentrationMySQLStorage
+    private val storage: YearConcentrationRemoteStorage
 ): YearConcentrationRemoteRepository {
     override fun getAll(): MutableList<YearConcentration> {
         return storage.getAll().map { it.toDomain() }.toMutableList()
