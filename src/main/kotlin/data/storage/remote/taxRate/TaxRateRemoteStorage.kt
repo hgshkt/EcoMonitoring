@@ -7,8 +7,6 @@ interface TaxRateRemoteStorage {
 
     fun add(taxRate: RemoteTaxRate)
 
-    fun update(taxRate: RemoteTaxRate)
-
     fun deleteById(id: Int)
 
     fun deleteAll()
