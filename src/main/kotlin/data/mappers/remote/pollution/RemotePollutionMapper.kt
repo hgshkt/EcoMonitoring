@@ -24,6 +24,7 @@ fun RemotePollution.toDomain(): Pollution {
         carcinogenicRiskLevel = carcinogenicRiskLevel,
         nonCarcinogenicRisk = nonCarcinogenicRisk,
         nonCarcinogenicRiskLevel = nonCarcinogenicRiskLevel,
-        damage = damage
+        damage = damage,
+        tax = tax
     )
 }

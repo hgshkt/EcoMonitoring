@@ -65,6 +65,12 @@ class PollutionsAppTableView : AppTableView() {
                     }
                 }
 
+                readonlyColumn("Tax", Pollution::tax).cellFormat {
+                    graphic = hbox {
+                        text(if (it < 0) "no info" else it.toString())
+                    }
+                }
+
                 readonlyColumn("Delete", Pollution::enterpriseName).cellFormat { enterpriseName ->
                     graphic = hbox(spacing = 5) {
                         button("Delete") {
