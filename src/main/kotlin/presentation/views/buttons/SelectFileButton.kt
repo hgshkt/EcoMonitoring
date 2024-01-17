@@ -25,7 +25,7 @@ class SelectFileButton(
         height = buttonSizeHeight
 
         setOnAction {
-            try {
+//            try {
                 val file = chooseFile(
                     "Select a File",
                     filters = arrayOf(FileChooser.ExtensionFilter("Excel Files", "*.xlsx")),
@@ -33,36 +33,35 @@ class SelectFileButton(
                 )[0]
 
                 file.apply {
-                    try {
+//                    try {
                         when (selectedTableType.value) {
                             TableType.MATERIALS.tableName -> {
                                 tableUseCases.loadMaterialsFromExcelUseCase.execute(path)
                             }
-
                             TableType.ENTERPRISES.tableName -> {
                                 tableUseCases.loadEnterprisesFromExcelUseCase.execute(path)
                             }
-
                             TableType.POLLUTION.tableName -> {
                                 tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
                             }
-
                             TableType.YEAR_CONCENTRATIONS.tableName -> {
                                 tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
                             }
-
                             TableType.DAMAGE_DATA.tableName -> {
                                 tableUseCases.loadDamageDataFromExcelUseCase.execute(path)
                             }
+                            TableType.TAX_RATES.tableName -> {
+                                tableUseCases.loadTaxRatesFromExcelUseCase.execute(path)
+                            }
                         }
-                    } catch (exception: Exception) {
-                        alert(Alert.AlertType.ERROR, "Error", "SQL Exception")
-                    }
+//                    } catch (exception: Exception) {
+//                        alert(Alert.AlertType.ERROR, "Error", "SQL Exception")
+//                    }
                     action.invoke()
                 }
-            } catch (e: Exception) {
-                alert(Alert.AlertType.ERROR, "Error", "File not selected")
-            }
+//            } catch (e: Exception) {
+//                alert(Alert.AlertType.ERROR, "Error", "File not selected")
+//            }
         }
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import presentation.screens.tables.usecases.TableUseCases
+import presentation.screens.tables.usecases.TaxRatesTableViewUseCases
 import presentation.style.buttonSizeHeight
 import presentation.style.buttonSizeWidth
 import presentation.views.buttons.SelectFileButton
@@ -24,7 +25,7 @@ class TaxRateAppTableView: AppTableView() {
 
     init {
         val taxRates = useCases.getAll.execute()
-        observableTaxRates = listOf(taxRates).toObservable()
+        observableTaxRates = taxRates.toObservable()
 
         title = _title
 
@@ -32,6 +33,17 @@ class TaxRateAppTableView: AppTableView() {
             val table = tableview(observableTaxRates) {
                 readonlyColumn("Material", TaxRate::materialName)
                 readonlyColumn("Value", TaxRate::value)
+
+                readonlyColumn("Delete", TaxRate::id).cellFormat { id ->
+                    graphic = hbox(spacing = 5) {
+                        button("Delete") {
+                            action {
+                                useCases.delete.execute(id)
+                                update()
+                            }
+                        }
+                    }
+                }
             }
 
             HBox.setHgrow(table, Priority.ALWAYS)
@@ -119,7 +131,7 @@ class TaxRateAppTableView: AppTableView() {
 
                 button("Remove data") {
                     action {
-                        useCases.delete.execute()
+                        useCases.deleteAll.execute()
                         update()
                     }
                 }
@@ -130,6 +142,6 @@ class TaxRateAppTableView: AppTableView() {
     private fun update() {
         observableTaxRates.clear()
         val newData = tableUseCases.getTaxRates.execute()
-        observableTaxRates.add(newData)
+        observableTaxRates.addAll(newData)
     }
 }

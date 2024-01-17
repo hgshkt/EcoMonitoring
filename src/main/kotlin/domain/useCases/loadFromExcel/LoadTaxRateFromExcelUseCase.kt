@@ -16,11 +16,13 @@ class LoadTaxRateFromExcelUseCase(
     private val pollutions: MutableList<Pollution> = pollutionsRepository.getAll()
 
     fun execute(fileName: String) {
-
         val taxRates = taxRateExcelRepository.getData(fileName)
-        taxRates.forEach {taxRate ->
+
+        taxRates.forEach { taxRate ->
+
             taxRateRemoteRepository.add(taxRate)
-            val pollution = pollutions.find {pollution ->
+
+            val pollution = pollutions.find { pollution ->
                 pollution.materialName == taxRate.materialName
             }
             taxCalculator.calcAtmosphereTax(pollution!!)
