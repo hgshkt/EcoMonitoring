@@ -28,8 +28,12 @@ class PollutionsMySQLStorage(
             "$columnMaterialIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
-    private val updateQuery = "UPDATE $tableName SET $columnDamageName = ? " +
+    private val updateDamageQuery = "UPDATE $tableName SET $columnDamageName = ? " +
             "WHERE $columnMaterialIdName = ? AND $columnEnterpriseIdName = ? AND $columnYearName = ?"
+
+    private val updateTaxQuery = "UPDATE $tableName SET $columnTaxName = ? " +
+            "WHERE $columnMaterialIdName = ? AND $columnEnterpriseIdName = ? AND $columnYearName = ?"
+
 
     override fun getAll(): List<RemotePollution> {
         val pollutions = mutableListOf<RemotePollution>()
@@ -129,9 +133,26 @@ class PollutionsMySQLStorage(
             connectionData.url,
             connectionData.user,
             connectionData.password
-        ).prepareStatement(updateQuery).use {
+        ).prepareStatement(updateDamageQuery).use {
             with(it) {
                 setDouble(1, pollution.damage)
+                setInt(2, pollution.materialId)
+                setInt(3, pollution.enterpriseId)
+                setInt(4, pollution.year)
+
+                executeUpdate()
+            }
+        }
+    }
+
+    override fun updateTax(pollution: RemotePollution) {
+        DriverManager.getConnection(
+            connectionData.url,
+            connectionData.user,
+            connectionData.password
+        ).prepareStatement(updateTaxQuery).use {
+            with(it) {
+                setDouble(1, pollution.tax)
                 setInt(2, pollution.materialId)
                 setInt(3, pollution.enterpriseId)
                 setInt(4, pollution.year)

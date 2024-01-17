@@ -10,7 +10,7 @@ class LoadTaxRateFromExcelUseCase(
     private val taxRateExcelRepository: ExcelTaxRateRepository,
     private val taxRateRemoteRepository: TaxRateRemoteRepository,
     private val taxCalculator: TaxCalculator,
-    pollutionsRepository: PollutionsRemoteRepository
+    private val pollutionsRepository: PollutionsRemoteRepository
 ) {
 
     private val pollutions: MutableList<Pollution> = pollutionsRepository.getAll()
@@ -24,6 +24,7 @@ class LoadTaxRateFromExcelUseCase(
                 pollution.materialName == taxRate.materialName
             }
             taxCalculator.calcAtmosphereTax(pollution!!)
+            pollutionsRepository.updateTax(pollution)
         }
     }
 }

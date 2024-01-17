@@ -38,4 +38,8 @@ class PollutionMySQLRepository(
     override fun updateDamage(pollution: Pollution) {
         storage.updateDamage(pollution.toRemote())
     }
+
+    override fun updateTax(pollution: Pollution) {
+        storage.updateTax(pollution.toRemote())
+    }
 }

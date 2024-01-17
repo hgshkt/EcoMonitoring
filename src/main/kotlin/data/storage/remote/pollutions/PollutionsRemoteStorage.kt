@@ -2,6 +2,7 @@ package data.storage.remote.pollutions
 
 import data.storage.remote.pollutions.model.RemotePollution
 import domain.model.Pollution
+import java.rmi.Remote
 
 interface PollutionsRemoteStorage {
     fun getAll(): List<RemotePollution>
@@ -13,4 +14,6 @@ interface PollutionsRemoteStorage {
     fun deleteAll()
 
     fun updateDamage(pollution: RemotePollution)
+
+    fun updateTax(pollution: RemotePollution)
 }
