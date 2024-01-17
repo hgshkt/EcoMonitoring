@@ -108,7 +108,7 @@ class MaterialMySQLStorage(
 
             preparedStatement.setInt(1, id)
 
-            val resultSet: ResultSet = preparedStatement.executeQuery(getByIdQuery)
+            val resultSet: ResultSet = preparedStatement.executeQuery()
 
             var material: RemoteMaterial? = null
 

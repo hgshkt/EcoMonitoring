@@ -23,7 +23,7 @@ class PollutionsMySQLStorage(
     private val columnTaxName = "tax"
 
     private val getAllQuery = "SELECT * FROM $tableName"
-    private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnEnterpriseIdName = ? AND " +
             "$columnMaterialIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
@@ -93,6 +93,7 @@ class PollutionsMySQLStorage(
                 preparedStatement.setDouble(8, pollution.nonCarcinogenicRisk)
                 preparedStatement.setString(9, pollution.nonCarcinogenicRiskLevel)
                 preparedStatement.setDouble(10, pollution.damage)
+                preparedStatement.setDouble(11, pollution.tax)
 
                 preparedStatement.executeUpdate()
             }
