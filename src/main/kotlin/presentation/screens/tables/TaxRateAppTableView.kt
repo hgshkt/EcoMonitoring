@@ -1,76 +1,42 @@
 package presentation.screens.tables
 
-import domain.model.Material
+import domain.model.TaxRate
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import presentation.screens.calculator.DamageCalculatorScreen
-import presentation.screens.creating.createMaterial.CreateMaterialScreen
-import presentation.screens.tables.usecases.MaterialTableViewUseCases
 import presentation.screens.tables.usecases.TableUseCases
-import presentation.views.buttons.SelectFileButton
 import presentation.style.buttonSizeHeight
 import presentation.style.buttonSizeWidth
+import presentation.views.buttons.SelectFileButton
 import tornadofx.*
 
-class MaterialsAppTableView : AppTableView() {
-
-    private val _title = "Materials"
+class TaxRateAppTableView: AppTableView() {
+    private val _title = "Tax rates"
+    private var useCases: TaxRatesTableViewUseCases = TaxRatesTableViewUseCases()
     private val tableUseCases: TableUseCases = TableUseCases()
 
-    private var useCases: MaterialTableViewUseCases = MaterialTableViewUseCases()
+    private var selectedTableType = SimpleStringProperty(TableType.TAX_RATES.tableName)
 
+    private var observableTaxRates: ObservableList<TaxRate>
     override val root: Parent
 
-    private var observableMaterials: ObservableList<Material>
-
-    private var selectedTableType = SimpleStringProperty(TableType.MATERIALS.tableName)
-
     init {
-        val materials = useCases.getMaterialsFromRemoteRepositoryUseCase.execute().materials
-        observableMaterials = materials.toObservable()
+        val taxRates = useCases.getAll.execute()
+        observableTaxRates = listOf(taxRates).toObservable()
 
         title = _title
 
         root = hbox {
-            val table = tableview(observableMaterials) {
-                readonlyColumn("№", Material::id)
-                readonlyColumn("Name", Material::name)
-                readonlyColumn("Gdk", Material::gdk)
-                readonlyColumn("Danger class", Material::dangerClass)
-                readonlyColumn("RfC", Material::RfC)
-                readonlyColumn("Gdv", Material::gdv)
-                readonlyColumn("Organ", Material::organ)
-                readonlyColumn("Mass emissions", Material::massEmissions)
-                readonlyColumn("Ai", Material::Ai).cellFormat {
-                    graphic = hbox {
-                        text(if (it == -1.0) "no info" else it.toString())
-                    }
-                }
-                readonlyColumn("Kzi", Material::Kzi).cellFormat {
-                    graphic = hbox {
-                        text(if (it == -1.0) "no info" else it.toString())
-                    }
-                }
-
-                readonlyColumn("Delete", Material::id).cellFormat { id ->
-                    graphic = hbox(spacing = 5) {
-                        button("Delete") {
-                            action {
-                                useCases.delete.execute(id)
-                                update()
-                            }
-                        }
-                    }
-                }
+            val table = tableview(observableTaxRates) {
+                readonlyColumn("Material", TaxRate::materialName)
+                readonlyColumn("Value", TaxRate::value)
             }
 
             HBox.setHgrow(table, Priority.ALWAYS)
 
             vbox {
-                prefWidth = buttonSizeWidth
 
                 text("Tables:")
 
@@ -150,16 +116,10 @@ class MaterialsAppTableView : AppTableView() {
                         update()
                     }
                 }
-                button("Add materials") {
-                    action {
-                        find<CreateMaterialScreen>().openWindow()
-                        update()
-                    }
-                }
 
-                button("Remove all materials") {
+                button("Remove data") {
                     action {
-                        useCases.deleteAll.execute()
+                        useCases.delete.execute()
                         update()
                     }
                 }
@@ -168,9 +128,8 @@ class MaterialsAppTableView : AppTableView() {
     }
 
     private fun update() {
-        observableMaterials.clear()
-        val newData = tableUseCases.getMaterialsFromRemoteRepositoryUseCase
-            .execute().materials
-        observableMaterials.addAll(newData)
+        observableTaxRates.clear()
+        val newData = tableUseCases.getTaxRates.execute()
+        observableTaxRates.add(newData)
     }
 }

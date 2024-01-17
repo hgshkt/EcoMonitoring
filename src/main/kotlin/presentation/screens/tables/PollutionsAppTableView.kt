@@ -126,6 +126,13 @@ class PollutionsAppTableView : AppTableView() {
                         replaceWith(DamageDataAppTableView::class)
                     }
                 }
+                button(TableType.TAX_RATES.tableName) {
+                    prefWidth = buttonSizeWidth
+                    prefHeight = buttonSizeHeight
+                    action {
+                        replaceWith(TaxRateAppTableView::class)
+                    }
+                }
 
                 region {
                     prefHeight = 30.0
