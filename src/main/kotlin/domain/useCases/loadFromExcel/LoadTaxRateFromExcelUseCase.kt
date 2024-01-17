@@ -1,7 +1,5 @@
 package domain.useCases.loadFromExcel
 
-import data.mappers.domain.pollution.toRemote
-import data.storage.remote.pollutions.model.RemotePollution
 import domain.data.obtained.calculators.TaxCalculator
 import domain.data.repository.pollution.remote.PollutionsRemoteRepository
 import domain.data.repository.taxRate.excel.ExcelTaxRateRepository

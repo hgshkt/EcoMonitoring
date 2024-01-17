@@ -22,7 +22,7 @@ class LoadDamageDataFromExcelUseCase(
 
         val materials = materialRepository.getData().materials
 
-        pollutionRepository.getAll().pollutions.map { pollution->
+        pollutionRepository.getAll().map { pollution->
 
             val material = materials.find { it.name == pollution.materialName }!!
 
