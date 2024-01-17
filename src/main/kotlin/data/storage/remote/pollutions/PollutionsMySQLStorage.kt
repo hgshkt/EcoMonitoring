@@ -20,6 +20,7 @@ class PollutionsMySQLStorage(
     private val columnNonCarcinogenicRiskName = "non_carcinogenic_risk"
     private val columnNonCarcinogenicRiskLevelName = "non_carcinogenic_risk_level"
     private val columnDamageName = "damage"
+    private val columnTaxName = "tax"
 
     private val getAllQuery = "SELECT * FROM $tableName"
     private val insertQuery = "INSERT INTO $tableName VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -54,7 +55,8 @@ class PollutionsMySQLStorage(
                     carcinogenicRiskLevel = resultSet.getString(columnCarcinogenicRiskLevelName),
                     nonCarcinogenicRisk = resultSet.getDouble(columnNonCarcinogenicRiskName),
                     nonCarcinogenicRiskLevel = resultSet.getString(columnNonCarcinogenicRiskLevelName),
-                    damage = resultSet.getDouble(columnDamageName)
+                    damage = resultSet.getDouble(columnDamageName),
+                    tax = resultSet.getDouble(columnTaxName)
                 )
                 pollutions.add(pollution)
             }
