@@ -7,6 +7,6 @@ class GetPollutionsFromRemoteRepositoryUseCase(
     private val repository: PollutionsRemoteRepository
 ) {
     fun execute(): RemotePollutionData {
-        return repository.getData()
+        return repository.getAll()
     }
 }

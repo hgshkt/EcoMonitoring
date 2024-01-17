@@ -10,11 +10,11 @@ import domain.model.data.remote.RemotePollutionData
 class PollutionMySQLRepository(
     private val storage: PollutionsRemoteStorage
 ) : PollutionsRemoteRepository {
-    override fun getData(): RemotePollutionData {
+    override fun getAll(): MutableList<Pollution> {
         val pollutions = storage.getAll().map {
             it.toDomain()
         }
-        return RemotePollutionData(pollutions = pollutions.toMutableList())
+        return pollutions.toMutableList()
     }
 
     override fun addData(pollutions: MutableList<Pollution>) {

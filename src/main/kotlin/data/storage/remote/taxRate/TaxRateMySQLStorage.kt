@@ -22,7 +22,6 @@ class TaxRateMySQLStorage(
     private val deleteQuery = "DELETE FROM $tableName WHERE $columnIdName = ?"
     private val deleteAllQuery = "DELETE FROM $tableName"
 
-
     override fun getAll(): List<RemoteTaxRate> {
         val taxRates = mutableListOf<RemoteTaxRate>()
 
