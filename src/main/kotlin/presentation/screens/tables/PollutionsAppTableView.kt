@@ -61,7 +61,7 @@ class PollutionsAppTableView : AppTableView() {
 
                 readonlyColumn("Damage", Pollution::damage).cellFormat {
                     graphic = hbox {
-                        text(if (it == -1.0) "no info" else it.toString())
+                        text(if (it < 0) "no info" else it.toString())
                     }
                 }
 

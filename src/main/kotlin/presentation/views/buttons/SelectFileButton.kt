@@ -46,8 +46,8 @@ class SelectFileButton(
                             TableType.POLLUTION.tableName -> {
                                 tableUseCases.loadPollutionsFromExcelUseCase.execute(
                                     filePath = path,
-                                    materialNotFoundException = {materialNotFoundException()},
-                                    enterpriseNotFoundException = { enterpriseNotFoundException()}
+                                    materialNotFoundException = { materialNotFoundException() },
+                                    enterpriseNotFoundException = { enterpriseNotFoundException() }
                                 )
                             }
 

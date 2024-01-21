@@ -11,7 +11,9 @@ class DamageCalculatorImpl: DamageCalculator {
         pollution: Pollution,
         damageData: DamageData
     ): Double {
-        if (damageData.P == -1 || damageData.kt == -1.0 || damageData.kf == -1.0 || damageData.knas == -1.0 || damageData.population == -1)
+        if (damageData.P == -1 || damageData.kt == -1.0 || damageData.kf == -1.0
+            || damageData.knas == -1.0 || damageData.population == -1
+            || material.Ai == -1.0)
             return -1.0
         val damage = m(material, pollution) * 1.1 * damageData.P * material.Ai * damageData.kt * material.Kzi
         pollution.damage = damage

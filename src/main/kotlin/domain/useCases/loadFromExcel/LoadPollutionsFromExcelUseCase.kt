@@ -31,15 +31,19 @@ class LoadPollutionsFromExcelUseCase(
         } catch (e: NullPointerException) {
             enterpriseNotFoundException()
         }
-        try {
-            pollutions.forEach { pollution ->
-                val material = remoteMaterialRepository.getByName(pollution.materialName)
+
+        pollutions.forEach { pollution ->
+            val material: Material
+
+            try {
+                material = remoteMaterialRepository.getByName(pollution.materialName)
                 riskCalculator.calculateRisk(material, pollution)
                 damageCalculator.calcDamage(material, pollution, damageData)
+            } catch (e: NullPointerException) {
+                materialNotFoundException()
             }
-        } catch (e: NullPointerException) {
-            materialNotFoundException()
         }
+
 
         remoteRepository.addData(pollutions)
     }
