@@ -6,6 +6,8 @@ import javafx.collections.ObservableList
 import javafx.scene.Parent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
+import presentation.screens.creating.createPollution.CreatePollutionScreen
+import presentation.screens.creating.createTaxRate.CreateTaxRateScreen
 import presentation.screens.tables.usecases.TableUseCases
 import presentation.screens.tables.usecases.TaxRatesTableViewUseCases
 import presentation.style.buttonSizeHeight
@@ -125,6 +127,13 @@ class TaxRateAppTableView: AppTableView() {
 
                 button("Update") {
                     action {
+                        update()
+                    }
+                }
+
+                button("Add pollutions") {
+                    action {
+                        find<CreateTaxRateScreen>().openWindow()
                         update()
                     }
                 }
