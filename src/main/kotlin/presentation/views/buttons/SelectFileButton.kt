@@ -9,6 +9,7 @@ import presentation.screens.tables.usecases.TableUseCases
 import presentation.style.buttonSizeHeight
 import presentation.style.buttonSizeWidth
 import tornadofx.*
+import java.io.File
 
 class SelectFileButton(
     private var selectedTableType: SimpleStringProperty,
@@ -29,7 +30,8 @@ class SelectFileButton(
                 val file = chooseFile(
                     "Select a File",
                     filters = arrayOf(FileChooser.ExtensionFilter("Excel Files", "*.xlsx")),
-                    mode = FileChooserMode.Single
+                    mode = FileChooserMode.Single,
+                    initialDirectory = File("C:")
                 )[0]
 
                 file.apply {
