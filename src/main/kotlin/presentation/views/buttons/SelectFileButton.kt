@@ -38,18 +38,27 @@ class SelectFileButton(
                             TableType.MATERIALS.tableName -> {
                                 tableUseCases.loadMaterialsFromExcelUseCase.execute(path)
                             }
+
                             TableType.ENTERPRISES.tableName -> {
                                 tableUseCases.loadEnterprisesFromExcelUseCase.execute(path)
                             }
+
                             TableType.POLLUTION.tableName -> {
-                                tableUseCases.loadPollutionsFromExcelUseCase.execute(path)
+                                tableUseCases.loadPollutionsFromExcelUseCase.execute(
+                                    filePath = path,
+                                    materialNotFoundException = {materialNotFoundException()},
+                                    enterpriseNotFoundException = { enterpriseNotFoundException()}
+                                )
                             }
+
                             TableType.YEAR_CONCENTRATIONS.tableName -> {
                                 tableUseCases.loadYearConcentrationsFromExcelUseCase.execute(path)
                             }
+
                             TableType.DAMAGE_DATA.tableName -> {
                                 tableUseCases.loadDamageDataFromExcelUseCase.execute(path)
                             }
+
                             TableType.TAX_RATES.tableName -> {
                                 tableUseCases.loadTaxRatesFromExcelUseCase.execute(path)
                             }
@@ -63,5 +72,13 @@ class SelectFileButton(
                 alert(Alert.AlertType.ERROR, "Error", "File not selected")
             }
         }
+    }
+
+    private fun materialNotFoundException() {
+        alert(Alert.AlertType.ERROR, "Error", "Materials not found in table")
+    }
+
+    private fun enterpriseNotFoundException() {
+        alert(Alert.AlertType.ERROR, "Error", "Enterprises not found in table")
     }
 }

@@ -6,6 +6,8 @@ import domain.data.repository.damageData.DamageDataRemoteRepository
 import domain.data.repository.material.remote.MaterialsRemoteRepository
 import domain.data.repository.pollution.excel.ExcelPollutionRepository
 import domain.data.repository.pollution.remote.PollutionsRemoteRepository
+import domain.model.Material
+import domain.model.Pollution
 
 class LoadPollutionsFromExcelUseCase(
     private val remoteRepository: PollutionsRemoteRepository,
@@ -15,16 +17,28 @@ class LoadPollutionsFromExcelUseCase(
     private val damageCalculator: DamageCalculator,
     private val damageDataRemoteRepository: DamageDataRemoteRepository
 ) {
+
+    private var pollutions: MutableList<Pollution> = mutableListOf()
+
     fun execute(
-        filePath: String
+        filePath: String,
+        materialNotFoundException: () -> Unit,
+        enterpriseNotFoundException: () -> Unit
     ) {
         val damageData = damageDataRemoteRepository.get()
-        val pollutions = excelRepository.getData(filePath)
-
-        pollutions.forEach { pollution ->
-            val material = remoteMaterialRepository.getByName(pollution.materialName)
-            riskCalculator.calculateRisk(material, pollution)
-            damageCalculator.calcDamage(material, pollution, damageData)
+        try {
+            pollutions = excelRepository.getData(filePath)
+        } catch (e: NullPointerException) {
+            enterpriseNotFoundException()
+        }
+        try {
+            pollutions.forEach { pollution ->
+                val material = remoteMaterialRepository.getByName(pollution.materialName)
+                riskCalculator.calculateRisk(material, pollution)
+                damageCalculator.calcDamage(material, pollution, damageData)
+            }
+        } catch (e: NullPointerException) {
+            materialNotFoundException()
         }
 
         remoteRepository.addData(pollutions)
