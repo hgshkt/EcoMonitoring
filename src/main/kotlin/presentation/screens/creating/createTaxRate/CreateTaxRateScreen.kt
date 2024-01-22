@@ -4,6 +4,7 @@ import domain.model.TaxRate
 import javafx.beans.property.SimpleStringProperty
 import javafx.scene.control.Alert
 import presentation.style.creatingWindowWidth
+import presentation.views.textField.DoubleValueTextField
 import tornadofx.*
 
 class CreateTaxRateScreen : View() {
@@ -11,7 +12,6 @@ class CreateTaxRateScreen : View() {
     private val _title = "Create Tax Rate"
 
     private val materialNameInputProperty = SimpleStringProperty()
-    private val valueInputProperty = SimpleStringProperty()
 
     private val useCases = CreateTaxRateScreenUseCases()
 
@@ -35,7 +35,8 @@ class CreateTaxRateScreen : View() {
         )
 
         text("Value")
-        textfield(valueInputProperty)
+        val valueTextField = DoubleValueTextField()
+        add(valueTextField)
 
         button("Create") {
             action {
@@ -43,7 +44,7 @@ class CreateTaxRateScreen : View() {
                 val taxRate = TaxRate(
                     id = -1,
                     materialName = materialNameInputProperty.value,
-                    value = valueInputProperty.value.toDouble()
+                    value = valueTextField.text.toDouble()
                 )
                 useCases.create.execute(taxRate) {
                     sqlException()
