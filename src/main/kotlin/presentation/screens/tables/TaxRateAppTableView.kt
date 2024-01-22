@@ -131,7 +131,7 @@ class TaxRateAppTableView: AppTableView() {
                     }
                 }
 
-                button("Add pollutions") {
+                button("Add tax rate") {
                     action {
                         find<CreateTaxRateScreen>().openWindow()
                         update()
